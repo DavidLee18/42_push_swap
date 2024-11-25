@@ -6,14 +6,35 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/11/25 07:00:19 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/11/26 05:50:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_vec *vec, int value);
-int		*pop(t_vec *vec);
+void	push(t_vec *vec, int value)
+{
+	if (vec->len == vec->cap)
+		vecalloc(vec);
+	vec->len++;
+	vec->top++;
+	vec->ptr[vec->top] = value;
+}
+
+int	*pop(t_vec *vec)
+{
+	int	*res;
+
+	if (vec->len == 0 || !vec->ptr)
+		return (NULL);
+	res = (int *)ft_calloc(1, sizeof(int));
+	if (!res)
+		return (NULL);
+	*res = vec->ptr[vec->top];
+	vec->top = wrapping_sub(vec->top, 1, vec->len);
+	vec->len--;
+	return (res);
+}
 
 void	rotate(t_vec *vec, int n)
 {
@@ -21,18 +42,34 @@ void	rotate(t_vec *vec, int n)
 		return ;
 	else if (n > 0)
 	{
-		if (vec->top == vec->len - 1)
-			vec->top = 0;
-		else
-			vec->top++;
-		rotate(vec, n - 1);
+		vec->top = wrapping_add(vec->top, n, vec->len);
+		vec->bottom = wrapping_add(vec->bottom, n, vec->len);
 	}
 	else
 	{
-		if (vec->top == 0)
-			vec->top = vec->len - 1;
-		else
-			vec->top--;
-		rotate(vec, n + 1);
+		vec->top = wrapping_sub(vec->top, -n, vec->len);
+		vec->bottom = wrapping_sub(vec->bottom, -n, vec->len);
 	}
+}
+
+void	swap(t_vec *vec)
+{
+	int		temp;
+	size_t	idx;
+
+	if (vec->len <= 1)
+		return ;
+	idx = wrapping_sub(vec->top, 1, vec->len);
+	temp = vec->ptr[vec->top];
+	vec->ptr[vec->top] = vec->ptr[idx];
+	vec->ptr[idx] = temp;
+}
+
+void	vec_init(t_vec *vec)
+{
+	vec->ptr = NULL;
+	vec->bottom = 0;
+	vec->cap = 0;
+	vec->len = 0;
+	vec->top = 0;
 }
