@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/01 03:27:05 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/01 06:19:07 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	avail_pos(t_min_heap *heap, size_t from)
 {
-	if (!heap || !heap->ptr || from >= heap->cap)
+	if (!heap || !heap->ptr || (heap->cap != 0 && from >= heap->cap))
 		return (SIZE_MAX);
 	if (2 * from + 2 < heap->cap)
 		return (min_usize(avail_pos(heap, 2 * from + 1),
@@ -44,15 +44,13 @@ void	bubble_up(t_min_heap *heap, t_rot_dist dist)
 		return ;
 	if (heap->cap == 0)
 		heapalloc(heap);
-	i = avail_pos(heap);
+	i = avail_pos(heap, 0);
 	heap->ptr[i] = dist;
 	if (i == 0)
 		return ;
 	while (i != 0 && heap->ptr[(i - 1) / 2].dist > heap->ptr[i].dist)
 	{
-		temp = heap->ptr[(i - 1) / 2];
-		heap->ptr[(i - 1) / 2] = heap->ptr[i];
-		heap->ptr[i] = temp;
+		hswap(heap, (i - 1) / 2, i);
 		i = (i - 1) / 2;
 	}
 }
@@ -67,7 +65,7 @@ t_rot_dist	*pop_bubble(t_min_heap *heap)
 	if (!res)
 		return (NULL);
 	*res = heap->ptr[0];
-	heap->ptr[0] = (t_rot_dist){.dist = 0, .idx = 0};
+	balance(heap);
 	return (res);
 }
 
