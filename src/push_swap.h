@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/01 06:17:55 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:25:27 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ void		swap(t_vec *vec);
 void		vec_init(t_vec *vec);
 void		vecalloc(t_vec *vec);
 
-void		bubble_up(t_min_heap *heap, t_rot_dist dist);
+void		insert(t_min_heap *heap, t_rot_dist dist);
 t_rot_dist	*pop_bubble(t_min_heap *heap);
 void		heap_init(t_min_heap *heap);
 void		heapalloc(t_min_heap *heap);
-size_t		avail_pos(t_min_heap *heap, size_t from);
-void		balance(t_min_heap *heap, size_t from);
 void		hswap(t_min_heap *heap, size_t a, size_t b);
 
 _Bool		is_null(t_rot_dist d);
