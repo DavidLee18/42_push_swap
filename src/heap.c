@@ -6,68 +6,93 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/09 15:25:10 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/26 08:35:18 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	insert(t_min_heap *heap, t_rot_dist dist)
+void	insert(t_min_heap *h, ssize_t dist)
 {
-	size_t		i;
-	t_rot_dist	temp;
-
-	if (!heap)
+	if (!h)
 		return ;
-	if (heap->cap == 0)
-		heapalloc(heap);
-	i = avail_pos(heap, 0);
-	heap->ptr[i] = dist;
-	if (i == 0)
-		return ;
-	while (i != 0 && heap->ptr[(i - 1) / 2].dist > heap->ptr[i].dist)
+	if (h->cap == h->offset)
+		halloc(h);
+	if (hpat(*h) == 0)
 	{
-		hswap(heap, (i - 1) / 2, i);
-		i = (i - 1) / 2;
+		if (h->cap <= 2 * h->offset + 1)
+			halloc(h);
+		h->root[2 * h->offset + 1] = dist;
+		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
+			hswap(h, 0, 1);
 	}
+	else if (hpat(*h) == 1)
+	{
+		if (h->cap <= 2 * h->offset + 2)
+			halloc(h);
+		h->root[2 * h->offset + 2] = dist;
+		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
+			hswap(h, 0, 2);
+	}
+	else
+		insert2(h, dist);
 }
 
-t_rot_dist	*pop_bubble(t_min_heap *heap)
+void	insert2(t_min_heap *h, ssize_t dist)
 {
-	t_rot_dist	*res;
+	if (hpat(*h) == 2)
+	{
+		if (h->cap <= 2 * h->offset + 2)
+			halloc(h);
+		h->root[2 * h->offset + 1] = dist;
+		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
+			hswap(h, 0, 1);
+	}
+	else
+		insert3(h, dist);
+}
 
-	if (!heap || heap->cap == 0)
+ssize_t	*pop_bubble(t_min_heap *h)
+{
+	ssize_t	*res;
+
+	if (!h || h->cap == 0)
 		return (NULL);
-	res = (t_rot_dist *)ft_calloc(1, sizeof(t_rot_dist));
+	res = (ssize_t *)ft_calloc(1, sizeof(ssize_t));
 	if (!res)
 		return (NULL);
-	*res = heap->ptr[0];
-	balance(heap);
+	*res = h->root[h->offset];
+	// TODO: bubble down
 	return (res);
 }
 
-void	heap_init(t_min_heap *heap)
+void	halloc(t_min_heap *h)
 {
-	if (!heap)
+	if (!h)
 		return ;
-	heap->cap = 0;
-	heap->ptr = NULL;
+	if (h->cap == 0)
+		h->root = (ssize_t *)ft_calloc(1, sizeof(ssize_t));
+	else
+		ft_realloc((void **)&h->root, h->cap * sizeof(ssize_t),
+			h->cap * 2 * sizeof(ssize_t));
+	if (!h->root)
+		return ;
+	if (h->cap == 0)
+		h->cap = 1;
+	else
+		h->cap *= 2;
 }
 
-void	heapalloc(t_min_heap *heap)
+size_t	max_balanced_depth(t_min_heap h)
 {
-	if (!heap)
-		return ;
-	if (heap->cap == 0)
-		heap->ptr = (t_rot_dist *)ft_calloc(1, sizeof(t_rot_dist));
+	if (hpat(h) == 0)
+		return (0);
+	else if (hpat(h) == 1 || hpat(h) == 2)
+		return (1);
 	else
-		heap->ptr = (t_rot_dist *)ft_realloc((void **)&heap->ptr,
-				heap->cap * sizeof(t_rot_dist),
-				heap->cap * 2 * sizeof(t_rot_dist));
-	if (!heap->ptr)
-		return ;
-	if (heap->cap == 0)
-		heap->cap = 1;
-	else
-		heap->cap *= 2;
+		return (1 + min_usize(max_balanced_depth(
+					(t_min_heap){.root = h.root, .cap = h.cap,
+					.offset = 2 * h.offset + 1}),
+			max_balanced_depth((t_min_heap){.root = h.root, .cap = h.cap,
+				.offset = 2 * h.offset + 2})));
 }

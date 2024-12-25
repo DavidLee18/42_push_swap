@@ -6,15 +6,17 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 08:03:45 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/01 03:28:51 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/26 07:26:39 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-_Bool	is_null(t_rot_dist d)
+size_t	abs_isize(ssize_t i)
 {
-	return (d.dist == 0 && d.idx == 0);
+	if (i < 0)
+		return ((size_t)(-i));
+	return ((size_t)i);
 }
 
 size_t	min_usize(size_t a, size_t b)

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/09 15:25:27 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/26 08:30:42 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,11 @@ typedef struct s_vec
 	size_t	cap;
 }	t_vec;
 
-typedef struct s_rot_dist
-{
-	size_t	idx;
-	size_t	dist;
-}	t_rot_dist;
-
 typedef struct s_min_heap
 {
-	t_rot_dist	*ptr;
-	size_t		cap;
+	ssize_t	*root;
+	size_t	offset;
+	size_t	cap;
 }	t_min_heap;
 
 size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
@@ -46,15 +41,18 @@ int			*pop(t_vec *vec);
 void		rotate(t_vec *vec, int n);
 void		swap(t_vec *vec);
 void		vec_init(t_vec *vec);
-void		vecalloc(t_vec *vec);
+void		valloc(t_vec *vec);
 
-void		insert(t_min_heap *heap, t_rot_dist dist);
-t_rot_dist	*pop_bubble(t_min_heap *heap);
-void		heap_init(t_min_heap *heap);
-void		heapalloc(t_min_heap *heap);
-void		hswap(t_min_heap *heap, size_t a, size_t b);
+void		insert(t_min_heap *h, ssize_t dist);
+void		insert2(t_min_heap *h, ssize_t dist);
+void		insert3(t_min_heap *h, ssize_t dist);
+ssize_t		*pop_bubble(t_min_heap *h);
+void		halloc(t_min_heap *h);
+void		hswap(t_min_heap *h, size_t a, size_t b);
+size_t		max_balanced_depth(t_min_heap h);
+size_t		hpat(t_min_heap h);
 
-_Bool		is_null(t_rot_dist d);
 size_t		min_usize(size_t a, size_t b);
+size_t		abs_isize(ssize_t i);
 
 #endif
