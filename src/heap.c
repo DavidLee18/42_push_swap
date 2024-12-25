@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/26 08:35:18 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/26 08:37:34 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	insert2(t_min_heap *h, ssize_t dist)
 		insert3(h, dist);
 }
 
-ssize_t	*pop_bubble(t_min_heap *h)
+ssize_t	*extract(t_min_heap *h)
 {
 	ssize_t	*res;
 
