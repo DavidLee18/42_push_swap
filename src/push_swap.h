@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/26 08:37:15 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/26 22:49:43 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		halloc(t_min_heap *h);
 void		hswap(t_min_heap *h, size_t a, size_t b);
 size_t		max_balanced_depth(t_min_heap h);
 size_t		hpat(t_min_heap h);
+_Bool		null(t_min_heap h);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);

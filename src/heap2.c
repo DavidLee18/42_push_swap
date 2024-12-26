@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/26 08:34:56 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/26 22:57:15 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,9 @@ void	insert3(t_min_heap *h, ssize_t dist)
 		insert(&l, dist);
 	else if (dist >= h->root[h->offset])
 		insert(&r, dist);
+}
+
+_Bool	null(t_min_heap h)
+{
+	return (h.cap == 0 || h.root == NULL);
 }
