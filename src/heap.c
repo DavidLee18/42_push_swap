@@ -6,62 +6,63 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/26 08:37:34 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 06:36:43 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	insert(t_min_heap *h, ssize_t dist)
+size_t	insert(t_min_heap *h, ssize_t dist)
 {
-	if (!h)
-		return ;
-	if (h->cap == h->offset)
-		halloc(h);
+	if (!h || dist == 0)
+		return (h->cap);
 	if (hpat(*h) == 0)
 	{
-		if (h->cap <= 2 * h->offset + 1)
+		while (h->cap <= h->offset)
+			halloc(h);
+		h->root[h->offset] = dist;
+		return (h->cap);
+	}
+	if (hpat(*h) == 1)
+	{
+		while (h->cap <= 2 * h->offset + 1)
 			halloc(h);
 		h->root[2 * h->offset + 1] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			hswap(h, 0, 1);
+			bubble_down(h, 0, 1);
+		return (h->cap);
 	}
-	else if (hpat(*h) == 1)
-	{
-		if (h->cap <= 2 * h->offset + 2)
-			halloc(h);
-		h->root[2 * h->offset + 2] = dist;
-		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			hswap(h, 0, 2);
-	}
-	else
-		insert2(h, dist);
+	return (insert2(h, dist));
 }
 
-void	insert2(t_min_heap *h, ssize_t dist)
+size_t	insert2(t_min_heap *h, ssize_t dist)
 {
 	if (hpat(*h) == 2)
 	{
-		if (h->cap <= 2 * h->offset + 2)
+		while (h->cap <= 2 * h->offset + 2)
 			halloc(h);
+		h->root[2 * h->offset + 2] = dist;
+		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
+			h->cap = bubble_down(h, 0, 2);
+		return (h->cap);
+	}
+	else if (hpat(*h) == 3)
+	{
 		h->root[2 * h->offset + 1] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			hswap(h, 0, 1);
+			h->cap = bubble_down(h, 0, 1);
+		return (h->cap);
 	}
-	else
-		insert3(h, dist);
+	return (insert3(h, dist));
 }
 
-ssize_t	*extract(t_min_heap *h)
+ssize_t	extract(t_min_heap *h)
 {
-	ssize_t	*res;
+	ssize_t	res;
 
-	if (!h || h->cap == 0)
-		return (NULL);
-	res = (ssize_t *)ft_calloc(1, sizeof(ssize_t));
-	if (!res)
-		return (NULL);
-	*res = h->root[h->offset];
+	if (!h || hpat(*h) == 0)
+		return (0);
+	res = h->root[h->offset];
 	// TODO: bubble down
 	return (res);
 }
@@ -85,9 +86,9 @@ void	halloc(t_min_heap *h)
 
 size_t	max_balanced_depth(t_min_heap h)
 {
-	if (hpat(h) == 0)
+	if (hpat(h) <= 1)
 		return (0);
-	else if (hpat(h) == 1 || hpat(h) == 2)
+	else if (hpat(h) <= 3)
 		return (1);
 	else
 		return (1 + min_usize(max_balanced_depth(
