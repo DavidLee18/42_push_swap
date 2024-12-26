@@ -6,21 +6,20 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 06:40:50 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 08:46:38 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	bubble_down(t_min_heap *h, size_t a, size_t b)
+void	hswap(t_min_heap *h, size_t a, size_t b)
 {
-	ssize_t		temp;
-	t_min_heap	next;
+	ssize_t	temp;
 
 	if (h == NULL)
-		return (0);
+		return ;
 	if (hpat(*h) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
-		return (h->cap);
+		return ;
 	a += h->offset;
 	b += h->offset;
 	if (a - h->offset == 1 || a - h->offset == 2)
@@ -30,10 +29,23 @@ size_t	bubble_down(t_min_heap *h, size_t a, size_t b)
 	temp = h->root[a];
 	h->root[a] = h->root[b];
 	h->root[b] = temp;
-	if (a == 2 * h->offset + 1 || a == 2 * h->offset + 2)
-		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = a};
+}
+
+size_t	bubble_down(t_min_heap *h, size_t a, size_t b)
+{
+	t_min_heap	next;
+
+	if (h == NULL)
+		return (0);
+	if (hpat(*h) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
+		return (h->cap);
+	hswap(h, a, b);
+	if (a == 1 || a == 2)
+		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = a + 2
+			* h->offset};
 	else
-		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = b};
+		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = b + 2
+			* h->offset};
 	return (balance(&next));
 }
 
@@ -89,4 +101,18 @@ size_t	insert3(t_min_heap *h, ssize_t dist)
 	return (h->cap);
 }
 
-size_t		balance(t_min_heap *h);
+size_t	balance(t_min_heap *h)
+{
+	if (h == NULL)
+		return (0);
+	if (hpat(*h) <= 1)
+		return (h->cap);
+	if (hpat(*h) == 2)
+	{
+		if (abs_isize(h->root[h->offset]) <= abs_isize(h->root[1 + 2
+					* h->offset]))
+			return (h->cap);
+		hswap(h, 0, 1);
+		// swap sub-branches
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 06:36:43 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 06:50:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 size_t	insert(t_min_heap *h, ssize_t dist)
 {
-	if (!h || dist == 0)
+	if (h == NULL)
+		return (0);
+	if (dist == 0)
 		return (h->cap);
 	if (hpat(*h) == 0)
 	{
