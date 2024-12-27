@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 00:36:22 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 04:55:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ size_t		hlen(t_min_heap h);
 
 void		analyze_stack(t_vec v, t_min_heap *h);
 void		print_cmds(t_vec v, t_min_heap *h);
+ssize_t		measure_dist(t_vec v, size_t i);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
