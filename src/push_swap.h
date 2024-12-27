@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 23:02:11 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 00:36:22 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ typedef struct s_min_heap
 	size_t	cap;
 }	t_min_heap;
 
-size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
-size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
-
 void		push(t_vec *vec, int value);
 int			*pop(t_vec *vec);
 void		rotate(t_vec *vec, int n);
@@ -53,8 +50,14 @@ void		halloc(t_min_heap *h);
 size_t		max_balanced_depth(t_min_heap h);
 size_t		hpat(t_min_heap h);
 void		hswap(t_min_heap *h, size_t a, size_t b);
+size_t		hlen(t_min_heap h);
+
+void		analyze_stack(t_vec v, t_min_heap *h);
+void		print_cmds(t_vec v, t_min_heap *h);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
+size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
+size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
 
 #endif
