@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 11:50:48 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 21:52:49 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ void	hswap(t_min_heap *h, size_t a, size_t b)
 	h->root[b] = temp;
 }
 
-size_t	bubble_down(t_min_heap *h, size_t a, size_t b)
-{
-	t_min_heap	next;
+// size_t	bubble_down(t_min_heap *h, size_t a, size_t b)
+// {
+// 	t_min_heap	next;
 
-	if (h == NULL)
-		return (0);
-	if (hpat(*h) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
-		return (h->cap);
-	hswap(h, a, b);
-	if (a == 1 || a == 2)
-		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = a + 2
-			* h->offset};
-	else
-		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = b + 2
-			* h->offset};
-	return (balance(&next));
-}
+// 	if (h == NULL)
+// 		return (0);
+// 	if (hpat(*h) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
+// 		return (h->cap);
+// 	hswap(h, a, b);
+// 	if (a == 1 || a == 2)
+// 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = a + 2
+// 			* h->offset};
+// 	else
+// 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = b + 2
+// 			* h->offset};
+// 	return (balance(&next));
+// }
 
 size_t	hpat(t_min_heap h)
 {
@@ -97,20 +97,4 @@ size_t	insert3(t_min_heap *h, ssize_t dist)
 	else if (dist >= h->root[h->offset])
 		h->cap = insert(&r, dist);
 	return (h->cap);
-}
-
-size_t	balance(t_min_heap *h)
-{
-	if (h == NULL)
-		return (0);
-	if (hpat(*h) <= 1)
-		return (h->cap);
-	if (hpat(*h) == 2)
-	{
-		if (abs_isize(h->root[h->offset]) <= abs_isize(h->root[1 + 2
-					* h->offset]))
-			return (h->cap);
-		hswap(h, 0, 1);
-		// swap sub-branches
-	}
 }

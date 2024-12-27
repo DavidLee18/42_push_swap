@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 06:50:28 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 21:48:46 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	insert(t_min_heap *h, ssize_t dist)
 			halloc(h);
 		h->root[2 * h->offset + 1] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			bubble_down(h, 0, 1);
+			hswap(h, 0, 1);
 		return (h->cap);
 	}
 	return (insert2(h, dist));
@@ -45,14 +45,14 @@ size_t	insert2(t_min_heap *h, ssize_t dist)
 			halloc(h);
 		h->root[2 * h->offset + 2] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			h->cap = bubble_down(h, 0, 2);
+			hswap(h, 0, 2);
 		return (h->cap);
 	}
 	else if (hpat(*h) == 3)
 	{
 		h->root[2 * h->offset + 1] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			h->cap = bubble_down(h, 0, 1);
+			hswap(h, 0, 1);
 		return (h->cap);
 	}
 	return (insert3(h, dist));
