@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 07:46:48 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 08:30:33 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	analyze_stack(t_vec v, t_min_heap *h)
 	if (h == NULL)
 		return ;
 	i = v.top;
-	while (i != v.bottom)
+	if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len - 1)])
+		h->cap = insert(h, measure_dist(v, i));
+	i = wrapping_sub(i, 1, v.len - 1);
+	while (i != v.top)
 	{
 		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len - 1)])
 			h->cap = insert(h, measure_dist(v, i));
@@ -27,7 +30,28 @@ void	analyze_stack(t_vec v, t_min_heap *h)
 	}
 }
 
-void	print_cmds(t_vec v, t_min_heap *h);
+void	print_cmds(t_vec v, t_min_heap *h)
+{
+	ssize_t	j;
+
+	if (h == NULL || hpat(*h) == 0 || hcomplete(*h) || v.len == 0)
+		return ;
+	j = extract(h);
+	while (j > 0)
+	{
+		rotate(&v, 1);
+		ft_printf("ra\n");
+		j--;
+	}
+	while (j < 0)
+	{
+		rotate(&v, -1);
+		ft_printf("rra\n");
+		j++;
+	}
+	swap(&v);
+	ft_printf("sa\n");
+}
 
 ssize_t	measure_dist(t_vec v, size_t i)
 {

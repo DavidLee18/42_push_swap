@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 01:34:19 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 08:44:46 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	push(t_vec *vec, int value)
 {
 	if (vec->len == vec->cap)
-		valloc(vec);
+		vecalloc(vec);
 	vec->len++;
 	vec->top++;
 	vec->ptr[vec->top] = value;

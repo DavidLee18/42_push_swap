@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:40:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/25 08:06:32 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 08:44:54 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	wrapping_sub(size_t n, size_t rhs, size_t max)
 	return ((size_t)res);
 }
 
-void	valloc(t_vec *vec)
+void	vecalloc(t_vec *vec)
 {
 	if (vec->cap == 0)
 		vec->ptr = (int *)ft_calloc(1, sizeof(int));
