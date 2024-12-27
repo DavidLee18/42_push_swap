@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 08:46:38 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:50:48 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	hswap(t_min_heap *h, size_t a, size_t b)
 		return ;
 	if (hpat(*h) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
 		return ;
-	a += h->offset;
-	b += h->offset;
-	if (a - h->offset == 1 || a - h->offset == 2)
-		a += h->offset;
-	else if (b - h->offset == 1 || b - h->offset == 2)
-		b += h->offset;
+	if (a == 1 || a == 2)
+		a += 2 * h->offset;
+	else if (b == 1 || b == 2)
+		b += 2 * h->offset;
 	temp = h->root[a];
 	h->root[a] = h->root[b];
 	h->root[b] = temp;
