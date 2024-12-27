@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 21:52:49 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:01:31 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,23 @@ size_t	insert3(t_min_heap *h, ssize_t dist)
 	else if (dist >= h->root[h->offset])
 		h->cap = insert(&r, dist);
 	return (h->cap);
+}
+
+void	extract2(t_min_heap *h)
+{
+	t_min_heap	next;
+
+	if (h->root[1 + 2 * h->offset] <= h->root[2 + 2 * h->offset])
+	{
+		h->root[h->offset] = h->root[1 + 2 * h->offset];
+		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 1 + 2
+			* h->offset};
+	}
+	else
+	{
+		h->root[h->offset] = h->root[2 + 2 * h->offset];
+		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 2 + 2
+			* h->offset};
+	}
+	extract(&next);
 }

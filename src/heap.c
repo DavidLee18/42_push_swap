@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 21:48:46 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:02:17 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,30 @@ size_t	insert2(t_min_heap *h, ssize_t dist)
 
 ssize_t	extract(t_min_heap *h)
 {
-	ssize_t	res;
+	ssize_t		res;
+	t_min_heap	next;
 
 	if (!h || hpat(*h) == 0)
 		return (0);
 	res = h->root[h->offset];
-	// TODO: bubble down
+	if (hpat(*h) == 1)
+		h->root[h->offset] = 0;
+	else if (hpat(*h) == 2)
+	{
+		h->root[h->offset] = h->root[1 + 2 * h->offset];
+		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 1 + 2
+			* h->offset};
+		extract(&next);
+	}
+	else if (hpat(*h) == 3)
+	{
+		h->root[h->offset] = h->root[2 + 2 * h->offset];
+		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 2 + 2
+			* h->offset};
+		extract(&next);
+	}
+	else
+		extract2(h);
 	return (res);
 }
 

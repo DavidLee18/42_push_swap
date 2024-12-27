@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 21:53:00 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:02:11 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ size_t		insert(t_min_heap *h, ssize_t dist);
 size_t		insert2(t_min_heap *h, ssize_t dist);
 size_t		insert3(t_min_heap *h, ssize_t dist);
 ssize_t		extract(t_min_heap *h);
+void		extract2(t_min_heap *h);
 void		halloc(t_min_heap *h);
 // size_t		bubble_down(t_min_heap *h, size_t a, size_t b);
 size_t		max_balanced_depth(t_min_heap h);
