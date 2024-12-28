@@ -6,28 +6,28 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 08:44:46 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 21:54:39 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_vec *vec, int value)
+void	push(t_list **dyn, t_vec *vec, int value)
 {
 	if (vec->len == vec->cap)
-		vecalloc(vec);
+		vecalloc(dyn, vec);
 	vec->len++;
 	vec->top++;
 	vec->ptr[vec->top] = value;
 }
 
-int	*pop(t_vec *vec)
+int	*pop(t_list **dyn, t_vec *vec)
 {
 	int	*res;
 
 	if (vec->len == 0 || !vec->ptr)
 		return (NULL);
-	res = (int *)ft_calloc(1, sizeof(int));
+	res = (int *)gc_calloc(dyn, 1, sizeof(int));
 	if (!res)
 		return (NULL);
 	*res = vec->ptr[vec->top];

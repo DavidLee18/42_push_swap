@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 09:01:33 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 22:00:44 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	analyze_stack(t_vec v, t_min_heap *h)
+void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
 {
 	size_t	i;
 
@@ -20,12 +20,12 @@ void	analyze_stack(t_vec v, t_min_heap *h)
 		return ;
 	i = v.top;
 	if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len - 1)])
-		h->cap = insert(h, measure_dist(v, i));
+		h->cap = insert(dyn, h, measure_dist(v, i));
 	i = wrapping_sub(i, 1, v.len - 1);
 	while (i != v.top)
 	{
 		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len - 1)])
-			h->cap = insert(h, measure_dist(v, i));
+			h->cap = insert(dyn, h, measure_dist(v, i));
 		i = wrapping_sub(i, 1, v.len - 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 23:01:31 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 21:59:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ size_t	hpat(t_min_heap h)
 	}
 }
 
-size_t	insert3(t_min_heap *h, ssize_t dist)
+size_t	insert3(t_list **dyn, t_min_heap *h, ssize_t dist)
 {
 	t_min_heap	l;
 	t_min_heap	r;
@@ -83,19 +83,19 @@ size_t	insert3(t_min_heap *h, ssize_t dist)
 	if (dist < h->root[h->offset] && max_balanced_depth(l)
 		<= max_balanced_depth(r))
 	{
-		h->cap = insert(&l, h->root[h->offset]);
+		h->cap = insert(dyn, &l, h->root[h->offset]);
 		h->root[h->offset] = dist;
 	}
 	else if (dist < h->root[h->offset])
 	{
-		h->cap = insert(&r, h->root[h->offset]);
+		h->cap = insert(dyn, &r, h->root[h->offset]);
 		h->root[h->offset] = dist;
 	}
 	else if (dist >= h->root[h->offset] && max_balanced_depth(l)
 		<= max_balanced_depth(r))
-		h->cap = insert(&l, dist);
+		h->cap = insert(dyn, &l, dist);
 	else if (dist >= h->root[h->offset])
-		h->cap = insert(&r, dist);
+		h->cap = insert(dyn, &r, dist);
 	return (h->cap);
 }
 

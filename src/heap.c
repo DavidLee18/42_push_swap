@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/27 23:02:17 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 21:58:38 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	insert(t_min_heap *h, ssize_t dist)
+size_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
 {
 	if (h == NULL)
 		return (0);
@@ -21,28 +21,28 @@ size_t	insert(t_min_heap *h, ssize_t dist)
 	if (hpat(*h) == 0)
 	{
 		while (h->cap <= h->offset)
-			halloc(h);
+			halloc(dyn, h);
 		h->root[h->offset] = dist;
 		return (h->cap);
 	}
 	if (hpat(*h) == 1)
 	{
 		while (h->cap <= 2 * h->offset + 1)
-			halloc(h);
+			halloc(dyn, h);
 		h->root[2 * h->offset + 1] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
 			hswap(h, 0, 1);
 		return (h->cap);
 	}
-	return (insert2(h, dist));
+	return (insert2(dyn, h, dist));
 }
 
-size_t	insert2(t_min_heap *h, ssize_t dist)
+size_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
 {
 	if (hpat(*h) == 2)
 	{
 		while (h->cap <= 2 * h->offset + 2)
-			halloc(h);
+			halloc(dyn, h);
 		h->root[2 * h->offset + 2] = dist;
 		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
 			hswap(h, 0, 2);
@@ -55,7 +55,7 @@ size_t	insert2(t_min_heap *h, ssize_t dist)
 			hswap(h, 0, 1);
 		return (h->cap);
 	}
-	return (insert3(h, dist));
+	return (insert3(dyn, h, dist));
 }
 
 ssize_t	extract(t_min_heap *h)
@@ -87,14 +87,14 @@ ssize_t	extract(t_min_heap *h)
 	return (res);
 }
 
-void	halloc(t_min_heap *h)
+void	halloc(t_list **dyn, t_min_heap *h)
 {
 	if (!h)
 		return ;
 	if (h->cap == 0)
-		h->root = (ssize_t *)ft_calloc(1, sizeof(ssize_t));
+		h->root = (ssize_t *)gc_calloc(dyn, 1, sizeof(ssize_t));
 	else
-		ft_realloc((void **)&h->root, h->cap * sizeof(ssize_t),
+		gc_realloc(dyn, (void **)&(h->root), h->cap * sizeof(ssize_t),
 			h->cap * 2 * sizeof(ssize_t));
 	if (!h->root)
 		return ;
