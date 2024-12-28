@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 08:44:28 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 09:58:11 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,16 @@ size_t		hlen(t_min_heap h);
 _Bool		hcomplete(t_min_heap h);
 
 void		analyze_stack(t_vec v, t_min_heap *h);
-void		print_cmds(t_vec v, t_min_heap *h);
+void		print_cmds(t_vec *v, t_min_heap *h);
 ssize_t		measure_dist(t_vec v, size_t i);
+int			*atoi_(char *str);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
 size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
 size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
+void		gc_free_all(t_list *head);
+_Bool		gc_add_to_list(t_list **head, void *new);
+void		*gc_calloc(t_list **head, size_t count, size_t size);
 
 #endif

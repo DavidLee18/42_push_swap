@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 08:30:33 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/28 09:01:33 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,26 @@ void	analyze_stack(t_vec v, t_min_heap *h)
 	}
 }
 
-void	print_cmds(t_vec v, t_min_heap *h)
+void	print_cmds(t_vec *v, t_min_heap *h)
 {
 	ssize_t	j;
 
-	if (h == NULL || hpat(*h) == 0 || hcomplete(*h) || v.len == 0)
+	if (h == NULL || hpat(*h) == 0 || hcomplete(*h) || v->len == 0)
 		return ;
 	j = extract(h);
 	while (j > 0)
 	{
-		rotate(&v, 1);
+		rotate(v, 1);
 		ft_printf("ra\n");
 		j--;
 	}
 	while (j < 0)
 	{
-		rotate(&v, -1);
+		rotate(v, -1);
 		ft_printf("rra\n");
 		j++;
 	}
-	swap(&v);
+	swap(v);
 	ft_printf("sa\n");
 }
 
