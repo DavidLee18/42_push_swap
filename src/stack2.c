@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:40:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 21:52:58 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/29 07:31:24 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,5 @@ void	vecalloc(t_list **dyn, t_vec *vec)
 	else
 		vec->cap *= 2;
 }
+
+_Bool	has_dup(t_vec v);
