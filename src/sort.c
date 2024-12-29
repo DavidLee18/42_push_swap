@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 22:00:44 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/29 16:14:19 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
 
 	if (h == NULL)
 		return ;
-	i = v.top;
-	if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len - 1)])
+	i = wrapping_sub(v.top, 1, v.len);
+	if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len)])
 		h->cap = insert(dyn, h, measure_dist(v, i));
-	i = wrapping_sub(i, 1, v.len - 1);
-	while (i != v.top)
+	i = wrapping_sub(i, 1, v.len);
+	while (i != wrapping_sub(v.top, 1, v.len))
 	{
-		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len - 1)])
+		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len)])
 			h->cap = insert(dyn, h, measure_dist(v, i));
-		i = wrapping_sub(i, 1, v.len - 1);
+		i = wrapping_sub(i, 1, v.len);
 	}
 }
 
@@ -61,16 +61,16 @@ ssize_t	measure_dist(t_vec v, size_t i)
 
 	j = i;
 	res1 = 0;
-	while (j != v.top)
+	while (j != wrapping_sub(v.top, 1, v.len))
 	{
 		j = wrapping_add(j, 1, v.len - 1);
 		res1++;
 	}
 	j = i;
 	res2 = 0;
-	while (j != v.top)
+	while (j != wrapping_sub(v.top, 1, v.len))
 	{
-		j = wrapping_sub(j, 1, v.len - 1);
+		j = wrapping_sub(j, 1, v.len);
 		res2--;
 	}
 	if (abs_isize(res1) <= abs_isize(res2))
