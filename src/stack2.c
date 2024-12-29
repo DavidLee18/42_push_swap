@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:40:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 08:42:24 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/29 15:32:30 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,20 @@ _Bool	has_dup(t_vec v)
 		temp++;
 	}
 	return (0);
+}
+
+void	print_vec(t_vec v)
+{
+	size_t	i;
+
+	i = 0;
+	ft_printf("vec[");
+	while (i < v.len)
+	{
+		ft_printf("%d", v.ptr[i]);
+		if (i != v.len - 1)
+			ft_printf(", ");
+		i++;
+	}
+	ft_printf("]\n");
 }

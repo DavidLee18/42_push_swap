@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 08:03:45 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 07:05:10 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/29 15:47:50 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,14 @@ int	*atoi_(t_list **dyn, char *str)
 	res = (int *)gc_calloc(dyn, 1, sizeof(int));
 	if (res == NULL)
 		return (NULL);
-	i = 0;
 	temp = 0;
 	if (str[0] != '-' && str[0] != '+' && (str[0] < '0' || str[0] > '9'))
 		return (NULL);
-	if (str[0] == '-' || str[0] == '+')
-		sign = (str[0] == '-') * 2 - 1;
-	else
-		sign = 0;
-	while (i + (sign != 0) < ft_strlen(str))
+	sign = (str[0] != '-') * 2 - 1;
+	i = (str[0] == '-' || str[0] == '+');
+	while (i < ft_strlen(str))
 	{
-		temp = 10 * temp + sign * (str[i + (sign != 0)] - '0');
+		temp = 10 * temp + sign * (str[i] - '0');
 		i++;
 	}
 	if (temp < INT_MIN || temp > INT_MAX)
