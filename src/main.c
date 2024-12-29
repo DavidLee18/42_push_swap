@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 07:37:39 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/29 09:00:57 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	main(int argc, char **argv)
 void	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 {
 	if (has_dup(*v))
+	{
+		ft_printf("Error\n");
 		return ;
+	}
 	analyze_stack(dyn, *v, h);
 	while (!hcomplete(*h))
 	{
