@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 15:01:02 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/30 09:37:26 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ typedef struct s_vec
 
 typedef struct s_min_heap
 {
-	ssize_t	*root;
+	ssize_t	**root;
 	size_t	offset;
+	size_t	len;
 	size_t	cap;
 }	t_min_heap;
 

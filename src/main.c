@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 15:49:49 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/30 00:58:58 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ void	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 		ft_printf("Error\n");
 		return ;
 	}
+	else if (v->len == 1)
+		return ;
 	analyze_stack(dyn, *v, h);
 	print_heap(*h);
 	while (!hcomplete(*h))
 	{
 		print_cmds(v, h);
 		analyze_stack(dyn, *v, h);
+		print_vec(*v);
 	}
 }

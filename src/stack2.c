@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:40:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 15:32:30 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/29 22:05:18 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ _Bool	has_dup(t_vec v)
 		i = 0;
 		while (i < v.len)
 		{
-			if (i != temp && v.ptr[i] != 0 && v.ptr[i] == v.ptr[temp])
+			if (i != temp && v.ptr[i] == v.ptr[temp])
 				return (1);
 			i++;
 		}
