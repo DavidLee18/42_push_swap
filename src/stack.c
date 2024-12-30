@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 16:03:27 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/30 07:52:10 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	rotate(t_vec *vec, int n)
 	}
 	else
 	{
-		vec->top = wrapping_add(vec->top, -n, vec->len - 1);
-		vec->bottom = wrapping_add(vec->bottom, -n, vec->len - 1);
+		vec->top = wrapping_add(vec->top, -n, vec->len);
+		vec->bottom = wrapping_add(vec->bottom, -n, vec->len);
 	}
 }
 

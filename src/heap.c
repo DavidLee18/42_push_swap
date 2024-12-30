@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/28 21:58:38 by jaehylee         ###   ########.fr       */
+/*   Updated: 2024/12/30 09:35:56 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ size_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
 {
 	if (h == NULL)
 		return (0);
-	if (dist == 0)
-		return (h->cap);
 	if (hpat(*h) == 0)
 	{
 		while (h->cap <= h->offset)
