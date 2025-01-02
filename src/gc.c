@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:41:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 05:29:17 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/02 02:08:18 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	*gc_calloc(t_list **head, size_t count, size_t size)
 	return (new);
 }
 
-void	gc_realloc(t_list **dyn, void **oldp, const size_t old_size,
+_Bool	gc_realloc(t_list **dyn, void **oldp, const size_t old_size,
 			const size_t new_size)
 {
 	void	*temp;
@@ -75,26 +75,26 @@ void	gc_realloc(t_list **dyn, void **oldp, const size_t old_size,
 	if (temp == NULL)
 	{
 		*oldp = NULL;
-		return ;
+		return (0);
 	}
 	ft_bzero(temp, new_size);
 	if (*oldp)
 		ft_memmove_(temp, *oldp, min_usize(old_size, new_size));
 	temp_node = *dyn;
 	if (temp_node->next == NULL)
-		*oldp = temp;
-	else if (temp_node->next && !temp_node->next->next)
+		return (*oldp = temp, 1);
+	if (temp_node->next && !temp_node->next->next)
 	{
 		*dyn = temp_node->next;
 		free(temp_node->content);
 		free(temp_node);
 		*oldp = temp;
+		return (1);
 	}
-	else
-		gc_realloc2(dyn, oldp, temp);
+	return (gc_realloc2(dyn, oldp, temp));
 }
 
-void	gc_realloc2(t_list **dyn, void **oldp, void *new)
+_Bool	gc_realloc2(t_list **dyn, void **oldp, void *new)
 {
 	t_list	*temp_node;
 
@@ -105,7 +105,7 @@ void	gc_realloc2(t_list **dyn, void **oldp, void *new)
 		free(temp_node->content);
 		free(temp_node);
 		*oldp = new;
-		return ;
+		return (1);
 	}
-	gc_realloc3(temp_node, oldp, new);
+	return (gc_realloc3(temp_node, oldp, new));
 }
