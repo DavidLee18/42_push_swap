@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/30 07:51:56 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 05:13:35 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,52 @@
 void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
 {
 	size_t	i;
+	ssize_t	j;
 
 	if (h == NULL)
 		return ;
 	i = wrapping_sub(v.top, 1, v.len);
 	if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len)])
-		h->cap = insert(dyn, h, measure_dist(v, i));
+	{
+		j = insert(dyn, h, measure_dist(v, i));
+		if (j < 0)
+			return ;
+		h->cap = (size_t)j;
+	}
 	i = wrapping_sub(i, 1, v.len);
 	while (i != wrapping_sub(v.top, 1, v.len))
 	{
 		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len)])
-			h->cap = insert(dyn, h, measure_dist(v, i));
+		{
+			j = insert(dyn, h, measure_dist(v, i));
+			if (j < 0)
+				return ;
+			h->cap = (size_t)j;
+		}
 		i = wrapping_sub(i, 1, v.len);
 	}
 }
 
 void	print_cmds(t_vec *v, t_min_heap *h)
 {
-	ssize_t	j;
+	ssize_t	*j;
 
 	if (h == NULL || hpat(*h) == 0 || hcomplete(*h) || v->len == 0)
 		return ;
 	j = extract(h);
-	while (j > 0)
+	if (j == NULL)
+		return ;
+	while (*j > 0)
 	{
 		rotate(v, 1);
 		ft_printf("ra\n");
-		j--;
+		(*j)--;
 	}
 	while (j < 0)
 	{
 		rotate(v, -1);
 		ft_printf("rra\n");
-		j++;
+		(*j)++;
 	}
 	swap(v);
 	ft_printf("sa\n");

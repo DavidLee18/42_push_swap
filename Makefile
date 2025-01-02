@@ -1,6 +1,7 @@
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -foptimize-sibling-calls -O2 -g
+CFLAGS := -Wall -Wextra -Werror -g
+# -foptimize-sibling-calls -O2
 
 BFLAGS := -Lft_printf -lftprintf
 
@@ -8,7 +9,7 @@ NAME := push_swap
 
 SRCS := src/etc.c src/gc.c src/gc2.c src/heap.c src/heap2.c \
 	src/heap3.c src/main.c src/sort.c src/stack.c \
-	src/stack2.c
+	src/stack2.c src/heap4.c
 
 OBJS := $(patsubst src/%.c,build/%.o,$(SRCS))
 

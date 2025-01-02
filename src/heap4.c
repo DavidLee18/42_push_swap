@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 08:58:20 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 03:44:29 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 04:58:32 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ ssize_t	insert4(t_list **dyn, t_min_heap *h, ssize_t dist)
 	}
 	else
 		return (insert5(dyn, h, dist));
-	return (h->cap);
+	return ((ssize_t)h->cap);
 }
 
 ssize_t	insert5(t_list **dyn, t_min_heap *h, ssize_t dist)
@@ -50,7 +50,7 @@ ssize_t	insert5(t_list **dyn, t_min_heap *h, ssize_t dist)
 			return (-1);
 		h->cap = (size_t)succeeded;
 		*h->root[h->offset] = dist;
-		return (h->cap);
+		return ((ssize_t)h->cap);
 	}
 	return (insert6(dyn, h, dist));
 }
@@ -80,5 +80,5 @@ ssize_t	insert6(t_list **dyn, t_min_heap *h, ssize_t dist)
 			return (-1);
 		h->cap = new_cap;
 	}
-	return (h->cap);
+	return ((ssize_t)h->cap);
 }

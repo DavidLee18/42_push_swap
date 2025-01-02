@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:12:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 03:04:28 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 04:59:54 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ size_t	hlen(t_min_heap h)
 
 _Bool	hcomplete(t_min_heap h)
 {
-	return (hpat(h) == 1 && h.root[h.offset] && *h.root[h.offset] == -1);
+	return (hpat(h) == 1 && h.root[h.offset] && (*h.root[h.offset] == -1 ||
+			*h.root[h.offset] == (ssize_t)h.len - 1));
 }
 
 void	print_heap(t_min_heap h)
@@ -92,7 +93,7 @@ ssize_t	insert1(t_list **dyn, t_min_heap *h, ssize_t dist)
 				return (-1);
 		}
 		h->len = 2 * h->offset + 1;
-		return (h->cap);
+		return ((ssize_t)h->cap);
 	}
 	return (insert2(dyn, h, dist));
 }

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 03:49:42 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 04:57:41 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ ssize_t	insert3(t_list **dyn, t_min_heap *h, ssize_t dist)
 				return (-1);
 		}
 		h->len = 2 * h->offset + 2;
-		return (h->cap);
+		return ((ssize_t)h->cap);
 	}
 	return (insert4(dyn, h, dist));
 }
