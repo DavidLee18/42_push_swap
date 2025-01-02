@@ -6,56 +6,62 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/30 09:35:56 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:21:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
+ssize_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
 {
+	_Bool	alloced;
+
 	if (h == NULL)
 		return (0);
 	if (hpat(*h) == 0)
 	{
 		while (h->cap <= h->offset)
-			halloc(dyn, h);
-		h->root[h->offset] = dist;
-		return (h->cap);
+			alloced = halloc(dyn, h);
+		if (!alloced)
+			return (-1);
+		h->root[h->offset] = (ssize_t *)gc_calloc(dyn, 1, sizeof(ssize_t));
+		if (h->root[h->offset] == NULL)
+			return (-1);
+		*h->root[h->offset] = dist;
+		h->len = h->offset;
+		return ((ssize_t)h->cap);
 	}
-	if (hpat(*h) == 1)
-	{
-		while (h->cap <= 2 * h->offset + 1)
-			halloc(dyn, h);
-		h->root[2 * h->offset + 1] = dist;
-		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			hswap(h, 0, 1);
-		return (h->cap);
-	}
-	return (insert2(dyn, h, dist));
+	return (insert1(dyn, h, dist));
 }
 
-size_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
+ssize_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
 {
+	_Bool	alloced;
+	_Bool	swapped;
+
 	if (hpat(*h) == 2)
 	{
 		while (h->cap <= 2 * h->offset + 2)
-			halloc(dyn, h);
-		h->root[2 * h->offset + 2] = dist;
-		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			hswap(h, 0, 2);
-		return (h->cap);
-	}
-	else if (hpat(*h) == 3)
-	{
-		h->root[2 * h->offset + 1] = dist;
-		if (abs_isize(h->root[h->offset]) > abs_isize(dist))
-			hswap(h, 0, 1);
+			alloced = halloc(dyn, h);
+		if (!alloced)
+			return (-1);
+		h->root[2 * h->offset + 2] = (ssize_t *)gc_calloc(dyn, 1,
+				sizeof(ssize_t));
+		if (h->root[2 * h->offset + 2] == NULL)
+			return (-1);
+		*h->root[2 * h->offset + 2] = dist;
+		if (abs_isize(*h->root[h->offset]) > abs_isize(dist))
+		{
+			swapped = hswap(h, 0, 2);
+			if (!swapped)
+				return (-1);
+		}
+		h->len = 2 * h->offset + 2;
 		return (h->cap);
 	}
 	return (insert3(dyn, h, dist));
 }
-
+// TODO
 ssize_t	extract(t_min_heap *h)
 {
 	ssize_t		res;
@@ -85,21 +91,24 @@ ssize_t	extract(t_min_heap *h)
 	return (res);
 }
 
-void	halloc(t_list **dyn, t_min_heap *h)
+_Bool	halloc(t_list **dyn, t_min_heap *h)
 {
+	_Bool	alloced;
+
 	if (!h)
-		return ;
+		return (0);
 	if (h->cap == 0)
-		h->root = (ssize_t *)gc_calloc(dyn, 1, sizeof(ssize_t));
+		h->root = (ssize_t **)gc_calloc(dyn, 1, sizeof(ssize_t *));
 	else
-		gc_realloc(dyn, (void **)&(h->root), h->cap * sizeof(ssize_t),
-			h->cap * 2 * sizeof(ssize_t));
-	if (!h->root)
-		return ;
+		alloced = gc_realloc(dyn, (void **)&(h->root), h->cap
+				* sizeof(ssize_t *), h->cap * 2 * sizeof(ssize_t *));
+	if ((h->cap == 0 && h->root == NULL) || !alloced)
+		return (0);
 	if (h->cap == 0)
 		h->cap = 1;
 	else
 		h->cap *= 2;
+	return (1);
 }
 
 size_t	max_balanced_depth(t_min_heap h)
@@ -110,8 +119,8 @@ size_t	max_balanced_depth(t_min_heap h)
 		return (1);
 	else
 		return (1 + min_usize(max_balanced_depth(
-					(t_min_heap){.root = h.root, .cap = h.cap,
-					.offset = 2 * h.offset + 1}),
+					(t_min_heap){.root = h.root, .cap = h.cap, .len = h.len
+					- 2 * h.offset - 1, .offset = 2 * h.offset + 1}),
 			max_balanced_depth((t_min_heap){.root = h.root, .cap = h.cap,
-				.offset = 2 * h.offset + 2})));
+				.len = h.len - 2 * h.offset - 2, .offset = 2 * h.offset + 2})));
 }
