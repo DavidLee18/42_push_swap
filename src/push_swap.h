@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/02 08:58:06 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 03:05:13 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ ssize_t		insert1(t_list **dyn, t_min_heap *h, ssize_t dist);
 ssize_t		insert2(t_list **dyn, t_min_heap *h, ssize_t dist);
 ssize_t		insert3(t_list **dyn, t_min_heap *h, ssize_t dist);
 ssize_t		insert4(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		extract(t_min_heap *h);
+ssize_t		insert5(t_list **dyn, t_min_heap *h, ssize_t dist);
+ssize_t		insert6(t_list **dyn, t_min_heap *h, ssize_t dist);
+ssize_t		*extract(t_min_heap *h);
 void		extract2(t_min_heap *h);
 _Bool		halloc(t_list **dyn, t_min_heap *h);
 // size_t		bubble_down(t_min_heap *h, size_t a, size_t b);

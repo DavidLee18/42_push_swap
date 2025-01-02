@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:12:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/02 13:20:59 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 03:04:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ _Bool	hcomplete(t_min_heap h)
 {
 	return (hpat(h) == 1 && h.root[h.offset] && *h.root[h.offset] == -1);
 }
-// TODO
+
 void	print_heap(t_min_heap h)
 {
 	size_t	i;
@@ -42,9 +42,12 @@ void	print_heap(t_min_heap h)
 	ft_printf("heap[");
 	while (i + h.offset < h.cap)
 	{
-		ft_printf("%d", h.root[i + h.offset]);
-		if (i + h.offset + 1 < h.cap)
-			ft_printf(", ");
+		if (h.root[i + h.offset] != NULL)
+		{
+			ft_printf("%d", *h.root[i + h.offset]);
+			if (i + h.offset + 1 < h.cap)
+				ft_printf(", ");
+		}
 		i++;
 	}
 	ft_printf("]\n");
