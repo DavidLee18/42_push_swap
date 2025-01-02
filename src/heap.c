@@ -28,7 +28,7 @@ ssize_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
 		if (h->root[h->offset] == NULL)
 			return (-1);
 		*h->root[h->offset] = dist;
-		h->len = h->offset;
+		h->len++;
 		return ((ssize_t)h->cap);
 	}
 	return (insert1(dyn, h, dist));
@@ -98,11 +98,14 @@ _Bool	halloc(t_list **dyn, t_min_heap *h)
 	if (!h)
 		return (0);
 	if (h->cap == 0)
+	{
 		h->root = (ssize_t **)gc_calloc(dyn, 1, sizeof(ssize_t *));
+		alloced = h->root != NULL;
+	}
 	else
 		alloced = gc_realloc(dyn, (void **)&(h->root), h->cap
 				* sizeof(ssize_t *), h->cap * 2 * sizeof(ssize_t *));
-	if ((h->cap == 0 && h->root == NULL) || !alloced)
+	if (!alloced)
 		return (0);
 	if (h->cap == 0)
 		h->cap = 1;

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(push_swap)
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -foptimize-sibling-calls -O2 -g")
+set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -g")
 add_subdirectory(ft_printf)
 set(SOURCE_FILES
 		src/etc.c
