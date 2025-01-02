@@ -15,9 +15,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../ft_printf/src/ft_printf.h"
-# define SIZE_MAX 18446744073709551615
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
+# define SIZE_MAX_ 18446744073709551615
+# define INT_MAX_ 2147483647
+# define INT_MIN_ -2147483648
 
 typedef struct s_vec
 {

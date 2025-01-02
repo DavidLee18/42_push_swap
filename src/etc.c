@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 08:03:45 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 07:05:10 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 07:11:40 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	*atoi_(t_list **dyn, char *str)
 		temp = 10 * temp + sign * (str[i + (sign != 0)] - '0');
 		i++;
 	}
-	if (temp < INT_MIN || temp > INT_MAX)
+	if (temp < INT_MIN_ || temp > INT_MAX_)
 		return (NULL);
 	*res = (int)temp;
 	return (res);
