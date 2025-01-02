@@ -10,6 +10,7 @@ set(SOURCE_FILES
 		src/heap.c
 		src/heap2.c
 		src/heap3.c
+		src/heap4.c
 		src/main.c
 		src/sort.c
 		src/stack.c

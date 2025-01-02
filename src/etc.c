@@ -40,13 +40,11 @@ int	*atoi_(t_list **dyn, char *str)
 	temp = 0;
 	if (str[0] != '-' && str[0] != '+' && (str[0] < '0' || str[0] > '9'))
 		return (NULL);
-	if (str[0] == '-' || str[0] == '+')
-		sign = (str[0] == '-') * 2 - 1;
-	else
-		sign = 0;
-	while (i + (sign != 0) < ft_strlen(str))
+	sign = (str[0] != '-') * 2 - 1;
+	i = (str[0] == '-' || str[0] == '+');
+	while (i < ft_strlen(str))
 	{
-		temp = 10 * temp + sign * (str[i + (sign != 0)] - '0');
+		temp = 10 * temp + sign * (str[i] - '0');
 		i++;
 	}
 	if (temp < INT_MIN_ || temp > INT_MAX_)
