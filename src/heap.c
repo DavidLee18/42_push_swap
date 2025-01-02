@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/02 13:21:14 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 03:45:43 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,29 @@ ssize_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
 	}
 	return (insert3(dyn, h, dist));
 }
-// TODO
-ssize_t	extract(t_min_heap *h)
+
+ssize_t	*extract(t_min_heap *h)
 {
-	ssize_t		res;
+	ssize_t		*res;
 	t_min_heap	next;
 
 	if (!h || hpat(*h) == 0)
-		return (0);
+		return (NULL);
 	res = h->root[h->offset];
 	if (hpat(*h) == 1)
-		h->root[h->offset] = 0;
+		h->root[h->offset] = NULL;
 	else if (hpat(*h) == 2)
 	{
 		h->root[h->offset] = h->root[1 + 2 * h->offset];
 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 1 + 2
-			* h->offset};
+			* h->offset, .len = h->len - 1 - h->offset};
 		extract(&next);
 	}
 	else if (hpat(*h) == 3)
 	{
 		h->root[h->offset] = h->root[2 + 2 * h->offset];
 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 2 + 2
-			* h->offset};
+			* h->offset, .len = h->len - 2 - h->offset};
 		extract(&next);
 	}
 	else
@@ -120,7 +120,7 @@ size_t	max_balanced_depth(t_min_heap h)
 	else
 		return (1 + min_usize(max_balanced_depth(
 					(t_min_heap){.root = h.root, .cap = h.cap, .len = h.len
-					- 2 * h.offset - 1, .offset = 2 * h.offset + 1}),
+					- h.offset - 1, .offset = 2 * h.offset + 1}),
 			max_balanced_depth((t_min_heap){.root = h.root, .cap = h.cap,
-				.len = h.len - 2 * h.offset - 2, .offset = 2 * h.offset + 2})));
+				.len = h.len - h.offset - 2, .offset = 2 * h.offset + 2})));
 }

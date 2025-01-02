@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/02 13:20:45 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/03 03:49:42 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ ssize_t	insert3(t_list **dyn, t_min_heap *h, ssize_t dist)
 	}
 	return (insert4(dyn, h, dist));
 }
-// TODO
+
 void	extract2(t_min_heap *h)
 {
 	t_min_heap	next;
@@ -96,13 +96,13 @@ void	extract2(t_min_heap *h)
 	{
 		h->root[h->offset] = h->root[1 + 2 * h->offset];
 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 1 + 2
-			* h->offset};
+			* h->offset, .len = h->len - 1 - h->offset};
 	}
 	else
 	{
 		h->root[h->offset] = h->root[2 + 2 * h->offset];
 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = 2 + 2
-			* h->offset};
+			* h->offset, .len = h->len - 2 - h->offset};
 	}
 	extract(&next);
 }
