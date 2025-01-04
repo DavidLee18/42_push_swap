@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 03:05:13 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 05:38:29 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_vec
 	size_t	cap;
 }	t_vec;
 
-typedef struct	s_rel_dist
+typedef struct s_rel_dist
 {
 	ssize_t	dist;
 	size_t	weight;
@@ -76,7 +76,7 @@ _Bool		clear_heap(t_list **dyn, t_min_heap *h);
 void		analyze_stack(t_list **dyn, t_vec v, t_min_heap *h);
 void		print_cmds(t_vec *v, t_min_heap *h);
 t_rel_dist	measure_dist(t_vec v, size_t i);
-ssize_t		absol_dist(t_rel_dist dist);
+double		absol_dist(t_rel_dist dist);
 void		print_rel_dist(t_rel_dist dist);
 int			*atoi_(t_list **dyn, char *str);
 _Bool		analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h);
@@ -84,6 +84,7 @@ void		cmd_rotate(t_vec *v, size_t offset);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
+double		absf_(double d);
 size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
 size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
 void		gc_free_all(t_list *head);

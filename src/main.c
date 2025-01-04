@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/30 00:58:58 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 05:35:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int	main(int argc, char **argv)
 	dyn_mem = NULL;
 	v = (t_vec *)gc_calloc(&dyn_mem, 1, sizeof(t_vec));
 	if (v == NULL)
-		return (ft_printf("Error\n"), 0);
+		return (write(STDERR_FILENO, "Error\n", 6), 0);
 	h = (t_min_heap *)gc_calloc(&dyn_mem, 1, sizeof(t_min_heap));
 	if (h == NULL)
-		return (ft_printf("Error\n"), gc_free_all(dyn_mem), 0);
-	while (argc > 1)
+		return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem), 0);
+	while (--argc >= 1)
 	{
-		i = atoi_(&dyn_mem, argv[argc - 1]);
+		i = atoi_(&dyn_mem, argv[argc]);
 		if (i == NULL)
-			return (ft_printf("Error\n"), gc_free_all(dyn_mem), 0);
+			return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
+				0);
 		push(&dyn_mem, v, *i);
-		argc--;
 	}
 	print_vec(*v);
 	analyze_sort(&dyn_mem, v, h);
@@ -46,7 +46,7 @@ _Bool	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 	size_t	*offset;
 
 	if (has_dup(*v))
-		return (ft_printf("Error\n"), 0);
+		return (write(STDERR_FILENO, "Error\n", 6), 0);
 	else if (v->len == 1)
 		return (1);
 	offset = twisted_sorted(dyn, *v);
@@ -61,7 +61,7 @@ _Bool	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 			return (0);
 		offset = twisted_sorted(dyn, *v);
 		if (offset != NULL)
-			cmd_rotate(v, *offset);
+			return (cmd_rotate(v, *offset), 1);
 		analyze_stack(dyn, *v, h);
 		print_vec(*v);
 		print_heap(*h);

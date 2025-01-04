@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 04:57:22 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 05:39:30 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ ssize_t	insert(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 		return (0);
 	if (hpat(*h) == 0)
 	{
+		alloced = 1;
 		while (h->cap <= h->offset)
 			alloced = halloc(dyn, h);
 		if (!alloced)
 			return (-1);
-		h->root[h->offset] = (t_rel_dist *)gc_calloc(dyn, 1, sizeof(t_rel_dist));
+		h->root[h->offset] = (t_rel_dist *)gc_calloc(dyn, 1,
+				sizeof(t_rel_dist));
 		if (h->root[h->offset] == NULL)
 			return (-1);
 		*h->root[h->offset] = dist;
@@ -50,7 +52,8 @@ ssize_t	insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 		if (h->root[2 * h->offset + 2] == NULL)
 			return (-1);
 		*h->root[2 * h->offset + 2] = dist;
-		if (abs_isize(absol_dist(*h->root[h->offset])) > abs_isize(absol_dist(dist)))
+		if (absf_(absol_dist(*h->root[h->offset]))
+			> absf_(absol_dist(dist)))
 		{
 			swapped = hswap(h, 0, 2);
 			if (!swapped)

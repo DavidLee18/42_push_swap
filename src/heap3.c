@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:12:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 04:59:54 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 05:40:04 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ size_t	hlen(t_min_heap h)
 
 _Bool	hcomplete(t_min_heap h, size_t vlen)
 {
-	return (hpat(h) == 1 && h.root[h.offset] && (h.root[h.offset]->dist == -1 ||
-			h.root[h.offset]->dist == (ssize_t)vlen - 1));
+	return (hpat(h) == 1 && h.root[h.offset] && (h.root[h.offset]->dist == -1
+			|| h.root[h.offset]->dist == (ssize_t)vlen - 1));
 }
 
 void	print_heap(t_min_heap h)
@@ -86,7 +86,8 @@ ssize_t	insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 		if (h->root[2 * h->offset + 1] == NULL)
 			return (-1);
 		*h->root[2 * h->offset + 1] = dist;
-		if (abs_isize(absol_dist(*h->root[h->offset])) > abs_isize(absol_dist(dist)))
+		if (absf_(absol_dist(*h->root[h->offset]))
+			> absf_(absol_dist(dist)))
 		{
 			swapped = hswap(h, 0, 1);
 			if (!swapped)

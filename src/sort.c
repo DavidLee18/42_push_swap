@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/03 05:13:35 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 05:33:40 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	print_cmds(t_vec *v, t_min_heap *h)
 	ft_printf("sa\n");
 }
 
-t_rel_dist measure_dist(t_vec v, size_t i)
+t_rel_dist	measure_dist(t_vec v, size_t i)
 {
 	ssize_t	res1;
 	ssize_t	res2;
@@ -95,16 +95,14 @@ t_rel_dist measure_dist(t_vec v, size_t i)
 	return ((t_rel_dist){res2, weight});
 }
 
-ssize_t	absol_dist(t_rel_dist dist)
+double	absol_dist(t_rel_dist dist)
 {
-	if (dist.dist >= 0)
-		return (dist.dist + 2 * (ssize_t)dist.weight);
-	return (dist.dist - 2 * (ssize_t)dist.weight);
+	return ((double)dist.dist / (double)dist.weight);
 }
 
 void	cmd_rotate(t_vec *v, size_t offset)
 {
-	ssize_t min_offset;
+	ssize_t	min_offset;
 
 	if (offset >= v->len)
 		min_offset = (ssize_t)offset % (ssize_t)v->len;

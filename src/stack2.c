@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:40:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/29 22:05:18 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 05:33:46 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	print_vec(t_vec v)
 			{
 				i = wrapping_sub(i, 1, v.len);
 				if (i == wrapping_sub(v.top, 1, v.len))
-					break;
+					break ;
 				ft_printf(", %d", v.ptr[i]);
 			}
 		}
