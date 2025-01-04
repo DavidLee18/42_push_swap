@@ -14,7 +14,7 @@
 
 _Bool	hswap(t_min_heap *h, size_t a, size_t b)
 {
-	ssize_t	*temp;
+	t_rel_dist	*temp;
 
 	if (h == NULL)
 		return (0);
@@ -65,18 +65,18 @@ size_t	hpat(t_min_heap h)
 	return (hpat2(h));
 }
 
-ssize_t	insert3(t_list **dyn, t_min_heap *h, ssize_t dist)
+ssize_t	insert3(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 {
 	_Bool	swapped;
 
 	if (hpat(*h) == 3)
 	{
-		h->root[2 * h->offset + 1] = (ssize_t *)gc_calloc(dyn, 1,
-				sizeof(ssize_t));
+		h->root[2 * h->offset + 1] = (t_rel_dist *)gc_calloc(dyn, 1,
+				sizeof(t_rel_dist));
 		if (h->root[2 * h->offset + 1] == NULL)
 			return (-1);
 		*h->root[2 * h->offset + 1] = dist;
-		if (abs_isize(*h->root[h->offset]) > abs_isize(dist))
+		if (abs_isize(absol_dist(*h->root[h->offset])) > abs_isize(absol_dist(dist)))
 		{
 			swapped = hswap(h, 0, 1);
 			if (!swapped)
