@@ -45,7 +45,7 @@ void	print_cmds(t_vec *v, t_min_heap *h)
 {
 	ssize_t	*j;
 
-	if (h == NULL || hpat(*h) == 0 || hcomplete(*h) || v->len == 0)
+	if (h == NULL || hpat(*h) == 0 || hcomplete(*h, v->len) || v->len == 0)
 		return ;
 	j = extract(h);
 	if (j == NULL)
@@ -56,7 +56,7 @@ void	print_cmds(t_vec *v, t_min_heap *h)
 		ft_printf("ra\n");
 		(*j)--;
 	}
-	while (j < 0)
+	while (*j < 0)
 	{
 		rotate(v, -1);
 		ft_printf("rra\n");
@@ -89,4 +89,28 @@ ssize_t	measure_dist(t_vec v, size_t i)
 	if (abs_isize(res1) <= abs_isize(res2))
 		return (res1);
 	return (res2);
+}
+
+void	cmd_rotate(t_vec *v, size_t offset)
+{
+	ssize_t min_offset;
+
+	if (offset >= v->len)
+		min_offset = (ssize_t)offset % (ssize_t)v->len;
+	else
+		min_offset = (ssize_t)offset;
+	if (min_offset > (ssize_t)v->len / 2)
+		min_offset -= (ssize_t)v->len;
+	while (min_offset > 0)
+	{
+		rotate(v, 1);
+		ft_printf("ra\n");
+		min_offset--;
+	}
+	while (min_offset < 0)
+	{
+		rotate(v, -1);
+		ft_printf("rra\n");
+		min_offset++;
+	}
 }

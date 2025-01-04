@@ -29,10 +29,10 @@ size_t	hlen(t_min_heap h)
 	return (res);
 }
 
-_Bool	hcomplete(t_min_heap h)
+_Bool	hcomplete(t_min_heap h, size_t vlen)
 {
 	return (hpat(h) == 1 && h.root[h.offset] && (*h.root[h.offset] == -1 ||
-			*h.root[h.offset] == (ssize_t)h.len - 1));
+			*h.root[h.offset] == (ssize_t)vlen - 1));
 }
 
 void	print_heap(t_min_heap h)

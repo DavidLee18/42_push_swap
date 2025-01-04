@@ -41,21 +41,30 @@ int	main(int argc, char **argv)
 	return (gc_free_all(dyn_mem), 0);
 }
 
-void	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
+_Bool	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 {
+	size_t	*offset;
+
 	if (has_dup(*v))
-	{
-		ft_printf("Error\n");
-		return ;
-	}
+		return (ft_printf("Error\n"), 0);
 	else if (v->len == 1)
-		return ;
+		return (1);
+	offset = twisted_sorted(dyn, *v);
+	if (offset != NULL)
+		return (cmd_rotate(v, *offset), 1);
 	analyze_stack(dyn, *v, h);
 	print_heap(*h);
-	while (!hcomplete(*h))
+	while (!hcomplete(*h, v->len))
 	{
 		print_cmds(v, h);
+		if (!clear_heap(dyn, h))
+			return (0);
+		offset = twisted_sorted(dyn, *v);
+		if (offset != NULL)
+			cmd_rotate(v, *offset);
 		analyze_stack(dyn, *v, h);
 		print_vec(*v);
+		print_heap(*h);
 	}
+	return (1);
 }

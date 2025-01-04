@@ -44,6 +44,8 @@ void		vec_init(t_vec *vec);
 void		vecalloc(t_list **dyn, t_vec *vec);
 _Bool		has_dup(t_vec v);
 void		print_vec(t_vec v);
+size_t		*twisted_sorted(t_list **dyn, t_vec v);
+_Bool		alt_sorted(t_vec v, size_t offset);
 
 ssize_t		insert(t_list **dyn, t_min_heap *h, ssize_t dist);
 ssize_t		insert1(t_list **dyn, t_min_heap *h, ssize_t dist);
@@ -61,14 +63,16 @@ size_t		hpat(t_min_heap h);
 size_t		hpat2(t_min_heap h);
 _Bool		hswap(t_min_heap *h, size_t a, size_t b);
 size_t		hlen(t_min_heap h);
-_Bool		hcomplete(t_min_heap h);
+_Bool		hcomplete(t_min_heap h, size_t vlen);
 void		print_heap(t_min_heap h);
+_Bool		clear_heap(t_list **dyn, t_min_heap *h);
 
 void		analyze_stack(t_list **dyn, t_vec v, t_min_heap *h);
 void		print_cmds(t_vec *v, t_min_heap *h);
 ssize_t		measure_dist(t_vec v, size_t i);
 int			*atoi_(t_list **dyn, char *str);
-void		analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h);
+_Bool		analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h);
+void		cmd_rotate(t_vec *v, size_t offset);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);

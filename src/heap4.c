@@ -82,3 +82,14 @@ ssize_t	insert6(t_list **dyn, t_min_heap *h, ssize_t dist)
 	}
 	return ((ssize_t)h->cap);
 }
+
+_Bool	clear_heap(t_list **dyn, t_min_heap *h)
+{
+	h->root = (ssize_t **) gc_calloc(dyn, 1, sizeof(ssize_t *));
+	if (h->root == NULL)
+		return (0);
+	h->cap = 1;
+	h->len = 0;
+	h->offset = 0;
+	return (1);
+}
