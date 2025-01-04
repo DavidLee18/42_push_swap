@@ -55,14 +55,16 @@ void	rotate(t_vec *vec, int n)
 void	swap(t_vec *vec)
 {
 	int		temp;
-	size_t	idx;
+	size_t	i;
+	size_t	j;
 
 	if (vec->len <= 1)
 		return ;
-	idx = wrapping_sub(vec->top, 1, vec->len);
-	temp = vec->ptr[vec->top];
-	vec->ptr[vec->top] = vec->ptr[idx];
-	vec->ptr[idx] = temp;
+	i = wrapping_sub(vec->top, 1, vec->len);
+	j = wrapping_sub(i, 1, vec->len);
+	temp = vec->ptr[i];
+	vec->ptr[i] = vec->ptr[j];
+	vec->ptr[j] = temp;
 }
 
 void	vec_init(t_vec *vec)

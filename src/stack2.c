@@ -66,14 +66,23 @@ void	print_vec(t_vec v)
 {
 	size_t	i;
 
-	i = 0;
 	ft_printf("vec[");
-	while (i < v.len)
+	if (v.len > 0)
 	{
+		i = wrapping_sub(v.top, 1, v.len);
 		ft_printf("%d", v.ptr[i]);
-		if (i != v.len - 1)
-			ft_printf(", ");
-		i++;
+		if (wrapping_sub(i, 1, v.len) != i)
+		{
+			i = wrapping_sub(i, 1, v.len);
+			ft_printf(", %d", v.ptr[i]);
+			while (i != wrapping_sub(v.top, 1, v.len))
+			{
+				i = wrapping_sub(i, 1, v.len);
+				if (i == wrapping_sub(v.top, 1, v.len))
+					break;
+				ft_printf(", %d", v.ptr[i]);
+			}
+		}
 	}
 	ft_printf("]\n");
 }

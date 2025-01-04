@@ -29,10 +29,10 @@ size_t	hlen(t_min_heap h)
 	return (res);
 }
 
-_Bool	hcomplete(t_min_heap h)
+_Bool	hcomplete(t_min_heap h, size_t vlen)
 {
-	return (hpat(h) == 1 && h.root[h.offset] && (*h.root[h.offset] == -1 ||
-			*h.root[h.offset] == (ssize_t)h.len - 1));
+	return (hpat(h) == 1 && h.root[h.offset] && (h.root[h.offset]->dist == -1 ||
+			h.root[h.offset]->dist == (ssize_t)vlen - 1));
 }
 
 void	print_heap(t_min_heap h)
@@ -45,7 +45,7 @@ void	print_heap(t_min_heap h)
 	{
 		if (h.root[i + h.offset] != NULL)
 		{
-			ft_printf("%d", *h.root[i + h.offset]);
+			print_rel_dist(*h.root[i + h.offset]);
 			if (i + h.offset + 1 < h.cap)
 				ft_printf(", ");
 		}
@@ -70,7 +70,7 @@ size_t	hpat2(t_min_heap h)
 	return (2);
 }
 
-ssize_t	insert1(t_list **dyn, t_min_heap *h, ssize_t dist)
+ssize_t	insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 {
 	_Bool	alloced;
 	_Bool	swapped;
@@ -81,12 +81,12 @@ ssize_t	insert1(t_list **dyn, t_min_heap *h, ssize_t dist)
 			alloced = halloc(dyn, h);
 		if (!alloced)
 			return (-1);
-		h->root[2 * h->offset + 1] = (ssize_t *)gc_calloc(dyn, 1,
-				sizeof(ssize_t));
+		h->root[2 * h->offset + 1] = (t_rel_dist *)gc_calloc(dyn, 1,
+				sizeof(t_rel_dist));
 		if (h->root[2 * h->offset + 1] == NULL)
 			return (-1);
 		*h->root[2 * h->offset + 1] = dist;
-		if (abs_isize(*h->root[h->offset]) > abs_isize(dist))
+		if (abs_isize(absol_dist(*h->root[h->offset])) > abs_isize(absol_dist(dist)))
 		{
 			swapped = hswap(h, 0, 1);
 			if (!swapped)

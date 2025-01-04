@@ -15,9 +15,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../ft_printf/src/ft_printf.h"
-# define SIZE_MAX 18446744073709551615
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
+# define SIZE_MAX_ 18446744073709551615
+# define INT_MAX_ 2147483647
+# define INT_MIN_ -2147483648
 
 typedef struct s_vec
 {
@@ -28,12 +28,18 @@ typedef struct s_vec
 	size_t	cap;
 }	t_vec;
 
+typedef struct	s_rel_dist
+{
+	ssize_t	dist;
+	size_t	weight;
+}	t_rel_dist;
+
 typedef struct s_min_heap
 {
-	ssize_t	**root;
-	size_t	offset;
-	size_t	len;
-	size_t	cap;
+	t_rel_dist	**root;
+	size_t		offset;
+	size_t		len;
+	size_t		cap;
 }	t_min_heap;
 
 void		push(t_list **dyn, t_vec *vec, int value);
@@ -44,15 +50,17 @@ void		vec_init(t_vec *vec);
 void		vecalloc(t_list **dyn, t_vec *vec);
 _Bool		has_dup(t_vec v);
 void		print_vec(t_vec v);
+size_t		*twisted_sorted(t_list **dyn, t_vec v);
+_Bool		alt_sorted(t_vec v, size_t offset);
 
-ssize_t		insert(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		insert1(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		insert2(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		insert3(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		insert4(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		insert5(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		insert6(t_list **dyn, t_min_heap *h, ssize_t dist);
-ssize_t		*extract(t_min_heap *h);
+ssize_t		insert(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+ssize_t		insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+ssize_t		insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+ssize_t		insert3(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+ssize_t		insert4(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+ssize_t		insert5(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+ssize_t		insert6(t_list **dyn, t_min_heap *h, t_rel_dist dist);
+t_rel_dist	*extract(t_min_heap *h);
 void		extract2(t_min_heap *h);
 _Bool		halloc(t_list **dyn, t_min_heap *h);
 // size_t		bubble_down(t_min_heap *h, size_t a, size_t b);
@@ -61,14 +69,18 @@ size_t		hpat(t_min_heap h);
 size_t		hpat2(t_min_heap h);
 _Bool		hswap(t_min_heap *h, size_t a, size_t b);
 size_t		hlen(t_min_heap h);
-_Bool		hcomplete(t_min_heap h);
+_Bool		hcomplete(t_min_heap h, size_t vlen);
 void		print_heap(t_min_heap h);
+_Bool		clear_heap(t_list **dyn, t_min_heap *h);
 
 void		analyze_stack(t_list **dyn, t_vec v, t_min_heap *h);
 void		print_cmds(t_vec *v, t_min_heap *h);
-ssize_t		measure_dist(t_vec v, size_t i);
+t_rel_dist	measure_dist(t_vec v, size_t i);
+ssize_t		absol_dist(t_rel_dist dist);
+void		print_rel_dist(t_rel_dist dist);
 int			*atoi_(t_list **dyn, char *str);
-void		analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h);
+_Bool		analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h);
+void		cmd_rotate(t_vec *v, size_t offset);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);

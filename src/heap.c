@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-ssize_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
+ssize_t	insert(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 {
 	_Bool	alloced;
 
@@ -24,17 +24,17 @@ ssize_t	insert(t_list **dyn, t_min_heap *h, ssize_t dist)
 			alloced = halloc(dyn, h);
 		if (!alloced)
 			return (-1);
-		h->root[h->offset] = (ssize_t *)gc_calloc(dyn, 1, sizeof(ssize_t));
+		h->root[h->offset] = (t_rel_dist *)gc_calloc(dyn, 1, sizeof(t_rel_dist));
 		if (h->root[h->offset] == NULL)
 			return (-1);
 		*h->root[h->offset] = dist;
-		h->len = h->offset;
+		h->len++;
 		return ((ssize_t)h->cap);
 	}
 	return (insert1(dyn, h, dist));
 }
 
-ssize_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
+ssize_t	insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist)
 {
 	_Bool	alloced;
 	_Bool	swapped;
@@ -45,12 +45,12 @@ ssize_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
 			alloced = halloc(dyn, h);
 		if (!alloced)
 			return (-1);
-		h->root[2 * h->offset + 2] = (ssize_t *)gc_calloc(dyn, 1,
-				sizeof(ssize_t));
+		h->root[2 * h->offset + 2] = (t_rel_dist *)gc_calloc(dyn, 1,
+				sizeof(t_rel_dist));
 		if (h->root[2 * h->offset + 2] == NULL)
 			return (-1);
 		*h->root[2 * h->offset + 2] = dist;
-		if (abs_isize(*h->root[h->offset]) > abs_isize(dist))
+		if (abs_isize(absol_dist(*h->root[h->offset])) > abs_isize(absol_dist(dist)))
 		{
 			swapped = hswap(h, 0, 2);
 			if (!swapped)
@@ -62,9 +62,9 @@ ssize_t	insert2(t_list **dyn, t_min_heap *h, ssize_t dist)
 	return (insert3(dyn, h, dist));
 }
 
-ssize_t	*extract(t_min_heap *h)
+t_rel_dist	*extract(t_min_heap *h)
 {
-	ssize_t		*res;
+	t_rel_dist	*res;
 	t_min_heap	next;
 
 	if (!h || hpat(*h) == 0)
@@ -98,11 +98,14 @@ _Bool	halloc(t_list **dyn, t_min_heap *h)
 	if (!h)
 		return (0);
 	if (h->cap == 0)
-		h->root = (ssize_t **)gc_calloc(dyn, 1, sizeof(ssize_t *));
+	{
+		h->root = (t_rel_dist **)gc_calloc(dyn, 1, sizeof(t_rel_dist *));
+		alloced = h->root != NULL;
+	}
 	else
 		alloced = gc_realloc(dyn, (void **)&(h->root), h->cap
-				* sizeof(ssize_t *), h->cap * 2 * sizeof(ssize_t *));
-	if ((h->cap == 0 && h->root == NULL) || !alloced)
+				* sizeof(t_rel_dist *), h->cap * 2 * sizeof(t_rel_dist *));
+	if (!alloced)
 		return (0);
 	if (h->cap == 0)
 		h->cap = 1;

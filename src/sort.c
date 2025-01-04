@@ -43,34 +43,37 @@ void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
 
 void	print_cmds(t_vec *v, t_min_heap *h)
 {
-	ssize_t	*j;
+	t_rel_dist	*j;
+	ssize_t		i;
 
-	if (h == NULL || hpat(*h) == 0 || hcomplete(*h) || v->len == 0)
+	if (h == NULL || hpat(*h) == 0 || hcomplete(*h, v->len) || v->len == 0)
 		return ;
 	j = extract(h);
 	if (j == NULL)
 		return ;
-	while (*j > 0)
+	i = j->dist;
+	while (i > 0)
 	{
 		rotate(v, 1);
 		ft_printf("ra\n");
-		(*j)--;
+		i--;
 	}
-	while (j < 0)
+	while (i < 0)
 	{
 		rotate(v, -1);
 		ft_printf("rra\n");
-		(*j)++;
+		i++;
 	}
 	swap(v);
 	ft_printf("sa\n");
 }
 
-ssize_t	measure_dist(t_vec v, size_t i)
+t_rel_dist measure_dist(t_vec v, size_t i)
 {
 	ssize_t	res1;
 	ssize_t	res2;
 	size_t	j;
+	size_t	weight;
 
 	j = i;
 	res1 = 0;
@@ -86,7 +89,39 @@ ssize_t	measure_dist(t_vec v, size_t i)
 		j = wrapping_sub(j, 1, v.len);
 		res2--;
 	}
+	weight = abs_isize(v.ptr[i] - v.ptr[wrapping_sub(i, 1, v.len)]);
 	if (abs_isize(res1) <= abs_isize(res2))
-		return (res1);
-	return (res2);
+		return ((t_rel_dist){res1, weight});
+	return ((t_rel_dist){res2, weight});
+}
+
+ssize_t	absol_dist(t_rel_dist dist)
+{
+	if (dist.dist >= 0)
+		return (dist.dist + 2 * (ssize_t)dist.weight);
+	return (dist.dist - 2 * (ssize_t)dist.weight);
+}
+
+void	cmd_rotate(t_vec *v, size_t offset)
+{
+	ssize_t min_offset;
+
+	if (offset >= v->len)
+		min_offset = (ssize_t)offset % (ssize_t)v->len;
+	else
+		min_offset = (ssize_t)offset;
+	if (min_offset > (ssize_t)v->len / 2)
+		min_offset -= (ssize_t)v->len;
+	while (min_offset > 0)
+	{
+		rotate(v, 1);
+		ft_printf("ra\n");
+		min_offset--;
+	}
+	while (min_offset < 0)
+	{
+		rotate(v, -1);
+		ft_printf("rra\n");
+		min_offset++;
+	}
 }
