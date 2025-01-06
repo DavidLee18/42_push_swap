@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/05 18:43:38 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:23:51 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_rel_dist
 typedef struct s_min_heap
 {
 	t_rel_dist	**root;
-	size_t		offset;
 	size_t		len;
 	size_t		cap;
 }	t_min_heap;
@@ -53,24 +52,30 @@ void		print_vec(t_vec v);
 size_t		*twisted_sorted(t_list **dyn, t_vec v);
 _Bool		alt_sorted(t_vec v, size_t offset);
 
-ssize_t		insert(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-ssize_t		insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-ssize_t		insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-ssize_t		insert3(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-ssize_t		insert4(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-ssize_t		insert5(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-ssize_t		insert6(t_list **dyn, t_min_heap *h, t_rel_dist dist);
-t_rel_dist	*extract(t_min_heap *h);
-void		extract2(t_min_heap *h);
+ssize_t		insert(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset);
+ssize_t		insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist,
+				size_t offset);
+ssize_t		insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist,
+				size_t offset);
+ssize_t		insert3(t_list **dyn, t_min_heap *h, t_rel_dist dist,
+				size_t offset);
+ssize_t		insert4(t_list **dyn, t_min_heap *h, t_rel_dist dist,
+				size_t offset);
+ssize_t		insert5(t_list **dyn, t_min_heap *h, t_rel_dist dist,
+				size_t offset);
+ssize_t		insert6(t_list **dyn, t_min_heap *h, t_rel_dist dist,
+				size_t offset);
+t_rel_dist	*extract(t_min_heap *h, size_t offset);
+void		extract2(t_min_heap *h, size_t offset);
 _Bool		halloc(t_list **dyn, t_min_heap *h);
 // size_t		bubble_down(t_min_heap *h, size_t a, size_t b);
-size_t		max_balanced_depth(t_min_heap h);
-size_t		hpat(t_min_heap h);
-size_t		hpat2(t_min_heap h);
-_Bool		hswap(t_min_heap *h, size_t a, size_t b);
-size_t		hlen(t_min_heap h);
-_Bool		hcomplete(t_min_heap h, size_t vlen);
-void		print_heap(t_min_heap h);
+size_t		max_balanced_depth(t_min_heap h, size_t offset);
+size_t		hpat(t_min_heap h, size_t offset);
+size_t		hpat2(t_min_heap h, size_t offset);
+_Bool		hswap(t_min_heap *h, size_t a, size_t b, size_t offset);
+size_t		hlen(t_min_heap h, size_t offset);
+_Bool		hcomplete(t_min_heap h, size_t vlen, size_t offset);
+void		print_heap(t_min_heap h, size_t offset);
 _Bool		clear_heap(t_list **dyn, t_min_heap *h);
 
 void		analyze_stack(t_list **dyn, t_vec v, t_min_heap *h);

@@ -6,20 +6,20 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:12:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 07:19:23 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:26:04 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	hlen(t_min_heap h)
+size_t	hlen(t_min_heap h, size_t offset)
 {
 	size_t	res;
 	size_t	i;
 
-	if (hpat(h) == 0)
+	if (hpat(h, offset) == 0)
 		return (0);
-	i = h.offset;
+	i = offset;
 	res = 0;
 	while (i < h.cap)
 	{
@@ -29,24 +29,25 @@ size_t	hlen(t_min_heap h)
 	return (res);
 }
 
-_Bool	hcomplete(t_min_heap h, size_t vlen)
+_Bool	hcomplete(t_min_heap h, size_t vlen, size_t offset)
 {
-	return (hpat(h) == 1 && h.root[h.offset] && (h.root[h.offset]->dist == -1
-			|| h.root[h.offset]->dist == (ssize_t)vlen - 1));
+	return (hpat(h, offset) == 1 && h.root[offset]
+		&& (h.root[offset]->dist == -1
+			|| h.root[offset]->dist == (ssize_t)vlen - 1));
 }
 
-void	print_heap(t_min_heap h)
+void	print_heap(t_min_heap h, size_t offset)
 {
 	size_t	i;
 
 	i = 0;
 	ft_printf("heap[");
-	while (i + h.offset < h.cap)
+	while (i + offset < h.cap)
 	{
-		if (h.root[i + h.offset] != NULL)
+		if (h.root[i + offset] != NULL)
 		{
-			print_rel_dist(*h.root[i + h.offset]);
-			if (i + h.offset + 1 < h.cap)
+			print_rel_dist(*h.root[i + offset]);
+			if (i + offset + 1 < h.cap)
 				ft_printf(", ");
 		}
 		i++;
@@ -54,44 +55,44 @@ void	print_heap(t_min_heap h)
 	ft_printf("]\n");
 }
 
-size_t	hpat2(t_min_heap h)
+size_t	hpat2(t_min_heap h, size_t offset)
 {
-	if (h.root[h.offset] == NULL)
+	if (h.root[offset] == NULL)
 		return (0);
-	if (h.root[1 + 2 * h.offset] != NULL
-		&& h.root[2 + 2 * h.offset] != NULL)
+	if (h.root[1 + 2 * offset] != NULL
+		&& h.root[2 + 2 * offset] != NULL)
 		return (4);
-	if (h.root[1 + 2 * h.offset] == NULL
-		&& h.root[2 + 2 * h.offset] == NULL)
+	if (h.root[1 + 2 * offset] == NULL
+		&& h.root[2 + 2 * offset] == NULL)
 		return (1);
-	if (h.root[1 + 2 * h.offset] == NULL
-		&& h.root[2 + 2 * h.offset] != NULL)
+	if (h.root[1 + 2 * offset] == NULL
+		&& h.root[2 + 2 * offset] != NULL)
 		return (3);
 	return (2);
 }
 
-ssize_t	insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist)
+ssize_t	insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 {
 	_Bool	alloced;
 
 	alloced = 1;
-	if (hpat(*h) == 1)
+	if (hpat(*h, offset) == 1)
 	{
-		while (h->cap <= 2 * h->offset + 1)
+		while (h->cap <= 2 * offset + 1)
 			alloced = halloc(dyn, h);
 		if (!alloced)
 			return (-1);
-		h->root[2 * h->offset + 1] = (t_rel_dist *)gc_calloc(dyn, 1,
+		h->root[2 * offset + 1] = (t_rel_dist *)gc_calloc(dyn, 1,
 				sizeof(t_rel_dist));
-		if (h->root[2 * h->offset + 1] == NULL)
+		if (h->root[2 * offset + 1] == NULL)
 			return (-1);
-		*h->root[2 * h->offset + 1] = dist;
-		if (absf_(absol_dist(*h->root[h->offset]))
+		*h->root[2 * offset + 1] = dist;
+		if (absf_(absol_dist(*h->root[offset]))
 			> absf_(absol_dist(dist)))
-			if (!hswap(h, 0, 1))
+			if (!hswap(h, offset, 1 + 2 * offset, offset))
 				return (-1);
-		h->len = 2 * h->offset + 1;
+		h->len = 2 * offset + 1;
 		return ((ssize_t)h->cap);
 	}
-	return (insert2(dyn, h, dist));
+	return (insert2(dyn, h, dist, offset));
 }

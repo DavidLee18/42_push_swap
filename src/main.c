@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 02:04:22 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:28:53 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ _Bool	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 	if (offset != NULL)
 		return (cmd_rotate(v, *offset), 1);
 	analyze_stack(dyn, *v, h);
-	print_heap(*h);
-	while (!hcomplete(*h, v->len))
+	print_heap(*h, 0);
+	while (!hcomplete(*h, v->len, 0))
 	{
 		print_cmds(v, h);
 		if (!clear_heap(dyn, h))
@@ -64,7 +64,7 @@ _Bool	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
 			return (cmd_rotate(v, *offset), 1);
 		analyze_stack(dyn, *v, h);
 		print_vec(*v);
-		print_heap(*h);
+		print_heap(*h, 0);
 	}
 	return (1);
 }

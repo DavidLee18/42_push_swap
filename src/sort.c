@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 07:38:37 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/07 05:12:34 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
 	{
 		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len)])
 		{
-			j = insert(dyn, h, measure_dist(v, i));
+			j = insert(dyn, h, measure_dist(v, i), 0);
 			if (j < 0)
 				return ;
 			h->cap = (size_t)j;
-			print_heap(*h);
+			print_heap(*h, 0);
 		}
 		i = wrapping_sub(i, 1, v.len);
 		not_first = 0;
@@ -42,20 +42,20 @@ void	print_cmds(t_vec *v, t_min_heap *h)
 	t_rel_dist	*j;
 	size_t		i;
 
-	j = extract(h);
+	j = extract(h, 0);
 	while (j != NULL)
 	{
 		cmd_rot_swap(v, j->dist);
 		i = 0;
-		while (i + h->offset < h->cap)
+		while (i < h->cap)
 		{
-			if (h->root[i + h->offset] != NULL)
+			if (h->root[i] != NULL)
 			{
-				h->root[i + h->offset]->dist -= j->dist;
+				h->root[i]->dist -= j->dist;
 			}
 			i++;
 		}
-		j = extract(h);
+		j = extract(h, 0);
 	}
 }
 
