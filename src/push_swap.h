@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/05 05:38:29 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:43:38 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void		print_rel_dist(t_rel_dist dist);
 int			*atoi_(t_list **dyn, char *str);
 _Bool		analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h);
 void		cmd_rotate(t_vec *v, size_t offset);
+void		cmd_rot_swap(t_vec *v, ssize_t offset);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
