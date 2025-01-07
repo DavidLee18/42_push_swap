@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/07 15:06:39 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 08:58:15 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ size_t		abs_isize(ssize_t i);
 // double		absf_(double d);
 size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
 size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
+ssize_t		up_dist(size_t from, size_t to, ssize_t acc, size_t vlen);
+ssize_t		down_dist(size_t from, size_t to, ssize_t acc, size_t vlen);
 void		gc_free_all(t_list *head);
 _Bool		gc_add_to_list(t_list **head, void *new);
 void		*gc_calloc(t_list **head, size_t count, size_t size);
