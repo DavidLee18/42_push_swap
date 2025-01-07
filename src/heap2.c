@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 03:44:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 14:22:54 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:34:42 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,13 @@ _Bool	hswap(t_min_heap *h, size_t a, size_t b, size_t offset)
 
 	if (h == NULL)
 		return (0);
-	if (hpat(*h, offset) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
+	if (hpat(*h, offset) <= 1 || a == b || a >= h->cap || b >= h->cap)
 		return (0);
 	temp = h->root[a];
 	h->root[a] = h->root[b];
 	h->root[b] = temp;
 	return (1);
 }
-
-// size_t	bubble_down(t_min_heap *h, size_t a, size_t b)
-// {
-// 	t_min_heap	next;
-
-// 	if (h == NULL)
-// 		return (0);
-// 	if (hpat(*h) <= 1 || a == b || a > 2 || b > 2 || (a != 0 && b != 0))
-// 		return (h->cap);
-// 	hswap(h, a, b);
-// 	if (a == 1 || a == 2)
-// 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = a + 2
-// 			* h->offset};
-// 	else
-// 		next = (t_min_heap){.root = h->root, .cap = h->cap, .offset = b + 2
-// 			* h->offset};
-// 	return (balance(&next));
-// }
 
 size_t	hpat(t_min_heap h, size_t offset)
 {
@@ -72,7 +54,7 @@ ssize_t	insert3(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 		if (h->root[2 * offset + 1] == NULL)
 			return (-1);
 		*h->root[2 * offset + 1] = dist;
-		if (absf_(absol_dist(*h->root[offset])) > absf_(absol_dist(dist)))
+		if (h->root[offset]->value > dist.value)
 		{
 			swapped = hswap(h, offset, 1 + 2 * offset, offset);
 			if (!swapped)

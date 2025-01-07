@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 14:16:35 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 02:57:06 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ ssize_t	insert(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 ssize_t	insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 {
 	_Bool	alloced;
-	_Bool	swapped;
 
 	if (hpat(*h, offset) == 2)
 	{
+		alloced = 1;
 		while (h->cap <= 2 * offset + 2)
 			alloced = halloc(dyn, h);
 		if (!alloced)
@@ -52,13 +52,9 @@ ssize_t	insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 		if (h->root[2 * offset + 2] == NULL)
 			return (-1);
 		*h->root[2 * offset + 2] = dist;
-		if (absf_(absol_dist(*h->root[offset]))
-			> absf_(absol_dist(dist)))
-		{
-			swapped = hswap(h, 0, 2, offset);
-			if (!swapped)
+		if (h->root[offset]->value > dist.value)
+			if (!hswap(h, 0, 2, offset))
 				return (-1);
-		}
 		h->len = 2 * offset + 2;
 		return ((ssize_t)h->cap);
 	}

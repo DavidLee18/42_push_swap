@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 08:03:45 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/05 05:39:06 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:07:00 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ size_t	abs_isize(ssize_t i)
 	return ((size_t)i);
 }
 
-double	absf_(double d)
-{
-	if (d < 0)
-		return (-d);
-	return (d);
-}
+// double	absf_(double d)
+// {
+// 	if (d < 0)
+// 		return (-d);
+// 	return (d);
+// }
 
 size_t	min_usize(size_t a, size_t b)
 {

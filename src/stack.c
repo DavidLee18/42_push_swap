@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2024/12/30 07:52:10 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 05:36:51 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ void	push(t_list **dyn, t_vec *vec, int value)
 {
 	if (vec->len == vec->cap)
 		vecalloc(dyn, vec);
-	vec->ptr[vec->top] = value;
+	vec->ptr[vec->top++] = value;
 	vec->len++;
-	vec->top++;
 }
 
 int	*pop(t_list **dyn, t_vec *vec)
@@ -30,9 +29,8 @@ int	*pop(t_list **dyn, t_vec *vec)
 	res = (int *)gc_calloc(dyn, 1, sizeof(int));
 	if (!res)
 		return (NULL);
+	vec->top = wrapping_sub(vec->top, 1, --vec->len);
 	*res = vec->ptr[vec->top];
-	vec->top = wrapping_sub(vec->top, 1, vec->len);
-	vec->len--;
 	return (res);
 }
 

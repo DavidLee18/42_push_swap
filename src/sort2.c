@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:28:25 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/05 18:47:14 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:02:27 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,18 @@ void	cmd_rot_swap(t_vec *v, ssize_t offset)
 	}
 	swap(v);
 	ft_printf("sa\n");
+}
+
+void	cmd_pa_all(t_list **dyn, t_stack_pair *ss)
+{
+	int	*val;
+
+	while (ss->a.len > 0)
+	{
+		val = pop(dyn, &ss->b);
+		if (val == NULL)
+			return ;
+		push(dyn, &ss->a, *val);
+		ft_printf("pa\n");
+	}
 }

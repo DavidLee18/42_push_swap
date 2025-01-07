@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 08:58:20 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 14:28:04 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:10:35 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ ssize_t	insert4(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 {
 	ssize_t		succeeded;
 
-	if (absf_(absol_dist(dist)) < absf_(absol_dist(*h->root[offset]))
+	if (dist.value < h->root[offset]->value
 		&& max_balanced_depth(*h, 1 + 2 * offset)
 		<= max_balanced_depth(*h, 2 + 2 * offset))
 	{
@@ -35,7 +35,7 @@ ssize_t	insert5(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 {
 	ssize_t		succeeded;
 
-	if (absf_(absol_dist(dist)) < absf_(absol_dist(*h->root[offset])))
+	if (dist.value < h->root[offset]->value)
 	{
 		succeeded = insert(dyn, h, *h->root[offset], 2 + 2 * offset);
 		if (succeeded < 0)
@@ -51,7 +51,7 @@ ssize_t	insert6(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 {
 	ssize_t		new_cap;
 
-	if (absf_(absol_dist(dist)) >= absf_(absol_dist(*h->root[offset]))
+	if (dist.value >= h->root[offset]->value
 		&& max_balanced_depth(*h, 1 + 2 * offset)
 		<= max_balanced_depth(*h, 2 + 2 * offset))
 	{
@@ -60,7 +60,7 @@ ssize_t	insert6(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 			return (-1);
 		h->cap = new_cap;
 	}
-	else if (absf_(absol_dist(dist)) >= absf_(absol_dist(*h->root[offset])))
+	else if (dist.value >= h->root[offset]->value)
 	{
 		new_cap = insert(dyn, h, dist, 2 + 2 * offset);
 		if (new_cap < 0)
@@ -82,6 +82,5 @@ _Bool	clear_heap(t_list **dyn, t_min_heap *h)
 
 void	print_rel_dist(t_rel_dist dist)
 {
-	ft_printf("t_rel_dist { dist: %d, weight: %u }", *((int *)&dist.dist),
-		*((unsigned int *)&dist.weight));
+	ft_printf("t_rel_dist { dist: %d, value: %u }", dist.dist, dist.value);
 }

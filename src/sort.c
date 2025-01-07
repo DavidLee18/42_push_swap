@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/07 05:12:34 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 06:19:16 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
+void	insert_all(t_list **dyn, t_vec v, t_min_heap *h)
 {
 	size_t	i;
 	ssize_t	j;
@@ -24,37 +24,40 @@ void	analyze_stack(t_list **dyn, t_vec v, t_min_heap *h)
 	not_first = 1;
 	while (i != wrapping_sub(v.top, 1, v.len) || not_first)
 	{
-		if (v.ptr[i] > v.ptr[wrapping_sub(i, 1, v.len)])
-		{
-			j = insert(dyn, h, measure_dist(v, i), 0);
-			if (j < 0)
-				return ;
-			h->cap = (size_t)j;
-			print_heap(*h, 0);
-		}
+		j = insert(dyn, h, measure_dist(v, i), 0);
+		if (j < 0)
+			return ;
+		h->cap = (size_t)j;
 		i = wrapping_sub(i, 1, v.len);
 		not_first = 0;
 	}
 }
 
-void	print_cmds(t_vec *v, t_min_heap *h)
+void	cmd_rot_pb(t_list **dyn, t_stack_pair *ss, t_min_heap *h)
 {
 	t_rel_dist	*j;
-	size_t		i;
+	int			i;
+	int			*v;
 
 	j = extract(h, 0);
+	v = NULL;
 	while (j != NULL)
 	{
-		cmd_rot_swap(v, j->dist);
-		i = 0;
-		while (i < h->cap)
+		print_rel_dist(*j);
+		cmd_rotate(&ss->a, j->dist);
+		v = pop(dyn, &ss->a);
+		if (v == NULL || *v != j->value)
 		{
-			if (h->root[i] != NULL)
-			{
-				h->root[i]->dist -= j->dist;
-			}
-			i++;
+			ft_printf("%p %d\n", v, *v);
+			return ;
 		}
+		push(dyn, &ss->b, j->value);
+		ft_printf("pb\n");
+		i = -1;
+		print_heap(*h, 0);
+		while ((size_t)++i < h->cap)
+			if (h->root[i] != NULL)
+				h->root[i]->dist -= j->dist + (j->dist < 0) - (j->dist > 0);
 		j = extract(h, 0);
 	}
 }
@@ -64,7 +67,6 @@ t_rel_dist	measure_dist(t_vec v, size_t i)
 	ssize_t	res1;
 	ssize_t	res2;
 	size_t	j;
-	size_t	weight;
 
 	j = i;
 	res1 = 0;
@@ -80,16 +82,15 @@ t_rel_dist	measure_dist(t_vec v, size_t i)
 		j = wrapping_sub(j, 1, v.len);
 		res2--;
 	}
-	weight = abs_isize(v.ptr[i] - v.ptr[wrapping_sub(i, 1, v.len)]);
 	if (abs_isize(res1) <= abs_isize(res2))
-		return ((t_rel_dist){res1, weight});
-	return ((t_rel_dist){res2, weight});
+		return ((t_rel_dist){.dist = res1, .value = v.ptr[i]});
+	return ((t_rel_dist){.dist = res2, .value = v.ptr[i]});
 }
 
-double	absol_dist(t_rel_dist dist)
-{
-	return ((double)dist.dist / (double)dist.weight);
-}
+// double	absol_dist(t_rel_dist dist)
+// {
+// 	return (1.0 / (double)dist.value);
+// }
 
 void	cmd_rotate(t_vec *v, size_t offset)
 {

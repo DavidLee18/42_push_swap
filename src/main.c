@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/06 14:28:53 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 05:38:03 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	main(int argc, char **argv)
 {
-	t_vec		*v;
-	t_min_heap	*h;
-	int			*i;
-	t_list		*dyn_mem;
+	t_stack_pair	*ss;
+	t_min_heap		*h;
+	int				*i;
+	t_list			*dyn_mem;
 
 	if (argc == 1)
 		return (0);
 	dyn_mem = NULL;
-	v = (t_vec *)gc_calloc(&dyn_mem, 1, sizeof(t_vec));
-	if (v == NULL)
+	ss = (t_stack_pair *)gc_calloc(&dyn_mem, 1, sizeof(t_stack_pair));
+	if (ss == NULL)
 		return (write(STDERR_FILENO, "Error\n", 6), 0);
 	h = (t_min_heap *)gc_calloc(&dyn_mem, 1, sizeof(t_min_heap));
 	if (h == NULL)
@@ -34,37 +34,27 @@ int	main(int argc, char **argv)
 		if (i == NULL)
 			return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
 				0);
-		push(&dyn_mem, v, *i);
+		push(&dyn_mem, &ss->a, *i);
 	}
-	print_vec(*v);
-	analyze_sort(&dyn_mem, v, h);
+	analyze_sort(&dyn_mem, ss, h);
 	return (gc_free_all(dyn_mem), 0);
 }
 
-_Bool	analyze_sort(t_list **dyn, t_vec *v, t_min_heap *h)
+_Bool	analyze_sort(t_list **dyn, t_stack_pair *ss, t_min_heap *h)
 {
 	size_t	*offset;
 
-	if (has_dup(*v))
+	if (has_dup(ss->a))
 		return (write(STDERR_FILENO, "Error\n", 6), 0);
-	else if (v->len == 1)
+	else if (ss->a.len == 1)
 		return (1);
-	offset = twisted_sorted(dyn, *v);
+	offset = twisted_sorted(dyn, ss->a);
 	if (offset != NULL)
-		return (cmd_rotate(v, *offset), 1);
-	analyze_stack(dyn, *v, h);
-	print_heap(*h, 0);
-	while (!hcomplete(*h, v->len, 0))
-	{
-		print_cmds(v, h);
-		if (!clear_heap(dyn, h))
-			return (0);
-		offset = twisted_sorted(dyn, *v);
-		if (offset != NULL)
-			return (cmd_rotate(v, *offset), 1);
-		analyze_stack(dyn, *v, h);
-		print_vec(*v);
-		print_heap(*h, 0);
-	}
+		return (cmd_rotate(&ss->a, *offset), 1);
+	insert_all(dyn, ss->a, h);
+	cmd_rot_pb(dyn, ss, h);
+	print_vec(ss->a);
+	print_vec(ss->b);
+	cmd_pa_all(dyn, ss);
 	return (1);
 }
