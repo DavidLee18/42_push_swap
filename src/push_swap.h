@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 08:58:15 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:50:47 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ t_rel_dist	measure_dist(t_vec v, size_t i);
 void		print_rel_dist(t_rel_dist dist);
 int			*atoi_(t_list **dyn, char *str);
 _Bool		analyze_sort(t_list **dyn, t_stack_pair *ss, t_min_heap *h);
-void		cmd_rotate(t_vec *v, size_t offset);
+void		cmd_rotate(t_vec *v, ssize_t offset);
+void		cmd_rotate_until(t_vec *v, _Bool up, int val);
 void		cmd_rot_swap(t_vec *v, ssize_t offset);
-void		cmd_pa_all(t_list **dyn, t_stack_pair *ss);
+void		cmd_pa_all(t_list **dyn, t_stack_pair *ss, size_t vlen);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);

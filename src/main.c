@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 05:38:03 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:18:00 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 _Bool	analyze_sort(t_list **dyn, t_stack_pair *ss, t_min_heap *h)
 {
 	size_t	*offset;
+	size_t	alen;
 
 	if (has_dup(ss->a))
 		return (write(STDERR_FILENO, "Error\n", 6), 0);
@@ -51,10 +52,12 @@ _Bool	analyze_sort(t_list **dyn, t_stack_pair *ss, t_min_heap *h)
 	offset = twisted_sorted(dyn, ss->a);
 	if (offset != NULL)
 		return (cmd_rotate(&ss->a, *offset), 1);
+	alen = ss->a.len;
 	insert_all(dyn, ss->a, h);
+	print_heap(*h, 0);
 	cmd_rot_pb(dyn, ss, h);
+	vec_init(&ss->a);
+	cmd_pa_all(dyn, ss, alen);
 	print_vec(ss->a);
-	print_vec(ss->b);
-	cmd_pa_all(dyn, ss);
 	return (1);
 }

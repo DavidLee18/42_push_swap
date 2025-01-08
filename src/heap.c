@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:24:14 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 02:57:06 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:23:18 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ ssize_t	insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset)
 			return (-1);
 		*h->root[2 * offset + 2] = dist;
 		if (h->root[offset]->value > dist.value)
-			if (!hswap(h, 0, 2, offset))
+			if (!hswap(h, offset, 2 * offset + 2, offset))
 				return (-1);
 		h->len = 2 * offset + 2;
 		return ((ssize_t)h->cap);

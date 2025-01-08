@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 06:19:16 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:47:48 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,13 @@ void	cmd_rot_pb(t_list **dyn, t_stack_pair *ss, t_min_heap *h)
 	v = NULL;
 	while (j != NULL)
 	{
-		print_rel_dist(*j);
-		cmd_rotate(&ss->a, j->dist);
+		cmd_rotate_until(&ss->a, j->dist > 0, j->value);
 		v = pop(dyn, &ss->a);
-		if (v == NULL || *v != j->value)
-		{
-			ft_printf("%p %d\n", v, *v);
+		if (v == NULL)
 			return ;
-		}
-		push(dyn, &ss->b, j->value);
+		push(dyn, &ss->b, *v);
 		ft_printf("pb\n");
 		i = -1;
-		print_heap(*h, 0);
 		while ((size_t)++i < h->cap)
 			if (h->root[i] != NULL)
 				h->root[i]->dist -= j->dist + (j->dist < 0) - (j->dist > 0);
@@ -92,16 +87,18 @@ t_rel_dist	measure_dist(t_vec v, size_t i)
 // 	return (1.0 / (double)dist.value);
 // }
 
-void	cmd_rotate(t_vec *v, size_t offset)
+void	cmd_rotate(t_vec *v, ssize_t offset)
 {
 	ssize_t	min_offset;
 
-	if (offset >= v->len)
+	if (offset >= (ssize_t)v->len || offset <= (-(ssize_t)v->len))
 		min_offset = (ssize_t)offset % (ssize_t)v->len;
 	else
 		min_offset = (ssize_t)offset;
 	if (min_offset > (ssize_t)v->len / 2)
 		min_offset -= (ssize_t)v->len;
+	else if (min_offset < -((ssize_t)v->len / 2))
+		min_offset += (ssize_t)v->len;
 	while (min_offset != 0)
 	{
 		rotate(v, (min_offset > 0) * 2 - 1);
