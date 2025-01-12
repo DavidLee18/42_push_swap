@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 11:50:47 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:32:19 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,6 @@ typedef struct s_stack_pair
 	t_vec	b;
 }	t_stack_pair;
 
-typedef struct s_rel_dist
-{
-	ssize_t	dist;
-	int		value;
-}	t_rel_dist;
-
-typedef struct s_min_heap
-{
-	t_rel_dist	**root;
-	size_t		len;
-	size_t		cap;
-}	t_min_heap;
-
 void		push(t_list **dyn, t_vec *vec, int value);
 int			*pop(t_list **dyn, t_vec *vec);
 void		rotate(t_vec *vec, int n);
@@ -55,49 +42,19 @@ void		vec_init(t_vec *vec);
 void		vecalloc(t_list **dyn, t_vec *vec);
 _Bool		has_dup(t_vec v);
 void		print_vec(t_vec v);
-size_t		*twisted_sorted(t_list **dyn, t_vec v);
-_Bool		alt_sorted(t_vec v, size_t offset);
 
-ssize_t		insert(t_list **dyn, t_min_heap *h, t_rel_dist dist, size_t offset);
-ssize_t		insert1(t_list **dyn, t_min_heap *h, t_rel_dist dist,
-				size_t offset);
-ssize_t		insert2(t_list **dyn, t_min_heap *h, t_rel_dist dist,
-				size_t offset);
-ssize_t		insert3(t_list **dyn, t_min_heap *h, t_rel_dist dist,
-				size_t offset);
-ssize_t		insert4(t_list **dyn, t_min_heap *h, t_rel_dist dist,
-				size_t offset);
-ssize_t		insert5(t_list **dyn, t_min_heap *h, t_rel_dist dist,
-				size_t offset);
-ssize_t		insert6(t_list **dyn, t_min_heap *h, t_rel_dist dist,
-				size_t offset);
-t_rel_dist	*extract(t_min_heap *h, size_t offset);
-void		extract2(t_min_heap *h, size_t offset);
-_Bool		halloc(t_list **dyn, t_min_heap *h);
-size_t		max_balanced_depth(t_min_heap h, size_t offset);
-size_t		hpat(t_min_heap h, size_t offset);
-size_t		hpat2(t_min_heap h, size_t offset);
-_Bool		hswap(t_min_heap *h, size_t a, size_t b, size_t offset);
-size_t		hlen(t_min_heap h, size_t offset);
-_Bool		hcomplete(t_min_heap h, size_t vlen, size_t offset);
-void		print_heap(t_min_heap h, size_t offset);
-_Bool		clear_heap(t_list **dyn, t_min_heap *h);
-
-void		insert_all(t_list **dyn, t_vec v, t_min_heap *h);
-void		cmd_rot_pb(t_list **dyn, t_stack_pair *ss, t_min_heap *h);
-t_rel_dist	measure_dist(t_vec v, size_t i);
-// double		absol_dist(t_rel_dist dist);
-void		print_rel_dist(t_rel_dist dist);
 int			*atoi_(t_list **dyn, char *str);
-_Bool		analyze_sort(t_list **dyn, t_stack_pair *ss, t_min_heap *h);
 void		cmd_rotate(t_vec *v, ssize_t offset);
-void		cmd_rotate_until(t_vec *v, _Bool up, int val);
-void		cmd_rot_swap(t_vec *v, ssize_t offset);
-void		cmd_pa_all(t_list **dyn, t_stack_pair *ss, size_t vlen);
+_Bool		cmd_pa(t_list **dyn, t_stack_pair *ss);
+_Bool		cmd_pb(t_list **dyn, t_stack_pair *ss);
+void		cmd_ra(t_stack_pair *ss);
+void		cmd_rb(t_stack_pair *ss);
+t_vec		*msort(t_list **dyn, t_vec v);
+t_vec		*msplit(t_list **dyn, t_vec v);
+t_vec		*merge(t_list **dyn, t_vec a, t_vec b);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
-// double		absf_(double d);
 size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
 size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
 ssize_t		up_dist(size_t from, size_t to, ssize_t acc, size_t vlen);
