@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/14 03:50:14 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:10:16 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_vec		*merge(t_list **dyn, t_vec a, t_vec b);
 t_vec		*pure(t_vec *v, t_vec val);
 
 _Bool		radix(t_list **dyn, t_vec *v);
-t_vec		*map_idx(t_list **dyn, t_vec *idxs);
+t_vec		*map_idx(t_list **dyn, t_vec before, t_vec after);
+t_vec		*remap_idx(t_list **dyn, t_vec v);
 void		cmd_radix(t_list **dyn, t_stack_pair *ss);
 
 size_t		min_usize(size_t a, size_t b);
