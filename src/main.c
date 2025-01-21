@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/21 17:13:29 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:31:21 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	sort(t_list **dyn, t_stack_pair *ss)
 {
 	t_vec	*idxs;
 	t_vec	*pre_cooked;
+	t_vec	*sorted_idxs;
 
 	pre_cooked = msort(dyn, ss->a);
 	if (pre_cooked == NULL)
@@ -48,8 +49,12 @@ void	sort(t_list **dyn, t_stack_pair *ss)
 	idxs = map_idx(dyn, ss->a, *pre_cooked);
 	if (idxs == NULL)
 		return ;
-	radix(dyn, idxs);
-	idxs = remap_idx(dyn, *idxs);
+	sorted_idxs = veccpy(dyn, *idxs);
+	if (sorted_idxs == NULL || !radix(dyn, sorted_idxs))
+		return ;
+	idxs = remap_idx(dyn, *idxs, *sorted_idxs);
+	if (idxs == NULL)
+		return ;
 	ss->a = *idxs;
 	cmd_radix(dyn, ss);
 }

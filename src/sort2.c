@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:28:25 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/21 15:43:44 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/21 23:43:49 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,24 +90,23 @@ t_vec	*pure(t_vec *v, t_vec val)
 
 _Bool	radix(t_list **dyn, t_vec *v)
 {
-	t_vec	*b;
-	size_t	i;
-	size_t	j;
-	size_t	vlen;
+	t_stack_pair	*tmps;
+	size_t			n;
+	int				*max;
 
-	b = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
-	if (b == NULL)
+	if (v == NULL)
 		return (0);
-	j = 1;
-	vlen = v->len;
-	while (j <= vlen)
+	tmps = (t_stack_pair *)gc_calloc(dyn, 1, sizeof(t_stack_pair));
+	if (tmps == NULL)
+		return (0);
+	tmps->a = *v;
+	max = vecmax(dyn, *v);
+	if (max == NULL)
+		return (0);
+	n = 0;
+	while (n <= (size_t)ft_ulog(4, *max))
 	{
-		i = 0;
-		while (i < vlen)
-		{
-			i++;
-		}
-		j *= 4;
+		n++;
 	}
 	return (1);
 }
