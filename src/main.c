@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/12 11:54:38 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/14 03:43:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,35 @@ int	main(int argc, char **argv)
 				0);
 		push(&dyn_mem, &ss->a, *i);
 	}
+	sort(&dyn_mem, ss);
+	print_vec(ss->a);
 	return (gc_free_all(dyn_mem), 0);
+}
+
+void	sort(t_list **dyn, t_stack_pair *ss)
+{
+	t_vec	*idxs;
+
+	idxs = iota(dyn, ss->a.len);
+	if (idxs == NULL)
+		return ;
+	radix(dyn, idxs);
+	idxs = map_idx(dyn, idxs);
+	ss->a = *idxs;
+	cmd_radix(dyn, ss);
+}
+
+t_vec	*map_idx(t_list **dyn, t_vec *idxs)
+{
+	t_vec	*res;
+	size_t	i;
+
+	res = iota(dyn, idxs->len);
+	i = 0;
+	while (i < idxs->len)
+	{
+		res->ptr[idxs->ptr[i]] = i;
+		i++;
+	}
+	return (res);
 }

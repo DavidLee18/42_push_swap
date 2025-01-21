@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/12 17:32:19 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/14 03:50:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void		vec_init(t_vec *vec);
 void		vecalloc(t_list **dyn, t_vec *vec);
 _Bool		has_dup(t_vec v);
 void		print_vec(t_vec v);
+t_vec		*iota(t_list **dyn, size_t i);
 
 int			*atoi_(t_list **dyn, char *str);
 void		cmd_rotate(t_vec *v, ssize_t offset);
@@ -49,9 +50,16 @@ _Bool		cmd_pa(t_list **dyn, t_stack_pair *ss);
 _Bool		cmd_pb(t_list **dyn, t_stack_pair *ss);
 void		cmd_ra(t_stack_pair *ss);
 void		cmd_rb(t_stack_pair *ss);
+void		sort(t_list **dyn, t_stack_pair *ss);
+
 t_vec		*msort(t_list **dyn, t_vec v);
 t_vec		*msplit(t_list **dyn, t_vec v);
 t_vec		*merge(t_list **dyn, t_vec a, t_vec b);
+t_vec		*pure(t_vec *v, t_vec val);
+
+_Bool		radix(t_list **dyn, t_vec *v);
+t_vec		*map_idx(t_list **dyn, t_vec *idxs);
+void		cmd_radix(t_list **dyn, t_stack_pair *ss);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
