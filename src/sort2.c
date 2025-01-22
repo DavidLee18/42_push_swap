@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:28:25 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/21 23:43:49 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:22:44 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ _Bool	radix(t_list **dyn, t_vec *v)
 	n = 0;
 	while (n <= (size_t)ft_ulog(4, *max))
 	{
+		if (!radix_nth(dyn, tmps, n) || !radix_nth_23(dyn, tmps, n))
+			return (0);
 		n++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/21 23:49:02 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:17:50 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ t_vec		*map_idx(t_list **dyn, t_vec before, t_vec after);
 t_vec		*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs);
 void		cmd_radix(t_list **dyn, t_stack_pair *ss);
 _Bool		radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
+_Bool		radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		radix_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
