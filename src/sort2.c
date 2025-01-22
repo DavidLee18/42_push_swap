@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:28:25 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/22 12:22:44 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:37:28 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ _Bool	radix(t_list **dyn, t_vec *v)
 			return (0);
 		n++;
 	}
+	*v = tmps->a;
 	return (1);
 }

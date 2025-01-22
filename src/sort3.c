@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:42:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/22 12:17:37 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:22 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,30 @@ _Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n)
 	return (1);
 }
 
-t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs);
+t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
+{
+	t_vec	*res;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	res = veccpy(dyn, idxs);
+	if (res == NULL)
+		return (NULL);
+	i = wrapping_sub(sorted_idxs.top, 1, sorted_idxs.len);
+	k = 0;
+	while (i != sorted_idxs.bottom && ++k <= res->len)
+	{
+		j = wrapping_sub(idxs.top, 1, idxs.len);
+		while (j != idxs.bottom)
+		{
+			if (sorted_idxs.ptr[i] == idxs.ptr[j])
+				res->ptr[j] = k;
+			j = wrapping_sub(j, 1, idxs.len);
+		}
+		i = wrapping_sub(i, 1, sorted_idxs.len);
+	}
+	return (res);
+}
 
 void	cmd_radix(t_list **dyn, t_stack_pair *ss);
