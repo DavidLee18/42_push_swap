@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 02:55:50 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:16:30 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 typedef struct s_vec
 {
 	int		*ptr;
-	size_t	top;
-	size_t	bottom;
 	size_t	len;
 	size_t	cap;
 }	t_vec;
@@ -34,11 +32,9 @@ typedef struct s_stack_pair
 	t_vec	b;
 }	t_stack_pair;
 
-void		push(t_list **dyn, t_vec *vec, int value);
-int			*pop(t_list **dyn, t_vec *vec);
-void		rotate(t_vec *vec, int n);
-void		swap(t_vec *vec);
-void		vec_init(t_vec *vec);
+void		push_back(t_list **dyn, t_vec *vec, int value);
+void		push_front(t_list **dyn, t_vec *vec, int value);
+int			*pop_back(t_list **dyn, t_vec *vec);
 void		vecalloc(t_list **dyn, t_vec *vec);
 _Bool		has_dup(t_vec v);
 void		print_vec(t_vec v);
@@ -49,11 +45,6 @@ int			*vecmax(t_list **dyn, t_vec v);
 int			veccmp(t_vec v1, t_vec v2);
 
 int			*atoi_(t_list **dyn, char *str);
-void		cmd_rotate(t_vec *v, ssize_t offset);
-_Bool		cmd_pa(t_list **dyn, t_stack_pair *ss);
-_Bool		cmd_pb(t_list **dyn, t_stack_pair *ss);
-void		cmd_ra(t_stack_pair *ss);
-void		cmd_rb(t_stack_pair *ss);
 void		sort(t_list **dyn, t_stack_pair *ss);
 
 t_vec		*msort(t_list **dyn, t_vec v);
@@ -68,15 +59,10 @@ t_vec		*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs);
 _Bool		radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n);
 void		radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
 _Bool		radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n);
-void		radix_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
 void		pa_all(t_list **dyn, t_stack_pair *ss);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
-size_t		wrapping_add(size_t lhs, size_t rhs, size_t max);
-size_t		wrapping_sub(size_t lhs, size_t rhs, size_t max);
-ssize_t		up_dist(size_t from, size_t to, ssize_t acc, size_t vlen);
-ssize_t		down_dist(size_t from, size_t to, ssize_t acc, size_t vlen);
 void		gc_free_all(t_list *head);
 _Bool		gc_add_to_list(t_list **head, void *new);
 void		*gc_calloc(t_list **head, size_t count, size_t size);

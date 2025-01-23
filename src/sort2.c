@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:28:25 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 11:40:36 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:43:03 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_vec	*msplit(t_list **dyn, t_vec v)
 		return (NULL);
 	i = 0;
 	while (i < v.len / 2)
-		push(dyn, xs, v.ptr[i++]);
+		push_back(dyn, xs, v.ptr[i++]);
 	while (i < v.len)
-		push(dyn, xs + 1, v.ptr[i++]);
+		push_back(dyn, xs + 1, v.ptr[i++]);
 	return (xs);
 }
 
@@ -65,18 +65,18 @@ t_vec	*merge(t_list **dyn, t_vec a, t_vec b)
 		return (pure(res, b));
 	else if (b.len == 0)
 		return (pure(res, a));
-	ha = pop(dyn, &a);
-	hb = pop(dyn, &b);
+	ha = pop_back(dyn, &a);
+	hb = pop_back(dyn, &b);
 	if (*ha <= *hb)
 	{
-		push(dyn, &b, *hb);
+		push_back(dyn, &b, *hb);
 		res = merge(dyn, a, b);
-		push(dyn, res, *ha);
+		push_back(dyn, res, *ha);
 		return (res);
 	}
-	push(dyn, &a, *ha);
+	push_back(dyn, &a, *ha);
 	res = merge(dyn, a, b);
-	push(dyn, res, *hb);
+	push_back(dyn, res, *hb);
 	return (res);
 }
 
@@ -104,10 +104,13 @@ _Bool	radix(t_list **dyn, t_vec *v)
 	if (max == NULL)
 		return (0);
 	n = 0;
-	while (++n <= 1 + (size_t)ft_ulog(4, *max))
+	while (n <= (size_t)ft_ulog(4, *max))
+	{
 		if (!radix_nth(dyn, tmps, n) || !radix_nth_23(dyn, tmps, n))
 			return (0);
-	if (ft_ulog(4, *max) % 2 == 0)
+		n++;
+	}
+	if ((size_t)ft_ulog(4, *max) % 2 == 0)
 		pa_all(dyn, tmps);
 	*v = tmps->a;
 	return (1);

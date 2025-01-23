@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 05:37:03 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:06:41 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		if (i == NULL)
 			return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
 				0);
-		push(&dyn_mem, &ss->a, *i);
+		push_back(&dyn_mem, &ss->a, *i);
 	}
 	print_vec(ss->a);
 	sort(&dyn_mem, ss);

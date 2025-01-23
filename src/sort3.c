@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:42:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/22 22:31:58 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:59:31 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ _Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
 	len = (n % 2 == 0) * idxs->a.len + (n % 2 == 1) * idxs->b.len;
 	while (++i <= len)
 	{
-		temp = pop(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
+		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
 					+ (n % 2 == 1) * (size_t)(&idxs->b)));
 		if (temp == NULL)
 			return (0);
-		rem = (0b11 << n) & *temp;
+		rem = (0b11 << (n * 2)) & *temp;
 		if (rem == 0)
-			push(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
+			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
 					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
 		else
 			radix_nth_123(dyn, idxs, n, *temp);
@@ -41,21 +41,13 @@ void	radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head)
 {
 	int	rem;
 
-	rem = (0b11 << n) & head;
+	rem = (0b11 << (n * 2)) & head;
 	if (rem == 1)
-	{
-		push(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
+		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
 				+ (n % 2 == 1) * (size_t)(&idxs->a)), head);
-		rotate((t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-				+ (n % 2 == 1) * (size_t)(&idxs->a)), 1);
-	}
 	else
-	{
-		push(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
+		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
 				+ (n % 2 == 1) * (size_t)(&idxs->b)), head);
-		rotate((t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-				+ (n % 2 == 1) * (size_t)(&idxs->b)), 1);
-	}
 }
 
 _Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n)
@@ -69,16 +61,17 @@ _Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n)
 	len = (n % 2 == 0) * idxs->a.len + (n % 2 == 1) * idxs->b.len;
 	while (++i <= len)
 	{
-		temp = pop(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
+		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
 					+ (n % 2 == 1) * (size_t)(&idxs->b)));
 		if (temp == NULL)
 			return (0);
-		rem = (0b11 << n) & *temp;
+		rem = (0b11 << (n * 2)) & *temp;
 		if (rem == 2)
-			push(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
+			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
 					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
 		else
-			radix_nth_3(dyn, idxs, n, *temp);
+			push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
+					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
 	}
 	return (1);
 }
@@ -93,18 +86,18 @@ t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
 	res = veccpy(dyn, idxs);
 	if (res == NULL)
 		return (NULL);
-	i = wrapping_sub(sorted_idxs.top, 1, sorted_idxs.len);
+	i = sorted_idxs.len - 1;
 	k = 0;
-	while (i != sorted_idxs.bottom && ++k <= res->len)
+	while (i > 0 && ++k <= res->len)
 	{
-		j = wrapping_sub(idxs.top, 1, idxs.len);
-		while (j != idxs.bottom && j != wrapping_sub(j, 1, idxs.len))
+		j = idxs.len - 1;
+		while (j > 0)
 		{
 			if (sorted_idxs.ptr[i] == idxs.ptr[j])
 				res->ptr[j] = k;
-			j = wrapping_sub(j, 1, idxs.len);
+			j--;
 		}
-		i = wrapping_sub(i, 1, sorted_idxs.len);
+		i--;
 	}
 	return (res);
 }

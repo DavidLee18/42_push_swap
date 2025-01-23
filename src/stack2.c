@@ -6,26 +6,11 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 04:40:10 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 11:26:11 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:10:51 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-size_t	wrapping_add(size_t lhs, size_t rhs, size_t max)
-{
-	return ((lhs + rhs) % max);
-}
-
-size_t	wrapping_sub(size_t n, size_t rhs, size_t max)
-{
-	ssize_t	res;
-
-	res = (ssize_t)n - (ssize_t)rhs;
-	while (res < 0)
-		res += max;
-	return ((size_t)res);
-}
 
 void	vecalloc(t_list **dyn, t_vec *vec)
 {
@@ -69,17 +54,14 @@ void	print_vec(t_vec v)
 	ft_printf("vec[");
 	if (v.len > 0)
 	{
-		i = wrapping_sub(v.top, 1, v.len);
-		ft_printf("%d", v.ptr[i]);
-		if (wrapping_sub(i, 1, v.len) != i)
+		i = v.len;
+		ft_printf("%d", v.ptr[i - 1]);
+		while (i > 0)
 		{
-			i = wrapping_sub(i, 1, v.len);
-			ft_printf(", %d", v.ptr[i]);
-			while (i != v.bottom)
-			{
-				i = wrapping_sub(i, 1, v.len);
-				ft_printf(", %d", v.ptr[i]);
-			}
+			i--;
+			if (i <= 0)
+				break ;
+			ft_printf(", %d", v.ptr[i - 1]);
 		}
 	}
 	ft_printf("]\n");

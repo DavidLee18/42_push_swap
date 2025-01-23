@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:02:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 03:06:56 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:20:51 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vec	*_1ota_rev(t_list **dyn, size_t i)
 	j = i;
 	while (j > 0)
 	{
-		push(dyn, res, j);
+		push_back(dyn, res, j);
 		j--;
 	}
 	return (res);
@@ -36,7 +36,10 @@ t_vec	*veccpy(t_list **dyn, t_vec v)
 	res = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
 	if (res == NULL)
 		return (NULL);
-	*res = v;
+	res->ptr = gc_calloc(dyn, v.cap, sizeof(int));
+	ft_memmove_(res->ptr, v.ptr, v.len);
+	res->cap = v.cap;
+	res->len = v.len;
 	return (res);
 }
 
@@ -44,12 +47,12 @@ _Bool	velem(int i, t_vec v)
 {
 	size_t	j;
 
-	j = wrapping_sub(v.top, 1, v.len);
-	while (j != v.top)
+	j = 0;
+	while (j < v.len)
 	{
 		if (v.ptr[j] == i)
 			return (1);
-		j = wrapping_sub(j, 1, v.len);
+		j++;
 	}
 	return (0);
 }

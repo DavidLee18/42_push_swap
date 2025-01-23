@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 08:03:45 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/12 11:54:25 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:01:54 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,4 @@ int	*atoi_(t_list **dyn, char *str)
 		return (NULL);
 	*res = (int)temp;
 	return (res);
-}
-
-ssize_t	up_dist(size_t from, size_t to, ssize_t acc, size_t vlen)
-{
-	if (from == to)
-		return (acc);
-	return (up_dist(wrapping_add(from, 1, vlen), to, acc + 1, vlen));
-}
-
-ssize_t	down_dist(size_t from, size_t to, ssize_t acc, size_t vlen)
-{
-	if (from == to)
-		return (acc);
-	return (down_dist(wrapping_sub(from, 1, vlen), to, acc - 1, vlen));
 }
