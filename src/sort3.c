@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:42:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/22 18:41:22 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/22 22:31:58 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
 	while (i != sorted_idxs.bottom && ++k <= res->len)
 	{
 		j = wrapping_sub(idxs.top, 1, idxs.len);
-		while (j != idxs.bottom)
+		while (j != idxs.bottom && j != wrapping_sub(j, 1, idxs.len))
 		{
 			if (sorted_idxs.ptr[i] == idxs.ptr[j])
 				res->ptr[j] = k;
@@ -109,4 +109,4 @@ t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
 	return (res);
 }
 
-void	cmd_radix(t_list **dyn, t_stack_pair *ss);
+// void	cmd_radix(t_list **dyn, t_stack_pair *ss);

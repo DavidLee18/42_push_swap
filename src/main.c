@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/21 18:31:21 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 05:37:03 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int argc, char **argv)
 				0);
 		push(&dyn_mem, &ss->a, *i);
 	}
-	sort(&dyn_mem, ss);
 	print_vec(ss->a);
+	sort(&dyn_mem, ss);
 	return (gc_free_all(dyn_mem), 0);
 }
 
@@ -46,17 +46,27 @@ void	sort(t_list **dyn, t_stack_pair *ss)
 	pre_cooked = msort(dyn, ss->a);
 	if (pre_cooked == NULL)
 		return ;
+	ft_printf("pre_cooked: ");
+	print_vec(*pre_cooked);
+	if (veccmp(ss->a, *pre_cooked) == 0)
+		return ;
 	idxs = map_idx(dyn, ss->a, *pre_cooked);
 	if (idxs == NULL)
 		return ;
+	ft_printf("idxs: ");
+	print_vec(*idxs);
 	sorted_idxs = veccpy(dyn, *idxs);
 	if (sorted_idxs == NULL || !radix(dyn, sorted_idxs))
 		return ;
+	ft_printf("sorted_idxs: ");
+	print_vec(*sorted_idxs);
 	idxs = remap_idx(dyn, *idxs, *sorted_idxs);
 	if (idxs == NULL)
 		return ;
+	ft_printf("remapped idxs: ");
+	print_vec(*idxs);
 	ss->a = *idxs;
-	cmd_radix(dyn, ss);
+	// cmd_radix(dyn, ss);
 }
 
 t_vec	*map_idx(t_list **dyn, t_vec before, t_vec after)
@@ -65,20 +75,20 @@ t_vec	*map_idx(t_list **dyn, t_vec before, t_vec after)
 	size_t	i;
 	size_t	j;
 
-	res = iota(dyn, before.len);
+	res = _1ota_rev(dyn, before.len);
 	if (res == NULL || before.len != after.len)
 		return (NULL);
-	i = after.bottom;
-	while (i != after.top)
+	i = 0;
+	while (i < after.len)
 	{
-		j = before.bottom;
-		while (j < before.top)
+		j = 0;
+		while (j < before.len)
 		{
 			if (before.ptr[j] == after.ptr[i])
-				res->ptr[j] = i;
-			j = wrapping_add(j, 1, before.len);
+				res->ptr[j] = res->len - i;
+			j++;
 		}
-		i = wrapping_add(i, 1, after.len);
+		i++;
 	}
 	return (res);
 }

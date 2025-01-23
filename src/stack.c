@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/08 11:34:21 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:41:43 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	*pop(t_list **dyn, t_vec *vec)
 	vec->top = wrapping_sub(vec->top, 1, vec->len);
 	*res = vec->ptr[vec->top];
 	vec->ptr[vec->top] = 0;
+	vec->len--;
 	return (res);
 }
 

@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:02:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/21 21:24:34 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 03:06:56 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_vec	*iota(t_list **dyn, size_t i)
+t_vec	*_1ota_rev(t_list **dyn, size_t i)
 {
 	t_vec	*res;
 	size_t	j;
@@ -20,11 +20,11 @@ t_vec	*iota(t_list **dyn, size_t i)
 	res = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
 	if (res == NULL)
 		return (NULL);
-	j = 0;
-	while (j < i)
+	j = i;
+	while (j > 0)
 	{
 		push(dyn, res, j);
-		j++;
+		j--;
 	}
 	return (res);
 }
@@ -59,16 +59,34 @@ int	*vecmax(t_list **dyn, t_vec v)
 	size_t	j;
 	int		*i;
 
-	j = wrapping_sub(v.top, 1, v.len);
+	j = 0;
 	i = (int *)gc_calloc(dyn, 1, sizeof(int));
-	if (i == NULL)
+	if (i == NULL || v.len == 0)
 		return (NULL);
 	*i = v.ptr[j];
-	while (j != v.top)
+	while (j < v.len && v.len != 1)
 	{
 		if (v.ptr[j] > *i)
 			*i = v.ptr[j];
-		j = wrapping_sub(j, 1, v.len);
+		j++;
 	}
 	return (i);
+}
+
+int	veccmp(t_vec v1, t_vec v2)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < v1.len && i < v2.len)
+	{
+		if (v1.ptr[i] != v2.ptr[i])
+			return (v1.ptr[i] - v2.ptr[i]);
+		i++;
+	}
+	if (v1.len > v2.len)
+		return (1);
+	else if (v2.len > v1.len)
+		return (-1);
+	return (0);
 }
