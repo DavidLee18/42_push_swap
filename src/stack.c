@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 15:15:46 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:34:34 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ int	*pop_back(t_list **dyn, t_vec *vec)
 		return (NULL);
 	*res = vec->ptr[--vec->len];
 	return (res);
+}
+
+_Bool	consec_eq(t_vec v)
+{
+	size_t	i;
+
+	i = 0;
+	while (v.len > 1 && i < v.len - 1)
+	{
+		if (v.ptr[i] == v.ptr[i + 1])
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:02:37 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 14:20:51 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:54:32 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_vec	*veccpy(t_list **dyn, t_vec v)
 	res = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
 	if (res == NULL)
 		return (NULL);
-	res->ptr = gc_calloc(dyn, v.cap, sizeof(int));
-	ft_memmove_(res->ptr, v.ptr, v.len);
+	res->ptr = (int *)gc_calloc(dyn, v.cap, sizeof(int));
+	ft_memmove_(res->ptr, v.ptr, v.len * sizeof(int));
 	res->cap = v.cap;
 	res->len = v.len;
 	return (res);

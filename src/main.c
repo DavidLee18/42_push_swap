@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 14:06:41 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/24 01:03:41 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,41 +32,43 @@ int	main(int argc, char **argv)
 				0);
 		push_back(&dyn_mem, &ss->a, *i);
 	}
-	print_vec(ss->a);
-	sort(&dyn_mem, ss);
+	// print_vec(ss->a);
+	if (!sort(&dyn_mem, ss))
+		write(STDERR_FILENO, "Error\n", 6);
 	return (gc_free_all(dyn_mem), 0);
 }
 
-void	sort(t_list **dyn, t_stack_pair *ss)
+_Bool	sort(t_list **dyn, t_stack_pair *ss)
 {
 	t_vec	*idxs;
 	t_vec	*pre_cooked;
 	t_vec	*sorted_idxs;
 
 	pre_cooked = msort(dyn, ss->a);
-	if (pre_cooked == NULL)
-		return ;
-	ft_printf("pre_cooked: ");
-	print_vec(*pre_cooked);
+	if (pre_cooked == NULL || consec_eq(*pre_cooked))
+		return (0);
+	// ft_printf("pre_cooked: ");
+	// print_vec(*pre_cooked);
 	if (veccmp(ss->a, *pre_cooked) == 0)
-		return ;
+		return (0);
 	idxs = map_idx(dyn, ss->a, *pre_cooked);
 	if (idxs == NULL)
-		return ;
-	ft_printf("idxs: ");
-	print_vec(*idxs);
+		return (0);
+	// ft_printf("idxs: ");
+	// print_vec(*idxs);
 	sorted_idxs = veccpy(dyn, *idxs);
 	if (sorted_idxs == NULL || !radix(dyn, sorted_idxs))
-		return ;
-	ft_printf("sorted_idxs: ");
-	print_vec(*sorted_idxs);
+		return (0);
+	// ft_printf("idxs sorted: ");
+	// print_vec(*sorted_idxs);
 	idxs = remap_idx(dyn, *idxs, *sorted_idxs);
 	if (idxs == NULL)
-		return ;
-	ft_printf("remapped idxs: ");
-	print_vec(*idxs);
+		return (0);
+	// ft_printf("idxs remapped: ");
+	// print_vec(*idxs);
 	ss->a = *idxs;
-	// cmd_radix(dyn, ss);
+	cmd_radix(dyn, ss);
+	return (1);
 }
 
 t_vec	*map_idx(t_list **dyn, t_vec before, t_vec after)
