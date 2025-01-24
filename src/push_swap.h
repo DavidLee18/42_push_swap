@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/23 23:42:36 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/01/24 10:29:44 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			veccmp(t_vec v1, t_vec v2);
 _Bool		consec_eq(t_vec v);
 
 int			*atoi_(t_list **dyn, char *str);
-_Bool		sort(t_list **dyn, t_stack_pair *ss);
+int		sort(t_list **dyn, t_stack_pair *ss);
 
 t_vec		*msort(t_list **dyn, t_vec v);
 t_vec		*msplit(t_list **dyn, t_vec v);
