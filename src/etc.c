@@ -12,21 +12,21 @@
 
 #include "push_swap.h"
 
-size_t	abs_isize(ssize_t i)
+size_t	abs_isize(const ssize_t i)
 {
 	if (i < 0)
 		return ((size_t)(-i));
 	return ((size_t)i);
 }
 
-size_t	min_usize(size_t a, size_t b)
+size_t	min_usize(const size_t a, const size_t b)
 {
 	if (a > b)
 		return (b);
 	return (a);
 }
 
-int	*atoi_(t_list **dyn, char *str)
+int	*atoi_(t_list **dyn, const char *str)
 {
 	int		*res;
 	long	temp;

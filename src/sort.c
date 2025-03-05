@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	cmd_radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
+void	cmd_radix_nth(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -38,7 +38,7 @@ void	cmd_radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
 	}
 }
 
-void	cmd_radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head)
+void	cmd_radix_nth_123(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
 {
 	const char	*pr = "pb\nrb\npa\nra\n";
 	const char	*rarb = "ra\nrb\n";
@@ -57,7 +57,7 @@ void	cmd_radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head)
 	}
 }
 
-void	cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n)
+void	cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -83,7 +83,7 @@ void	cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n)
 	}
 }
 
-void	cmd_radix_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n, int head)
+void	cmd_radix_nth_3(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
 {
 	const char	*pr = "pb\nrb\npa\nra\n";
 

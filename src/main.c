@@ -74,7 +74,7 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 	return (1);
 }
 
-t_vec	*map_idx(t_list **dyn, t_vec before, t_vec after)
+t_vec	*map_idx(t_list **dyn, const t_vec before, const t_vec after)
 {
 	t_vec	*res;
 	size_t	i;

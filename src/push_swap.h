@@ -45,7 +45,7 @@ int			*vecmax(t_list **dyn, t_vec v);
 int			veccmp(t_vec v1, t_vec v2);
 _Bool		consec_eq(t_vec v);
 
-int			*atoi_(t_list **dyn, char *str);
+int			*atoi_(t_list **dyn, const char *str);
 int		sort(t_list **dyn, t_stack_pair *ss);
 
 t_vec		*msort(t_list **dyn, t_vec v);

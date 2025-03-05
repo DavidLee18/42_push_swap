@@ -50,7 +50,7 @@ _Bool	gc_add_to_list(t_list **head, void *new)
 	return (1);
 }
 
-void	*gc_calloc(t_list **head, size_t count, size_t size)
+void	*gc_calloc(t_list **head, const size_t count, const size_t size)
 {
 	void	*new;
 

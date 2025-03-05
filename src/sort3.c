@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-_Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
+_Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -22,31 +22,31 @@ _Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
 	i = 0;
 	while (++i <= len)
 	{
-		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-					+ (n % 2 == 1) * (size_t)(&idxs->b)));
+		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->a
+					+ (n % 2 == 1) * (size_t)&idxs->b));
 		if (temp == NULL)
 			return (0);
-		if (((0b11 << (n * 2)) & *temp) == 0)
-			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
+		if ((0b11 << n * 2 & *temp) == 0)
+			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->b
+					+ (n % 2 == 1) * (size_t)&idxs->a), *temp);
 		else if (!radix_nth_123(dyn, idxs, n, *temp))
 			return (0);
 	}
 	return (1);
 }
 
-_Bool	radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head)
+_Bool	radix_nth_123(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
 {
-	if (((0b11 << (n * 2)) & head) == 1)
-		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-				+ (n % 2 == 1) * (size_t)(&idxs->a)), head);
+	if ((0b11 << n * 2 & head) == 1)
+		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->b
+				+ (n % 2 == 1) * (size_t)&idxs->a), head);
 	else
-		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-				+ (n % 2 == 1) * (size_t)(&idxs->b)), head);
+		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->a
+				+ (n % 2 == 1) * (size_t)&idxs->b), head);
 	return (1);
 }
 
-_Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n)
+_Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -56,21 +56,21 @@ _Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n)
 	i = 0;
 	while (++i <= len)
 	{
-		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-					+ (n % 2 == 1) * (size_t)(&idxs->b)));
+		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->a
+					+ (n % 2 == 1) * (size_t)&idxs->b));
 		if (temp == NULL)
 			return (0);
-		if (((0b11 << (n * 2)) & *temp) == 2)
-			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
+		if ((0b11 << n * 2 & *temp) == 2)
+			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->b
+					+ (n % 2 == 1) * (size_t)&idxs->a), *temp);
 		else
-			push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
+			push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)&idxs->b
+					+ (n % 2 == 1) * (size_t)&idxs->a), *temp);
 	}
 	return (1);
 }
 
-t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
+t_vec	*remap_idx(t_list **dyn, const t_vec idxs, const t_vec sorted_idxs)
 {
 	t_vec	*res;
 	size_t	i;
