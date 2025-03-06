@@ -92,25 +92,24 @@ _Bool	radix(t_list **dyn, t_vec *v)
 {
 	t_stack_pair	*tmps;
 	size_t			n;
-	int				*max;
+	const int		*max = vecmax(dyn, *v);
+	size_t			digits;
 
-	if (v == NULL)
+	if (v == NULL || max == NULL)
 		return (0);
 	tmps = (t_stack_pair *)gc_calloc(dyn, 1, sizeof(t_stack_pair));
 	if (tmps == NULL)
 		return (0);
 	tmps->a = *v;
-	max = vecmax(dyn, *v);
-	if (max == NULL)
-		return (0);
 	n = 0;
-	while (n <= (size_t)ft_ulog(3, *max))
+	digits = ft_ulog(3, *max);
+	while (n <= digits)
 	{
-		if (!radix_nth(dyn, tmps, n) || !radix_nth_23(dyn, tmps, n))
+		if (!radix_nth(dyn, tmps, n) || !radix_nth_2(dyn, tmps, n))
 			return (0);
 		n++;
 	}
-	if ((size_t)ft_ulog(3, *max) % 2 == 0)
+	if (digits % 2 == 0)
 		pa_all(dyn, tmps);
 	*v = tmps->a;
 	return (1);

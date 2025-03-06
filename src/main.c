@@ -41,10 +41,9 @@ int	main(int argc, char **argv)
 int	sort(t_list **dyn, t_stack_pair *ss)
 {
 	t_vec	*idxs;
-	t_vec	*pre_cooked;
+	const t_vec	*pre_cooked = msort(dyn, ss->a);
 	t_vec	*sorted_idxs;
 
-	pre_cooked = msort(dyn, ss->a);
 	if (pre_cooked == NULL || consec_eq(*pre_cooked))
 		return (-1);
 	ft_printf("pre_cooked: ");
@@ -66,11 +65,11 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 		return (-1);
 	ft_printf("idxs remapped: ");
 	print_vec(*idxs);
-	ss->a = *idxs;
+	ss->a = *veccpy(dyn, *idxs);
 	radix(dyn, idxs);
 	ft_printf("idxs sorted: ");
 	print_vec(*idxs);
-	// cmd_radix(dyn, ss);
+	cmd_radix(dyn, ss);
 	return (1);
 }
 
