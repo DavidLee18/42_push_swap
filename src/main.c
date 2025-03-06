@@ -12,27 +12,19 @@
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+int	main(const int argc, char **argv)
 {
 	t_stack_pair	*ss;
-	int				*i;
 	t_list			*dyn_mem;
 
 	if (argc == 1)
 		return (0);
 	dyn_mem = NULL;
-	ss = (t_stack_pair *)gc_calloc(&dyn_mem, 1, sizeof(t_stack_pair));
+	ss = join_atoi_split(&dyn_mem, argv, argc);
 	if (ss == NULL)
-		return (write(STDERR_FILENO, "Error\n", 6), 0);
-	while (--argc >= 1)
-	{
-		i = atoi_(&dyn_mem, argv[argc]);
-		if (i == NULL)
-			return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
-				0);
-		push_back(&dyn_mem, &ss->a, *i);
-	}
-	print_vec(ss->a);
+		return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
+			0);
+	// print_vec(ss->a);
 	if (sort(&dyn_mem, ss) < 0)
 		write(STDERR_FILENO, "Error\n", 6);
 	return (gc_free_all(dyn_mem), 0);
@@ -46,29 +38,31 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 
 	if (pre_cooked == NULL || consec_eq(*pre_cooked))
 		return (-1);
-	ft_printf("pre_cooked: ");
-	print_vec(*pre_cooked);
+	// ft_printf("pre_cooked: ");
+	// print_vec(*pre_cooked);
 	if (veccmp(ss->a, *pre_cooked) == 0)
 		return (0);
 	idxs = map_idx(dyn, ss->a, *pre_cooked);
 	if (idxs == NULL)
 		return (-1);
-	ft_printf("idxs: ");
-	print_vec(*idxs);
+	if (idxs->len <= 5)
+		return (cmd_brute(ss), 1);
+	// ft_printf("idxs: ");
+	// print_vec(*idxs);
 	sorted_idxs = veccpy(dyn, *idxs);
 	if (sorted_idxs == NULL || !radix(dyn, sorted_idxs))
 		return (-1);
-	ft_printf("idxs sorted: ");
-	print_vec(*sorted_idxs);
+	// ft_printf("idxs sorted: ");
+	// print_vec(*sorted_idxs);
 	idxs = remap_idx(dyn, *idxs, *sorted_idxs);
 	if (idxs == NULL)
 		return (-1);
-	ft_printf("idxs remapped: ");
-	print_vec(*idxs);
+	// ft_printf("idxs remapped: ");
+	// print_vec(*idxs);
 	ss->a = *veccpy(dyn, *idxs);
 	radix(dyn, idxs);
-	ft_printf("idxs sorted: ");
-	print_vec(*idxs);
+	// ft_printf("idxs sorted: ");
+	// print_vec(*idxs);
 	cmd_radix(dyn, ss);
 	return (1);
 }

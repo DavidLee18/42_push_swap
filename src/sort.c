@@ -84,3 +84,15 @@ void	cmd_pa_all(t_list **dyn, t_stack_pair *ss)
 		val = pop_back(dyn, &ss->b);
 	}
 }
+
+void	cmd_brute(t_stack_pair *ss)
+{
+	if (ss->a.len == 2)
+		ft_printf("sa\n");
+	else if (ss->a.len == 3)
+		cmd_brute_3(ss);
+	else if (ss->a.len == 4)
+		cmd_brute_4(ss);
+	else if (ss->a.len == 5)
+		cmd_brute_5(ss);
+}

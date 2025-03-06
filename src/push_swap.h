@@ -65,6 +65,10 @@ void		cmd_radix_nth_12(t_list **dyn, t_stack_pair *idxs, size_t n,
 				int head);
 void		cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
 void		cmd_pa_all(t_list **dyn, t_stack_pair *ss);
+void		cmd_brute(t_stack_pair *ss);
+void		cmd_brute_3(const t_stack_pair *ss);
+void		cmd_brute_4(const t_stack_pair *ss);
+void		cmd_brute_5(t_stack_pair *ss);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
@@ -79,5 +83,11 @@ _Bool		gc_realloc(t_list **dyn, void **oldp, const size_t old_size,
 				const size_t new_size);
 _Bool		gc_realloc2(t_list **dyn, void **oldp, void *new);
 _Bool		gc_realloc3(t_list *temp_node, void **oldp, void *new);
+char		*gc_substr(t_list **dyn, char const *s, unsigned int start, size_t len);
+char		**gc_split(t_list **dyn, char const *s, char c);
+char		*gc_strjoin(t_list **dyn, char const *s1, char const *s2);
+
+t_stack_pair	*join_atoi_split(t_list **dyn, char **argv, int argc);
+t_stack_pair	*atoi_push(t_list **dyn, char **nums);
 
 #endif

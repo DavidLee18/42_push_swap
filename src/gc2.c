@@ -32,3 +32,73 @@ _Bool	gc_realloc3(t_list *temp_node, void **oldp, void *new)
 	*oldp = new;
 	return (1);
 }
+
+char
+	*gc_strjoin(t_list **dyn, char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	str = (char *)gc_calloc(dyn,
+			(ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		str[j++] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		str[j++] = s2[i];
+		i++;
+	}
+	str[j] = 0;
+	return (str);
+}
+
+t_stack_pair	*join_atoi_split(t_list **dyn, char **argv, int argc)
+{
+	char			*str;
+	char			**tmp;
+
+	str = argv[--argc];
+	while (--argc > 0)
+	{
+		str = gc_strjoin(dyn, str, " ");
+		if (str == NULL)
+			return (NULL);
+		str = gc_strjoin(dyn, str, argv[argc]);
+		if (str == NULL)
+			return (NULL);
+	}
+	tmp = gc_split(dyn, str, ' ');
+	if (tmp == NULL)
+		return (NULL);
+	return (atoi_push(dyn, tmp));
+}
+
+t_stack_pair	*atoi_push(t_list **dyn, char **nums)
+{
+	t_stack_pair	*ss;
+	size_t			i;
+	int				*j;
+
+	ss = (t_stack_pair *)gc_calloc(dyn, 1, sizeof(t_stack_pair));
+	if (ss == NULL)
+		return (NULL);
+	i = 0;
+	while (nums[i])
+	{
+		j = atoi_(dyn, nums[i]);
+		if (j == NULL)
+			return (NULL);
+		push_front(dyn, &ss->a, *j);
+		i++;
+	}
+	return (ss);
+}

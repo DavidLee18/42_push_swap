@@ -94,3 +94,19 @@ void	cmd_radix(t_list **dyn, t_stack_pair *ss)
 	if (max_digits % 2 == 0)
 		cmd_pa_all(dyn, ss);
 }
+
+void	cmd_brute_3(const t_stack_pair *ss)
+{
+	if (ss->a.len != 3)
+		return ;
+	if (ss->a.ptr[0] == 2 && ss->a.ptr[1] == 3 && ss->a.ptr[2] == 1)
+		ft_printf("sa\nra\n");
+	else if (ss->a.ptr[0] == 3 && ss->a.ptr[1] == 1 && ss->a.ptr[2] == 2)
+		ft_printf("sa\n");
+	else if (ss->a.ptr[0] == 1 && ss->a.ptr[1] == 3 && ss->a.ptr[2] == 2)
+		ft_printf("rra\n");
+	else if (ss->a.ptr[0] == 2 && ss->a.ptr[1] == 1 && ss->a.ptr[2] == 3)
+		ft_printf("ra\n");
+	else if (ss->a.ptr[0] == 1 && ss->a.ptr[1] == 2 && ss->a.ptr[2] == 3)
+		ft_printf("sa\nrra\n");
+}
