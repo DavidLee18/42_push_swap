@@ -46,7 +46,7 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 	if (idxs == NULL)
 		return (-1);
 	if (idxs->len <= 5)
-		return (cmd_brute(ss), 1);
+		return (cmd_brute(&ss->a), 1);
 	// ft_printf("idxs: ");
 	// print_vec(*idxs);
 	sorted_idxs = veccpy(dyn, *idxs);

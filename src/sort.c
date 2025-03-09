@@ -85,14 +85,14 @@ void	cmd_pa_all(t_list **dyn, t_stack_pair *ss)
 	}
 }
 
-void	cmd_brute(t_stack_pair *ss)
+void	cmd_brute(const t_vec *a)
 {
-	if (ss->a.len == 2)
+	if (a->len == 2)
 		ft_printf("sa\n");
-	else if (ss->a.len == 3)
-		cmd_brute_3(ss);
-	else if (ss->a.len == 4)
-		cmd_brute_4(ss);
-	else if (ss->a.len == 5)
-		cmd_brute_5(ss);
+	else if (a->len == 3)
+		cmd_brute_3(a);
+	else if (a->len == 4)
+		cmd_brute_4(a);
+	else if (a->len == 5)
+		cmd_brute_5(a);
 }

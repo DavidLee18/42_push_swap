@@ -65,10 +65,10 @@ void		cmd_radix_nth_12(t_list **dyn, t_stack_pair *idxs, size_t n,
 				int head);
 void		cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
 void		cmd_pa_all(t_list **dyn, t_stack_pair *ss);
-void		cmd_brute(t_stack_pair *ss);
-void		cmd_brute_3(const t_stack_pair *ss);
-void		cmd_brute_4(const t_stack_pair *ss);
-void		cmd_brute_5(t_stack_pair *ss);
+void		cmd_brute(const t_vec *a);
+void		cmd_brute_3(const t_vec *a);
+void		cmd_brute_4(const t_vec *a);
+void		cmd_brute_5(const t_vec *a);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
@@ -79,8 +79,8 @@ size_t		nth3_digit(size_t num, size_t n);
 void		gc_free_all(t_list *head);
 _Bool		gc_add_to_list(t_list **head, void *new);
 void		*gc_calloc(t_list **head, size_t count, size_t size);
-_Bool		gc_realloc(t_list **dyn, void **oldp, const size_t old_size,
-				const size_t new_size);
+_Bool		gc_realloc(t_list **dyn, void **oldp, size_t old_size,
+						size_t new_size);
 _Bool		gc_realloc2(t_list **dyn, void **oldp, void *new);
 _Bool		gc_realloc3(t_list *temp_node, void **oldp, void *new);
 char		*gc_substr(t_list **dyn, char const *s, unsigned int start, size_t len);

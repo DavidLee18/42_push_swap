@@ -95,18 +95,18 @@ void	cmd_radix(t_list **dyn, t_stack_pair *ss)
 		cmd_pa_all(dyn, ss);
 }
 
-void	cmd_brute_3(const t_stack_pair *ss)
+void	cmd_brute_3(const t_vec *a)
 {
-	if (ss->a.len != 3)
+	if (a->len != 3)
 		return ;
-	if (ss->a.ptr[0] == 2 && ss->a.ptr[1] == 3 && ss->a.ptr[2] == 1)
+	if (a->ptr[0] == 2 && a->ptr[1] == 3 && a->ptr[2] == 1)
 		ft_printf("sa\nra\n");
-	else if (ss->a.ptr[0] == 3 && ss->a.ptr[1] == 1 && ss->a.ptr[2] == 2)
+	else if (a->ptr[0] == 3 && a->ptr[1] == 1 && a->ptr[2] == 2)
 		ft_printf("sa\n");
-	else if (ss->a.ptr[0] == 1 && ss->a.ptr[1] == 3 && ss->a.ptr[2] == 2)
+	else if (a->ptr[0] == 1 && a->ptr[1] == 3 && a->ptr[2] == 2)
 		ft_printf("rra\n");
-	else if (ss->a.ptr[0] == 2 && ss->a.ptr[1] == 1 && ss->a.ptr[2] == 3)
+	else if (a->ptr[0] == 2 && a->ptr[1] == 1 && a->ptr[2] == 3)
 		ft_printf("ra\n");
-	else if (ss->a.ptr[0] == 1 && ss->a.ptr[1] == 2 && ss->a.ptr[2] == 3)
+	else if (a->ptr[0] == 1 && a->ptr[1] == 2 && a->ptr[2] == 3)
 		ft_printf("sa\nrra\n");
 }
