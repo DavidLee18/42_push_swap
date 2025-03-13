@@ -23,7 +23,7 @@ t_vec	*_1ota_rev(t_list **dyn, const size_t i)
 	j = i;
 	while (j > 0)
 	{
-		push_back(dyn, res, j);
+		push_back(dyn, res, (int)j);
 		j--;
 	}
 	return (res);

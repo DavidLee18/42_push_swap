@@ -83,7 +83,7 @@ t_vec	*map_idx(t_list **dyn, const t_vec before, const t_vec after)
 		while (j < before.len)
 		{
 			if (before.ptr[j] == after.ptr[i])
-				res->ptr[j] = res->len - i;
+				res->ptr[j] = (int)res->len - (int)i;
 			j++;
 		}
 		i++;

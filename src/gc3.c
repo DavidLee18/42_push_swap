@@ -64,7 +64,7 @@ char
 
 static void
 	*gc_split_range(t_list **dyn, char **split, char const *s,
-		t_split_next *st, t_split_next *lt)
+		const t_split_next *st, t_split_next *lt)
 {
 	split[lt->length] = gc_substr(dyn, s, st->start, st->length);
 	if (!split[lt->length])
