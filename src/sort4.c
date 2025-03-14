@@ -319,3 +319,51 @@ void	cmd_brute_5(const t_vec *a)
 	else if (a->ptr[4] == 1 && a->ptr[3] == 2 && a->ptr[2] == 3 && a->ptr[1] == 4 && a->ptr[0] == 5)
 		ft_printf("sa\nra\nsa\nrra\nsa\nrra\nrra\nsa\n");
 }
+
+_Bool	radix_opt(t_list **dyn, t_stack_pair *idxs, const size_t max)
+{
+	size_t	n;
+	size_t	digits;
+
+	n = 0;
+	digits = ft_ulog(3, max);
+	while (++n < digits)
+	{
+		if (!radix3_nth_01(dyn, idxs, n - 1))
+			return (0);
+	}
+	if (max > upow(3, digits) && max < 4 * upow(3, digits - 1))
+	{
+		if (!radix43_nth_01(dyn, idxs, digits - 1))
+			return (0);
+	}
+	else if (!radix3_nth_01(dyn, idxs, digits - 1) || !radix3_nth_01(dyn, idxs, digits))
+		return (0);
+	if (idxs->b.len != 0)
+		pa_all(dyn, idxs);
+	return (1);
+}
+
+_Bool	radix43_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
+{
+	size_t			i;
+	int				*temp;
+	const size_t	len = (n % 2 == 0) * idxs->a.len + (n % 2 == 1)
+		* idxs->b.len;
+
+	i = 0;
+	while (++i <= len)
+	{
+		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
+		if (temp == NULL)
+			return (0);
+		if (nth43_digit(*temp, n) == 0)
+			push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a),
+				*temp);
+		else if (nth43_digit(*temp, n) == 1)
+			push_front(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a), *temp);
+		else
+			push_front(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b), *temp);
+	}
+	return (radix43_nth_23(dyn, idxs, n));
+}

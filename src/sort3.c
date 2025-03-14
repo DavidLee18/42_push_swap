@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-_Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, const size_t n)
+_Bool	radix3_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -33,10 +33,10 @@ _Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, const size_t n)
 		else
 			push_front(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b), *temp);
 	}
-	return (1);
+	return (radix3_nth_2(dyn, idxs, n), 1);
 }
 
-_Bool	radix_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
+void	radix3_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	int	*temp;
 
@@ -46,7 +46,6 @@ _Bool	radix_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
 		push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a), *temp);
 		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
 	}
-	return (1);
 }
 
 t_vec	*remap_idx(t_list **dyn, const t_vec idxs, const t_vec sorted_idxs)
@@ -85,13 +84,16 @@ void	cmd_radix(t_list **dyn, t_stack_pair *ss)
 		return ;
 	n = 0;
 	max_digits = (size_t)ft_ulog(3, *max);
-	while (n <= max_digits)
+	while (++n < max_digits)
+		cmd_radix3_nth_0(dyn, ss, n - 1);
+	if ((size_t)*max > upow(3, max_digits) && (size_t)*max < 4 * upow(3, max_digits - 1))
+		cmd_radix43_nth_0(dyn, ss, max_digits - 1);
+	else
 	{
-		cmd_radix_nth(dyn, ss, n);
-		cmd_radix_nth_2(dyn, ss, n);
-		n++;
+		cmd_radix3_nth_0(dyn, ss, max_digits - 1);
+		cmd_radix3_nth_0(dyn, ss, max_digits);
 	}
-	if (max_digits % 2 == 0)
+	if (ss->b.len != 0)
 		cmd_pa_all(dyn, ss);
 }
 

@@ -91,26 +91,14 @@ t_vec	*pure(t_vec *v, const t_vec val)
 _Bool	radix(t_list **dyn, t_vec *v)
 {
 	t_stack_pair	*tmps;
-	size_t			n;
 	const int		*max = vecmax(dyn, *v);
-	size_t			digits;
 
-	if (v == NULL || max == NULL)
-		return (0);
 	tmps = (t_stack_pair *)gc_calloc(dyn, 1, sizeof(t_stack_pair));
-	if (tmps == NULL)
+	if (v == NULL || max == NULL || tmps == NULL)
 		return (0);
 	tmps->a = *v;
-	n = 0;
-	digits = ft_ulog(3, *max);
-	while (n <= digits)
-	{
-		if (!radix_nth(dyn, tmps, n) || !radix_nth_2(dyn, tmps, n))
-			return (0);
-		n++;
-	}
-	if (digits % 2 == 0)
-		pa_all(dyn, tmps);
+	if (!radix_opt(dyn, tmps, *max))
+		return (0);
 	*v = tmps->a;
 	return (1);
 }

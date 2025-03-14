@@ -35,3 +35,8 @@ size_t		nth3_digit(const size_t num, const size_t n)
 {
 	return (num % upow(3, n+1) / upow(3, n));
 }
+
+size_t		nth43_digit(const size_t num, const size_t n)
+{
+	return (num / upow(3, n));
+}

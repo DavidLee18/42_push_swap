@@ -63,6 +63,7 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 	radix(dyn, idxs);
 	// ft_printf("idxs sorted: ");
 	// print_vec(*idxs);
+	// ft_printf("eq: %d\n", veccmp(*idxs, *sorted_idxs));
 	cmd_radix(dyn, ss);
 	return (1);
 }

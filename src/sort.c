@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	cmd_radix_nth(t_list **dyn, t_stack_pair *idxs, const size_t n)
+void	cmd_radix3_nth_0(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -32,11 +32,12 @@ void	cmd_radix_nth(t_list **dyn, t_stack_pair *idxs, const size_t n)
 			write(STDOUT_FILENO, papb + (n % 2 == 0) * 3, 3);
 		}
 		else
-			cmd_radix_nth_12(dyn, idxs, n, *temp);
+			cmd_radix3_nth_1(dyn, idxs, n, *temp);
 	}
+	cmd_radix3_nth_2(dyn, idxs, n);
 }
 
-void	cmd_radix_nth_12(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
+void	cmd_radix3_nth_1(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
 {
 	const char	*pr = "pb\nrb\npa\nra\n";
 	const char	*rarb = "ra\nrb\n";
@@ -53,7 +54,7 @@ void	cmd_radix_nth_12(t_list **dyn, t_stack_pair *idxs, const size_t n, const in
 	}
 }
 
-void	cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
+void	cmd_radix3_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;

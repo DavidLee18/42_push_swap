@@ -17,6 +17,7 @@ set(SOURCE_FILES
 		src/stack2.c
 		src/stack3.c
 		src/gc3.c
+		src/sort5.c
 )
 add_executable(push_swap ${SOURCE_FILES})
 target_link_libraries(push_swap ft_printf)

@@ -54,16 +54,26 @@ t_vec		*merge(t_list **dyn, t_vec a, t_vec b);
 t_vec		*pure(t_vec *v, t_vec val);
 
 _Bool		radix(t_list **dyn, t_vec *v);
+_Bool		radix_opt(t_list **dyn, t_stack_pair *idxs, size_t max);
+_Bool		radix3_nth_01(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		radix3_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
+_Bool		radix43_nth_01(t_list **dyn, t_stack_pair *idxs, size_t n);
+_Bool		radix43_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		pa_all(t_list **dyn, t_stack_pair *ss);
+
 t_vec		*map_idx(t_list **dyn, t_vec before, t_vec after);
 t_vec		*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs);
+
 void		cmd_radix(t_list **dyn, t_stack_pair *ss);
-_Bool		radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n);
-_Bool		radix_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
-void		pa_all(t_list **dyn, t_stack_pair *ss);
-void		cmd_radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n);
-void		cmd_radix_nth_12(t_list **dyn, t_stack_pair *idxs, size_t n,
+void		cmd_radix_opt(t_list **dyn, t_stack_pair *idxs, size_t max);
+void		cmd_radix3_nth_0(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		cmd_radix3_nth_1(t_list **dyn, t_stack_pair *idxs, size_t n,
 				int head);
-void		cmd_radix_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		cmd_radix3_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		cmd_radix43_nth_0(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		cmd_radix43_nth_1(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
+void		cmd_radix43_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
+void		cmd_radix43_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
 void		cmd_pa_all(t_list **dyn, t_stack_pair *ss);
 void		cmd_brute(const t_vec *a);
 void		cmd_brute_3(const t_vec *a);
@@ -75,6 +85,7 @@ size_t		abs_isize(ssize_t i);
 size_t		upow(size_t a, size_t b);
 t_vec		*either_vec(_Bool cond, t_vec *a, t_vec *b);
 size_t		nth3_digit(size_t num, size_t n);
+size_t		nth43_digit(size_t num, size_t n);
 
 void		gc_free_all(t_list *head);
 _Bool		gc_add_to_list(t_list **head, void *new);
