@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/24 09:22:34 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:38:18 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	main(const int argc, char **argv)
 
 int	sort(t_list **dyn, t_stack_pair *ss)
 {
-	t_vec	*idxs;
+	t_vec		*idxs;
 	const t_vec	*pre_cooked = msort(dyn, ss->a);
-	t_vec	*sorted_idxs;
+	t_vec		*sorted_idxs;
 
 	if (pre_cooked == NULL || consec_eq(*pre_cooked))
 		return (-1);

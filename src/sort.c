@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/24 00:52:17 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:46:27 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	cmd_radix3_nth_0(t_list **dyn, t_stack_pair *idxs, const size_t n)
 	cmd_radix3_nth_2(dyn, idxs, n);
 }
 
-void	cmd_radix3_nth_1(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
+void	cmd_radix3_nth_1(t_list **dyn, t_stack_pair *idxs, const size_t n,
+			const int head)
 {
 	const char	*pr = "pb\nrb\npa\nra\n";
 	const char	*rarb = "ra\nrb\n";

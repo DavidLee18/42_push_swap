@@ -1,6 +1,14 @@
-//
-// Created by 이재현 on 2025-03-14.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
+/*   Updated: 2025/03/15 16:39:42 by jaehylee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 #include "push_swap_bonus.h"
@@ -45,7 +53,7 @@ int	check(t_list **dyn, t_stack_pair *ss)
 	i = 0;
 	while (++i < ss->a.len)
 	{
-		if (ss->a.ptr[i-1] <= ss->a.ptr[i])
+		if (ss->a.ptr[i - 1] <= ss->a.ptr[i])
 			return (0);
 	}
 	return (ss->b.len == 0);
@@ -71,7 +79,7 @@ _Bool	exec_cmd(t_list **dyn, t_stack_pair *ss, char *cmd)
 	return (exec_cmd2(dyn, ss, cmd));
 }
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 

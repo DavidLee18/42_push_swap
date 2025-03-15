@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:42:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/24 00:52:30 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:02:43 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void	cmd_radix(t_list **dyn, t_stack_pair *ss)
 	max_digits = (size_t)ft_ulog(3, *max);
 	while (++n < max_digits)
 		cmd_radix3_nth_0(dyn, ss, n - 1);
-	if ((size_t)*max > upow(3, max_digits) && (size_t)*max < 4 * upow(3, max_digits - 1))
+	if ((size_t)(*max) > upow(3, max_digits)
+		&& (size_t)(*max) < 4 * upow(3, max_digits - 1))
 		cmd_radix43_nth_0(dyn, ss, max_digits - 1);
 	else
 	{

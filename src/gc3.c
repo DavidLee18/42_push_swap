@@ -6,13 +6,9 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.k>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:39:51 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/06 09:40:01 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:02:37 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//
-// Created by 이재현 on 2025-03-06.
-//
 
 #include "push_swap.h"
 

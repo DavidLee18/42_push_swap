@@ -1,6 +1,14 @@
-//
-// Created by 이재현 on 2025-03-13.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort5.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
+/*   Updated: 2025/03/15 16:48:42 by jaehylee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -51,7 +59,8 @@ void	cmd_radix43_nth_0(t_list **dyn, t_stack_pair *idxs, const size_t n)
 	cmd_radix43_nth_2(dyn, idxs, n);
 }
 
-void	cmd_radix43_nth_1(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
+void	cmd_radix43_nth_1(t_list **dyn, t_stack_pair *idxs, const size_t n,
+			const int head)
 {
 	const char	*pr = "pb\nrb\npa\nra\n";
 	const char	*rarb = "ra\nrb\n";
@@ -92,7 +101,8 @@ void	cmd_radix43_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
 	}
 }
 
-void	cmd_radix43_nth_3(t_list **dyn, t_stack_pair *idxs, const size_t n, const int head)
+void	cmd_radix43_nth_3(t_list **dyn, t_stack_pair *idxs, const size_t n,
+			const int head)
 {
 	const char	*pr = "pb\nrb\npa\nra\n";
 

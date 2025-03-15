@@ -1,9 +1,18 @@
-//
-// Created by 이재현 on 2025-03-14.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
+/*   Updated: 2025/03/15 16:45:18 by jaehylee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_BONUS_H
-#define PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
+
 int		check(t_list **dyn, t_stack_pair *ss);
 _Bool	exec_cmd(t_list **dyn, t_stack_pair *ss, char *cmd);
 _Bool	exec_cmd2(t_list **dyn, t_stack_pair *ss, char *cmd);

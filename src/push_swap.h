@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/01/24 10:29:44 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:43:33 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../ft_printf/src/ft_printf.h"
 # define SIZE_MAX_ 18446744073709551615
 # define INT_MAX_ 2147483647
-# define INT_MIN_ (-2147483648)
+# define INT_MIN_ -2147483648
 
 typedef struct s_vec
 {
@@ -46,7 +46,7 @@ int			veccmp(t_vec v1, t_vec v2);
 _Bool		consec_eq(t_vec v);
 
 int			*atoi_(t_list **dyn, const char *str);
-int		sort(t_list **dyn, t_stack_pair *ss);
+int			sort(t_list **dyn, t_stack_pair *ss);
 
 t_vec		*msort(t_list **dyn, t_vec v);
 t_vec		*msplit(t_list **dyn, t_vec v);
@@ -71,9 +71,11 @@ void		cmd_radix3_nth_1(t_list **dyn, t_stack_pair *idxs, size_t n,
 				int head);
 void		cmd_radix3_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
 void		cmd_radix43_nth_0(t_list **dyn, t_stack_pair *idxs, size_t n);
-void		cmd_radix43_nth_1(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
+void		cmd_radix43_nth_1(t_list **dyn, t_stack_pair *idxs, size_t n,
+				int head);
 void		cmd_radix43_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
-void		cmd_radix43_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n, int head);
+void		cmd_radix43_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n,
+				int head);
 void		cmd_pa_all(t_list **dyn, t_stack_pair *ss);
 void		cmd_brute(const t_vec *a);
 void		cmd_brute_3(const t_vec *a);
@@ -91,10 +93,11 @@ void		gc_free_all(t_list *head);
 _Bool		gc_add_to_list(t_list **head, void *new);
 void		*gc_calloc(t_list **head, size_t count, size_t size);
 _Bool		gc_realloc(t_list **dyn, void **oldp, size_t old_size,
-						size_t new_size);
+				size_t new_size);
 _Bool		gc_realloc2(t_list **dyn, void **oldp, void *new);
 _Bool		gc_realloc3(t_list *temp_node, void **oldp, void *new);
-char		*gc_substr(t_list **dyn, char const *s, unsigned int start, size_t len);
+char		*gc_substr(t_list **dyn, char const *s,
+				unsigned int start, size_t len);
 char		**gc_split(t_list **dyn, char const *s, char c);
 char		*gc_strjoin(t_list **dyn, char const *s1, char const *s2);
 
