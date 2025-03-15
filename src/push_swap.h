@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:43:33 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 18:49:14 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,26 @@ void		cmd_pa_all(t_list **dyn, t_stack_pair *ss);
 void		cmd_brute(const t_vec *a);
 void		cmd_brute_3(const t_vec *a);
 void		cmd_brute_4(const t_vec *a);
+void		cmd_brute_4_1(const t_vec *a);
+void		cmd_brute_4_2(const t_vec *a);
+void		cmd_brute_4_3(const t_vec *a);
 void		cmd_brute_5(const t_vec *a);
+void		cmd_brute_5_1(const t_vec *a);
+void		cmd_brute_5_2(const t_vec *a);
+void		cmd_brute_5_3(const t_vec *a);
+void		cmd_brute_5_4(const t_vec *a);
+void		cmd_brute_5_5(const t_vec *a);
+void		cmd_brute_5_6(const t_vec *a);
+void		cmd_brute_5_7(const t_vec *a);
+void		cmd_brute_5_8(const t_vec *a);
+void		cmd_brute_5_9(const t_vec *a);
+void		cmd_brute_5_10(const t_vec *a);
+void		cmd_brute_5_11(const t_vec *a);
+void		cmd_brute_5_12(const t_vec *a);
+void		cmd_brute_5_13(const t_vec *a);
+void		cmd_brute_5_14(const t_vec *a);
+void		cmd_brute_5_15(const t_vec *a);
+void		cmd_brute_5_16(const t_vec *a);
 
 size_t		min_usize(size_t a, size_t b);
 size_t		abs_isize(ssize_t i);
