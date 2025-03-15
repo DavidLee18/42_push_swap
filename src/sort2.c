@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_vec	*msort(t_list **dyn, t_vec v)
+t_vec	*msort(t_list **dyn, const t_vec v)
 {
 	t_vec	*xs;
 	t_vec	*a;
@@ -36,7 +36,7 @@ t_vec	*msort(t_list **dyn, t_vec v)
 	return (merge(dyn, *a, *b));
 }
 
-t_vec	*msplit(t_list **dyn, t_vec v)
+t_vec	*msplit(t_list **dyn, const t_vec v)
 {
 	t_vec	*xs;
 	size_t	i;
@@ -80,7 +80,7 @@ t_vec	*merge(t_list **dyn, t_vec a, t_vec b)
 	return (res);
 }
 
-t_vec	*pure(t_vec *v, t_vec val)
+t_vec	*pure(t_vec *v, const t_vec val)
 {
 	if (v == NULL)
 		return (NULL);
@@ -91,27 +91,14 @@ t_vec	*pure(t_vec *v, t_vec val)
 _Bool	radix(t_list **dyn, t_vec *v)
 {
 	t_stack_pair	*tmps;
-	size_t			n;
-	int				*max;
+	const int		*max = vecmax(dyn, *v);
 
-	if (v == NULL)
-		return (0);
 	tmps = (t_stack_pair *)gc_calloc(dyn, 1, sizeof(t_stack_pair));
-	if (tmps == NULL)
+	if (v == NULL || max == NULL || tmps == NULL)
 		return (0);
 	tmps->a = *v;
-	max = vecmax(dyn, *v);
-	if (max == NULL)
+	if (!radix_opt(dyn, tmps, *max))
 		return (0);
-	n = 0;
-	while (n <= (size_t)ft_ulog(4, *max))
-	{
-		if (!radix_nth(dyn, tmps, n) || !radix_nth_23(dyn, tmps, n))
-			return (0);
-		n++;
-	}
-	if ((size_t)ft_ulog(4, *max) % 2 == 0)
-		pa_all(dyn, tmps);
 	*v = tmps->a;
 	return (1);
 }

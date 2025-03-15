@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_vec	*_1ota_rev(t_list **dyn, size_t i)
+t_vec	*_1ota_rev(t_list **dyn, const size_t i)
 {
 	t_vec	*res;
 	size_t	j;
@@ -23,13 +23,13 @@ t_vec	*_1ota_rev(t_list **dyn, size_t i)
 	j = i;
 	while (j > 0)
 	{
-		push_back(dyn, res, j);
+		push_back(dyn, res, (int)j);
 		j--;
 	}
 	return (res);
 }
 
-t_vec	*veccpy(t_list **dyn, t_vec v)
+t_vec	*veccpy(t_list **dyn, const t_vec v)
 {
 	t_vec	*res;
 
@@ -43,7 +43,7 @@ t_vec	*veccpy(t_list **dyn, t_vec v)
 	return (res);
 }
 
-_Bool	velem(int i, t_vec v)
+_Bool	velem(const int i, const t_vec v)
 {
 	size_t	j;
 
@@ -57,7 +57,7 @@ _Bool	velem(int i, t_vec v)
 	return (0);
 }
 
-int	*vecmax(t_list **dyn, t_vec v)
+int	*vecmax(t_list **dyn, const t_vec v)
 {
 	size_t	j;
 	int		*i;
@@ -76,7 +76,7 @@ int	*vecmax(t_list **dyn, t_vec v)
 	return (i);
 }
 
-int	veccmp(t_vec v1, t_vec v2)
+int	veccmp(const t_vec v1, const t_vec v2)
 {
 	size_t	i;
 

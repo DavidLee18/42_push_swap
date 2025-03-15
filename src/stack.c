@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-void	push_back(t_list **dyn, t_vec *vec, int value)
+void	push_back(t_list **dyn, t_vec *vec, const int value)
 {
 	if (vec->len == vec->cap)
 		vecalloc(dyn, vec);
 	vec->ptr[vec->len++] = value;
 }
 
-void	push_front(t_list **dyn, t_vec *vec, int value)
+void	push_front(t_list **dyn, t_vec *vec, const int value)
 {
 	int	*newp;
 	int	*temp;
@@ -46,7 +46,7 @@ int	*pop_back(t_list **dyn, t_vec *vec)
 {
 	int	*res;
 
-	if (vec->len == 0 || !vec->ptr)
+	if (vec == NULL || vec->len == 0 || !vec->ptr)
 		return (NULL);
 	res = (int *)gc_calloc(dyn, 1, sizeof(int));
 	if (!res)
@@ -55,7 +55,7 @@ int	*pop_back(t_list **dyn, t_vec *vec)
 	return (res);
 }
 
-_Bool	consec_eq(t_vec v)
+_Bool	consec_eq(const t_vec v)
 {
 	size_t	i;
 

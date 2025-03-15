@@ -27,7 +27,7 @@ void	vecalloc(t_list **dyn, t_vec *vec)
 		vec->cap *= 2;
 }
 
-_Bool	has_dup(t_vec v)
+_Bool	has_dup(const t_vec v)
 {
 	size_t	i;
 	size_t	temp;
@@ -47,7 +47,7 @@ _Bool	has_dup(t_vec v)
 	return (0);
 }
 
-void	print_vec(t_vec v)
+void	print_vec(const t_vec v)
 {
 	size_t	i;
 

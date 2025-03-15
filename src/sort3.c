@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-_Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
+_Bool	radix3_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -22,55 +22,33 @@ _Bool	radix_nth(t_list **dyn, t_stack_pair *idxs, size_t n)
 	i = 0;
 	while (++i <= len)
 	{
-		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-					+ (n % 2 == 1) * (size_t)(&idxs->b)));
+		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
 		if (temp == NULL)
 			return (0);
-		if (((0b11 << (n * 2)) & *temp) == 0)
-			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
-		else if (!radix_nth_123(dyn, idxs, n, *temp))
-			return (0);
-	}
-	return (1);
-}
-
-_Bool	radix_nth_123(t_list **dyn, t_stack_pair *idxs, size_t n, int head)
-{
-	if (((0b11 << (n * 2)) & head) == 1)
-		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-				+ (n % 2 == 1) * (size_t)(&idxs->a)), head);
-	else
-		push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-				+ (n % 2 == 1) * (size_t)(&idxs->b)), head);
-	return (1);
-}
-
-_Bool	radix_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n)
-{
-	size_t			i;
-	int				*temp;
-	const size_t	len = (n % 2 == 0) * idxs->a.len + (n % 2 == 1)
-		* idxs->b.len;
-
-	i = 0;
-	while (++i <= len)
-	{
-		temp = pop_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->a)
-					+ (n % 2 == 1) * (size_t)(&idxs->b)));
-		if (temp == NULL)
-			return (0);
-		if (((0b11 << (n * 2)) & *temp) == 2)
-			push_back(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
+		if (nth3_digit(*temp, n) == 0)
+			push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a),
+				*temp);
+		else if (nth3_digit(*temp, n) == 1)
+			push_front(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a), *temp);
 		else
-			push_front(dyn, (t_vec *)((n % 2 == 0) * (size_t)(&idxs->b)
-					+ (n % 2 == 1) * (size_t)(&idxs->a)), *temp);
+			push_front(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b), *temp);
 	}
-	return (1);
+	return (radix3_nth_2(dyn, idxs, n), 1);
 }
 
-t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
+void	radix3_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)
+{
+	int	*temp;
+
+	temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
+	while (temp != NULL)
+	{
+		push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a), *temp);
+		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
+	}
+}
+
+t_vec	*remap_idx(t_list **dyn, const t_vec idxs, const t_vec sorted_idxs)
 {
 	t_vec	*res;
 	size_t	i;
@@ -98,21 +76,39 @@ t_vec	*remap_idx(t_list **dyn, t_vec idxs, t_vec sorted_idxs)
 
 void	cmd_radix(t_list **dyn, t_stack_pair *ss)
 {
-	int		*max;
-	size_t	n;
-	size_t	max_digits;
+	const int	*max = vecmax(dyn, ss->a);
+	size_t		n;
+	size_t		max_digits;
 
-	max = vecmax(dyn, ss->a);
 	if (max == NULL)
 		return ;
 	n = 0;
-	max_digits = (size_t)ft_ulog(4, *max);
-	while (n <= max_digits)
+	max_digits = (size_t)ft_ulog(3, *max);
+	while (++n < max_digits)
+		cmd_radix3_nth_0(dyn, ss, n - 1);
+	if ((size_t)*max > upow(3, max_digits) && (size_t)*max < 4 * upow(3, max_digits - 1))
+		cmd_radix43_nth_0(dyn, ss, max_digits - 1);
+	else
 	{
-		cmd_radix_nth(dyn, ss, n);
-		cmd_radix_nth_2(dyn, ss, n);
-		n++;
+		cmd_radix3_nth_0(dyn, ss, max_digits - 1);
+		cmd_radix3_nth_0(dyn, ss, max_digits);
 	}
-	if (max_digits % 2 == 0)
+	if (ss->b.len != 0)
 		cmd_pa_all(dyn, ss);
+}
+
+void	cmd_brute_3(const t_vec *a)
+{
+	if (a->len != 3)
+		return ;
+	if (a->ptr[0] == 2 && a->ptr[1] == 3 && a->ptr[2] == 1)
+		ft_printf("sa\nra\n");
+	else if (a->ptr[0] == 3 && a->ptr[1] == 1 && a->ptr[2] == 2)
+		ft_printf("sa\n");
+	else if (a->ptr[0] == 1 && a->ptr[1] == 3 && a->ptr[2] == 2)
+		ft_printf("rra\n");
+	else if (a->ptr[0] == 2 && a->ptr[1] == 1 && a->ptr[2] == 3)
+		ft_printf("ra\n");
+	else if (a->ptr[0] == 1 && a->ptr[1] == 2 && a->ptr[2] == 3)
+		ft_printf("sa\nrra\n");
 }
