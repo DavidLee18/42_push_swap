@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.k>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:39:51 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 17:02:37 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:08:59 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ char
 
 static void
 	*gc_split_range(t_list **dyn, char **split, char const *s,
-		const t_split_next *st, t_split_next *lt)
+		t_split_next *ts)
 {
-	split[lt->length] = gc_substr(dyn, s, st->start, st->length);
-	if (!split[lt->length])
+	split[ts[1].length] = gc_substr(dyn, s, ts[0].start, ts[0].length);
+	if (!split[ts[1].length])
 		return (NULL);
-	lt->length++;
+	ts[1].length++;
 	return (split);
 }
 
@@ -73,29 +73,28 @@ static void
 	*gc_split_by_char(t_list **dyn, char **split, char const *s, char c)
 {
 	size_t			i;
-	t_split_next	st;
-	t_split_next	lt;
+	t_split_next	ts[2];
 
 	i = 0;
-	lt.length = 0;
-	lt.start = 0;
+	ts[1].length = 0;
+	ts[1].start = 0;
 	while (s[i])
 	{
 		if (s[i] == c)
 		{
-			st.start = lt.start;
-			st.length = (i - lt.start);
-			if (i > lt.start && !gc_split_range(dyn, split, s, &st, &lt))
+			ts[0].start = ts[1].start;
+			ts[0].length = (i - ts[1].start);
+			if (i > ts[1].start && !gc_split_range(dyn, split, s, ts))
 				return (NULL);
-			lt.start = i + 1;
+			ts[1].start = i + 1;
 		}
 		i++;
 	}
-	st.start = lt.start;
-	st.length = (i - lt.start);
-	if (i > lt.start && i > 0 && !gc_split_range(dyn, split, s, &st, &lt))
+	ts[0].start = ts[1].start;
+	ts[0].length = (i - ts[1].start);
+	if (i > ts[1].start && i > 0 && !gc_split_range(dyn, split, s, ts))
 		return (NULL);
-	split[lt.length] = 0;
+	split[ts[1].length] = 0;
 	return (split);
 }
 
