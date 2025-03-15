@@ -24,7 +24,6 @@ int	main(const int argc, char **argv)
 	if (ss == NULL)
 		return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
 			0);
-	// print_vec(ss->a);
 	if (sort(&dyn_mem, ss) < 0)
 		write(STDERR_FILENO, "Error\n", 6);
 	return (gc_free_all(dyn_mem), 0);
@@ -38,8 +37,6 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 
 	if (pre_cooked == NULL || consec_eq(*pre_cooked))
 		return (-1);
-	// ft_printf("pre_cooked: ");
-	// print_vec(*pre_cooked);
 	if (veccmp(ss->a, *pre_cooked) == 0)
 		return (0);
 	idxs = map_idx(dyn, ss->a, *pre_cooked);
@@ -47,23 +44,14 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 		return (-1);
 	if (idxs->len <= 5)
 		return (cmd_brute(&ss->a), 1);
-	// ft_printf("idxs: ");
-	// print_vec(*idxs);
 	sorted_idxs = veccpy(dyn, *idxs);
 	if (sorted_idxs == NULL || !radix(dyn, sorted_idxs))
 		return (-1);
-	// ft_printf("idxs sorted: ");
-	// print_vec(*sorted_idxs);
 	idxs = remap_idx(dyn, *idxs, *sorted_idxs);
 	if (idxs == NULL)
 		return (-1);
-	// ft_printf("idxs remapped: ");
-	// print_vec(*idxs);
 	ss->a = *veccpy(dyn, *idxs);
 	radix(dyn, idxs);
-	// ft_printf("idxs sorted: ");
-	// print_vec(*idxs);
-	// ft_printf("eq: %d\n", veccmp(*idxs, *sorted_idxs));
 	cmd_radix(dyn, ss);
 	return (1);
 }

@@ -19,5 +19,19 @@ set(SOURCE_FILES
 		src/gc3.c
 		src/sort5.c
 )
+set(BONUS_SRC
+		src/etc.c
+		src/gc.c
+		src/gc2.c
+		src/gc3.c
+		src/stack.c
+		src/stack2.c
+		src/stack3.c
+		src/main_bonus.c
+		src/exec_bonus.c
+		src/exec2_bonus.c
+)
 add_executable(push_swap ${SOURCE_FILES})
 target_link_libraries(push_swap ft_printf)
+add_executable(checker ${BONUS_SRC})
+target_link_libraries(checker ft_printf)

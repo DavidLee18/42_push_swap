@@ -46,7 +46,7 @@ int	*pop_back(t_list **dyn, t_vec *vec)
 {
 	int	*res;
 
-	if (vec->len == 0 || !vec->ptr)
+	if (vec == NULL || vec->len == 0 || !vec->ptr)
 		return (NULL);
 	res = (int *)gc_calloc(dyn, 1, sizeof(int));
 	if (!res)
