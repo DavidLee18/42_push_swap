@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 18:56:09 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:39:03 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ _Bool			velem(int i, t_vec v);
 int				*vecmax(t_list **dyn, t_vec v);
 int				veccmp(t_vec v1, t_vec v2);
 _Bool			consec_eq(t_vec v);
+t_vec			*vecrev(t_list **dyn, t_vec *v);
 
 int				*atoi_(t_list **dyn, const char *str);
 int				sort(t_list **dyn, t_stack_pair *ss);
@@ -77,7 +78,7 @@ void			cmd_radix43_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
 void			cmd_radix43_nth_3(t_list **dyn, t_stack_pair *idxs, size_t n,
 					int head);
 void			cmd_pa_all(t_list **dyn, t_stack_pair *ss);
-void			cmd_brute(const t_vec *a);
+void			cmd_brute(t_list **dyn, t_vec *a);
 void			cmd_brute_3(const t_vec *a);
 void			cmd_brute_4(const t_vec *a);
 void			cmd_brute_4_1(const t_vec *a);

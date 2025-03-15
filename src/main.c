@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:38:18 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:24:37 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	sort(t_list **dyn, t_stack_pair *ss)
 	if (idxs == NULL)
 		return (-1);
 	if (idxs->len <= 5)
-		return (cmd_brute(&ss->a), 1);
+		return (cmd_brute(dyn, idxs), 1);
 	sorted_idxs = veccpy(dyn, *idxs);
 	if (sorted_idxs == NULL || !radix(dyn, sorted_idxs))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:20:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 18:01:24 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:34:54 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	cmd_brute_5_1(const t_vec *a)
 		ft_printf("rra\nsa\n");
 	else if (a->ptr[4] == 4 && a->ptr[3] == 2 && a->ptr[2] == 5
 		&& a->ptr[1] == 3 && a->ptr[0] == 1)
-		ft_printf("rra\npb\nrra\npb\nrra\npa\nrra\npa\nrra\n");
+		ft_printf("rra\npb\nrra\npb\nsb\nrra\npa\nrra\npa\nrra\n");
 	else if (a->ptr[4] == 2 && a->ptr[3] == 4 && a->ptr[2] == 5
 		&& a->ptr[1] == 3 && a->ptr[0] == 1)
 		ft_printf("rra\nsa\nrra\nrra\nsa\nra\nra\n");

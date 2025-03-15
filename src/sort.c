@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:46:27 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:23:45 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	cmd_pa_all(t_list **dyn, t_stack_pair *ss)
 	}
 }
 
-void	cmd_brute(const t_vec *a)
+void	cmd_brute(t_list **dyn, t_vec *a)
 {
 	if (a->len == 2)
 		ft_printf("sa\n");
@@ -96,5 +96,5 @@ void	cmd_brute(const t_vec *a)
 	else if (a->len == 4)
 		cmd_brute_4(a);
 	else if (a->len == 5)
-		cmd_brute_5(a);
+		cmd_brute_5(vecrev(dyn, a));
 }

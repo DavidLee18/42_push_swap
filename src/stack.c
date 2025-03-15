@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 06:46:02 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:48:56 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:21:49 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,23 @@ _Bool	consec_eq(const t_vec v)
 		i++;
 	}
 	return (0);
+}
+
+t_vec	*vecrev(t_list **dyn, t_vec *v)
+{
+	t_vec	*new;
+	int		*temp;
+
+	if (!v || !v->ptr)
+		return (NULL);
+	new = (t_vec *)gc_calloc(dyn, 1, sizeof(t_vec));
+	if (!new)
+		return (NULL);
+	temp = pop_back(dyn, v);
+	while (temp != NULL)
+	{
+		push_back(dyn, new, *temp);
+		temp = pop_back(dyn, v);
+	}
+	return (new);
 }

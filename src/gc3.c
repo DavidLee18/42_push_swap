@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.k>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:39:51 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 17:08:59 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:32:17 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static void
 	*gc_split_range(t_list **dyn, char **split, char const *s,
 		t_split_next *ts)
 {
-	split[ts[1].length] = gc_substr(dyn, s, ts[0].start, ts[0].length);
-	if (!split[ts[1].length])
+	split[(ts + 1)->length] = gc_substr(dyn, s, ts->start, ts->length);
+	if (!split[(ts + 1)->length])
 		return (NULL);
-	ts[1].length++;
+	(ts + 1)->length++;
 	return (split);
 }
 
@@ -84,7 +84,7 @@ static void
 		{
 			ts[0].start = ts[1].start;
 			ts[0].length = (i - ts[1].start);
-			if (i > ts[1].start && !gc_split_range(dyn, split, s, ts))
+			if (i > ts[1].start && !gc_split_range(dyn, split, s, &ts[0]))
 				return (NULL);
 			ts[1].start = i + 1;
 		}
@@ -92,7 +92,7 @@ static void
 	}
 	ts[0].start = ts[1].start;
 	ts[0].length = (i - ts[1].start);
-	if (i > ts[1].start && i > 0 && !gc_split_range(dyn, split, s, ts))
+	if (i > ts[1].start && i > 0 && !gc_split_range(dyn, split, s, &ts[0]))
 		return (NULL);
 	split[ts[1].length] = 0;
 	return (split);
