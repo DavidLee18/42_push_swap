@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 16:04:36 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:24:41 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	main(const int argc, char **argv)
 	dyn_mem = NULL;
 	ss = join_atoi_split(&dyn_mem, argv, argc);
 	if (ss == NULL || has_dup(ss->a))
-		return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
+		return (ft_fprintf(STDERR_FILENO, "Error\n"), gc_free_all(dyn_mem),
 			0);
 	i = check(&dyn_mem, ss);
 	if (i == 0)
 		ft_fprintf(STDOUT_FILENO, "KO\n");
 	else if (i == -1)
-		write(STDERR_FILENO, "Error\n", 6);
+		ft_fprintf(STDERR_FILENO, "Error\n");
 	else
 		ft_fprintf(STDOUT_FILENO, "OK\n");
 	return (gc_free_all(dyn_mem), 0);
@@ -40,17 +40,13 @@ int	check(t_list **dyn, t_stack_pair *ss)
 	char	*cmd;
 	size_t	i;
 
-	cmd = get_next_line(STDIN_FILENO);
+	cmd = gc_getline(dyn, STDIN_FILENO);
 	while (cmd != NULL)
 	{
 		if (!exec_cmd(dyn, ss, cmd))
-			return (free(cmd), free(get_next_line(STDIN_FILENO)), -1);
-		free(cmd);
-		cmd = get_next_line(STDIN_FILENO);
+			return (-1);
+		cmd = gc_getline(dyn, STDIN_FILENO);
 	}
-	free(cmd);
-	cmd = get_next_line(STDIN_FILENO);
-	free(cmd);
 	i = 0;
 	while (++i < ss->a.len)
 	{
@@ -78,20 +74,6 @@ _Bool	exec_cmd(t_list **dyn, t_stack_pair *ss, char *cmd)
 	if (ft_strcmp(cmd, "ra") == 0)
 		return (exec_ra(dyn, ss), 1);
 	return (exec_cmd2(dyn, ss, cmd));
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (s1[i] - s2[i]);
 }
 
 char	*rtrim_nl(char *s)

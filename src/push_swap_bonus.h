@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 15:21:09 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:22:13 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ void	exec_ra(t_list **dyn, t_stack_pair *ss);
 void	exec_rb(t_list **dyn, t_stack_pair *ss);
 void	exec_rra(t_list **dyn, t_stack_pair *ss);
 void	exec_rrb(t_list **dyn, t_stack_pair *ss);
-int		ft_strcmp(const char *s1, const char *s2);
 char	*rtrim_nl(char *s);
 #endif //PUSH_SWAP_BONUS_H

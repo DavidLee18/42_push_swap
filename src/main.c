@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:01:46 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 14:56:15 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:25:59 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	main(const int argc, char **argv)
 	dyn_mem = NULL;
 	ss = join_atoi_split(&dyn_mem, argv, argc);
 	if (ss == NULL)
-		return (write(STDERR_FILENO, "Error\n", 6), gc_free_all(dyn_mem),
+		return (ft_fprintf(STDERR_FILENO, "Error\n"), gc_free_all(dyn_mem),
 			0);
 	if (sort(&dyn_mem, ss) < 0)
-		write(STDERR_FILENO, "Error\n", 6);
+		ft_fprintf(STDERR_FILENO, "Error\n");
 	return (gc_free_all(dyn_mem), 0);
 }
 
