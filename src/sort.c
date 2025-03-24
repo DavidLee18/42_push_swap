@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 23:25:40 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 22:23:45 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:04:36 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	cmd_pa_all(t_list **dyn, t_stack_pair *ss)
 	while (val != NULL)
 	{
 		push_back(dyn, &ss->a, *val);
-		ft_printf("pa\n");
+		ft_fprintf(STDOUT_FILENO, "pa\n");
 		val = pop_back(dyn, &ss->b);
 	}
 }
@@ -90,7 +90,7 @@ void	cmd_pa_all(t_list **dyn, t_stack_pair *ss)
 void	cmd_brute(t_list **dyn, t_vec *a)
 {
 	if (a->len == 2)
-		ft_printf("sa\n");
+		ft_fprintf(STDOUT_FILENO, "sa\n");
 	else if (a->len == 3)
 		cmd_brute_3(a);
 	else if (a->len == 4)

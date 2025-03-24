@@ -8,14 +8,14 @@ NAME := push_swap
 
 BONUS_NAME := checker
 
-SRCS := src/etc.c src/gc.c src/gc2.c src/gc3.c \
-	src/main.c src/sort.c src/stack.c \
-	src/stack2.c src/sort2.c src/stack3.c src/etc2.c \
+SRCS := src/etc.c src/gc2.c \
+	src/main.c src/sort.c \
+	src/sort2.c src/stack3.c src/etc2.c \
 	src/sort3.c src/sort4.c src/sort5.c src/sort6.c \
 	src/sort7.c src/sort8.c src/sort9.c
 
-BONUS_SRCS := src/etc.c src/gc.c src/gc2.c src/gc3.c \
-	src/stack.c src/stack2.c src/stack3.c \
+BONUS_SRCS := src/etc.c \
+	src/stack3.c \
 	src/main_bonus.c src/exec_bonus.c src/exec2_bonus.c
 
 OBJS := $(patsubst src/%.c,build/%.o,$(SRCS))

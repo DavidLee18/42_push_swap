@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 15:33:04 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:04:36 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	main(const int argc, char **argv)
 			0);
 	i = check(&dyn_mem, ss);
 	if (i == 0)
-		ft_printf("KO\n");
+		ft_fprintf(STDOUT_FILENO, "KO\n");
 	else if (i == -1)
 		write(STDERR_FILENO, "Error\n", 6);
 	else
-		ft_printf("OK\n");
+		ft_fprintf(STDOUT_FILENO, "OK\n");
 	return (gc_free_all(dyn_mem), 0);
 }
 

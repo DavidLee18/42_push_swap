@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:42:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 14:59:08 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:04:36 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ void	cmd_brute_3(const t_vec *a)
 	if (a->len != 3)
 		return ;
 	if (a->ptr[0] == 2 && a->ptr[1] == 3 && a->ptr[2] == 1)
-		ft_printf("sa\nra\n");
+		ft_fprintf(STDOUT_FILENO, "sa\nra\n");
 	else if (a->ptr[0] == 3 && a->ptr[1] == 1 && a->ptr[2] == 2)
-		ft_printf("sa\n");
+		ft_fprintf(STDOUT_FILENO, "sa\n");
 	else if (a->ptr[0] == 1 && a->ptr[1] == 3 && a->ptr[2] == 2)
-		ft_printf("rra\n");
+		ft_fprintf(STDOUT_FILENO, "rra\n");
 	else if (a->ptr[0] == 2 && a->ptr[1] == 1 && a->ptr[2] == 3)
-		ft_printf("ra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\n");
 	else if (a->ptr[0] == 1 && a->ptr[1] == 2 && a->ptr[2] == 3)
-		ft_printf("sa\nrra\n");
+		ft_fprintf(STDOUT_FILENO, "sa\nrra\n");
 }

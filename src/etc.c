@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 08:03:45 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:32:35 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:10:30 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@ size_t	abs_isize(const ssize_t i)
 	if (i < 0)
 		return ((size_t)(-i));
 	return ((size_t)i);
-}
-
-size_t	min_usize(const size_t a, const size_t b)
-{
-	if (a > b)
-		return (b);
-	return (a);
 }
 
 int	*atoi_(t_list **dyn, const char *str)

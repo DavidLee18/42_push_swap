@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 14:57:26 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:10:41 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,13 @@
 # define INT_MAX_ 2147483647
 # define INT_MIN_ -2147483648
 
-typedef struct s_vec
-{
-	int		*ptr;
-	size_t	len;
-	size_t	cap;
-}	t_vec;
-
 typedef struct s_stack_pair
 {
 	t_vec	a;
 	t_vec	b;
 }	t_stack_pair;
 
-void			push_back(t_list **dyn, t_vec *vec, int value);
-void			push_front(t_list **dyn, t_vec *vec, int value);
-int				*pop_back(t_list **dyn, t_vec *vec);
-void			vecalloc(t_list **dyn, t_vec *vec);
-_Bool			has_dup(t_vec v);
-void			print_vec(t_vec v);
 t_vec			*_1ota_rev(t_list **dyn, size_t i);
-t_vec			*veccpy(t_list **dyn, t_vec v);
-_Bool			velem(int i, t_vec v);
-int				*vecmax(t_list **dyn, t_vec v);
-int				veccmp(t_vec v1, t_vec v2);
-_Bool			consec_eq(t_vec v);
-t_vec			*vecrev(t_list **dyn, t_vec *v);
 
 int				*atoi_(t_list **dyn, const char *str);
 int				sort(t_list **dyn, t_stack_pair *ss);
@@ -102,7 +83,6 @@ void			cmd_brute_5_14(const t_vec *a);
 void			cmd_brute_5_15(const t_vec *a);
 void			cmd_brute_5_16(const t_vec *a);
 
-size_t			min_usize(size_t a, size_t b);
 size_t			abs_isize(ssize_t i);
 size_t			upow(size_t a, size_t b);
 t_vec			*either_vec(_Bool cond, t_vec *a, t_vec *b);

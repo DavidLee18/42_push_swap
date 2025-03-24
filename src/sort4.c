@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:18:05 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 15:01:25 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:04:36 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ void	cmd_brute_4(const t_vec *a)
 	if (a->len != 4)
 		return ;
 	if (a->ptr[0] == 3 && a->ptr[1] == 4 && a->ptr[2] == 2 && a->ptr[3] == 1)
-		ft_printf("ra\nra\nsa\nra\nra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nra\nsa\nra\nra\n");
 	else if (a->ptr[0] == 4 && a->ptr[1] == 2 && a->ptr[2] == 3
 		&& a->ptr[3] == 1)
-		ft_printf("ra\nsa\nrra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nsa\nrra\n");
 	else if (a->ptr[0] == 2 && a->ptr[1] == 4 && a->ptr[2] == 3
 		&& a->ptr[3] == 1)
-		ft_printf("rra\nsa\n");
+		ft_fprintf(STDOUT_FILENO, "rra\nsa\n");
 	else if (a->ptr[0] == 3 && a->ptr[1] == 2 && a->ptr[2] == 4
 		&& a->ptr[3] == 1)
-		ft_printf("sa\nra\n");
+		ft_fprintf(STDOUT_FILENO, "sa\nra\n");
 	else if (a->ptr[0] == 2 && a->ptr[1] == 3 && a->ptr[2] == 4
 		&& a->ptr[3] == 1)
-		ft_printf("ra\nsa\nrra\nrra\nsa\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nsa\nrra\nrra\nsa\n");
 	else if (a->ptr[0] == 4 && a->ptr[1] == 3 && a->ptr[2] == 1
 		&& a->ptr[3] == 2)
-		ft_printf("sa\n");
+		ft_fprintf(STDOUT_FILENO, "sa\n");
 	else if (a->ptr[0] == 3 && a->ptr[1] == 4 && a->ptr[2] == 1
 		&& a->ptr[3] == 2)
-		ft_printf("pb\nra\nsa\npa\nrra\n");
+		ft_fprintf(STDOUT_FILENO, "pb\nra\nsa\npa\nrra\n");
 	else
 		cmd_brute_4_1(a);
 }
@@ -58,25 +58,25 @@ void	cmd_brute_5(const t_vec *a)
 		return ;
 	if (a->ptr[4] == 4 && a->ptr[3] == 5 && a->ptr[2] == 3
 		&& a->ptr[1] == 2 && a->ptr[0] == 1)
-		ft_printf("rra\nrra\nsa\nra\nra\n");
+		ft_fprintf(STDOUT_FILENO, "rra\nrra\nsa\nra\nra\n");
 	else if (a->ptr[4] == 5 && a->ptr[3] == 3 && a->ptr[2] == 4
 		&& a->ptr[1] == 2 && a->ptr[0] == 1)
-		ft_printf("ra\nra\nsa\nrra\nrra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nra\nsa\nrra\nrra\n");
 	else if (a->ptr[4] == 3 && a->ptr[3] == 5 && a->ptr[2] == 4
 		&& a->ptr[1] == 2 && a->ptr[0] == 1)
-		ft_printf("ra\nra\npb\npb\nra\npa\npa\nra\nra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nra\npb\npb\nra\npa\npa\nra\nra\n");
 	else if (a->ptr[4] == 4 && a->ptr[3] == 3 && a->ptr[2] == 5
 		&& a->ptr[1] == 2 && a->ptr[0] == 1)
-		ft_printf("ra\nsa\nrra\nsa\nra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nsa\nrra\nsa\nra\n");
 	else if (a->ptr[4] == 3 && a->ptr[3] == 4 && a->ptr[2] == 5
 		&& a->ptr[1] == 2 && a->ptr[0] == 1)
-		ft_printf("rra\npb\nrra\nrra\nsa\npa\nrra\nrra\n");
+		ft_fprintf(STDOUT_FILENO, "rra\npb\nrra\nrra\nsa\npa\nrra\nrra\n");
 	else if (a->ptr[4] == 5 && a->ptr[3] == 4 && a->ptr[2] == 2
 		&& a->ptr[1] == 3 && a->ptr[0] == 1)
-		ft_printf("ra\nsa\nrra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nsa\nrra\n");
 	else if (a->ptr[4] == 4 && a->ptr[3] == 5 && a->ptr[2] == 2
 		&& a->ptr[1] == 3 && a->ptr[0] == 1)
-		ft_printf("ra\nsa\nra\nra\nsa\nra\nra\n");
+		ft_fprintf(STDOUT_FILENO, "ra\nsa\nra\nra\nsa\nra\nra\n");
 	else
 		cmd_brute_5_1(a);
 }
