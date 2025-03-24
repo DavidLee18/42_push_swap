@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:39:42 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:17:54 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	check(t_list **dyn, t_stack_pair *ss)
 		free(cmd);
 		cmd = get_next_line(STDIN_FILENO);
 	}
+	free(cmd);
+	cmd = get_next_line(STDIN_FILENO);
 	free(cmd);
 	i = 0;
 	while (++i < ss->a.len)

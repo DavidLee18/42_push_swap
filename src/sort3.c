@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:42:48 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 17:02:43 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:59:08 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-_Bool	radix3_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
+void	radix3_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -24,7 +24,7 @@ _Bool	radix3_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 	{
 		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
 		if (temp == NULL)
-			return (0);
+			return ;
 		if (nth3_digit(*temp, n) == 0)
 			push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a),
 				*temp);
@@ -33,7 +33,7 @@ _Bool	radix3_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 		else
 			push_front(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b), *temp);
 	}
-	return (radix3_nth_2(dyn, idxs, n), 1);
+	radix3_nth_2(dyn, idxs, n);
 }
 
 void	radix3_nth_2(t_list **dyn, t_stack_pair *idxs, const size_t n)

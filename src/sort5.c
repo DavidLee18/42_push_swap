@@ -6,13 +6,13 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:48:42 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:02:45 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-_Bool	radix43_nth_23(t_list **dyn, t_stack_pair *idxs, const size_t n)
+void	radix43_nth_23(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -24,14 +24,13 @@ _Bool	radix43_nth_23(t_list **dyn, t_stack_pair *idxs, const size_t n)
 	{
 		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
 		if (temp == NULL)
-			return (0);
+			return ;
 		if (nth43_digit(*temp, n) == 2)
 			push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a),
 				*temp);
 		else
 			push_front(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a), *temp);
 	}
-	return (1);
 }
 
 void	cmd_radix43_nth_0(t_list **dyn, t_stack_pair *idxs, const size_t n)

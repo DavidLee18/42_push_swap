@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:28:25 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 16:46:40 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:58:42 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,15 @@ t_vec	*pure(t_vec *v, const t_vec val)
 	return (v);
 }
 
-_Bool	radix(t_list **dyn, t_vec *v)
+void	radix(t_list **dyn, t_vec *v)
 {
 	t_stack_pair	*tmps;
 	const int		*max = vecmax(dyn, *v);
 
 	tmps = (t_stack_pair *)gc_calloc(dyn, 1, sizeof(t_stack_pair));
 	if (v == NULL || max == NULL || tmps == NULL)
-		return (0);
+		return ;
 	tmps->a = *v;
-	if (!radix_opt(dyn, tmps, *max))
-		return (0);
+	radix_opt(dyn, tmps, *max);
 	*v = tmps->a;
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:29:44 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 22:39:03 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:57:26 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ t_vec			*msplit(t_list **dyn, t_vec v);
 t_vec			*merge(t_list **dyn, t_vec a, t_vec b);
 t_vec			*pure(t_vec *v, t_vec val);
 
-_Bool			radix(t_list **dyn, t_vec *v);
-_Bool			radix_opt(t_list **dyn, t_stack_pair *idxs, size_t max);
-_Bool			radix3_nth_01(t_list **dyn, t_stack_pair *idxs, size_t n);
+void			radix(t_list **dyn, t_vec *v);
+void			radix_opt(t_list **dyn, t_stack_pair *idxs, size_t max);
+void			radix3_nth_01(t_list **dyn, t_stack_pair *idxs, size_t n);
 void			radix3_nth_2(t_list **dyn, t_stack_pair *idxs, size_t n);
-_Bool			radix43_nth_01(t_list **dyn, t_stack_pair *idxs, size_t n);
-_Bool			radix43_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n);
+void			radix43_nth_01(t_list **dyn, t_stack_pair *idxs, size_t n);
+void			radix43_nth_23(t_list **dyn, t_stack_pair *idxs, size_t n);
 void			pa_all(t_list **dyn, t_stack_pair *ss);
 
 t_vec			*map_idx(t_list **dyn, t_vec before, t_vec after);

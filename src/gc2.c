@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 05:28:21 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/23 15:42:07 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:10:03 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,12 @@ t_stack_pair	*join_atoi_split(t_list **dyn, char **argv, int argc)
 
 	i = 0;
 	str = argv[++i];
+	if (*str == '\0' || ft_strchr(str, ' '))
+		return (NULL);
 	while (++i < argc)
 	{
+		if (*argv[i] == '\0' || ft_strchr(argv[i], ' '))
+			return (NULL);
 		str = gc_strjoin(dyn, str, " ");
 		if (str == NULL)
 			return (NULL);

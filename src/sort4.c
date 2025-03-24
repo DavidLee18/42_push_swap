@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:18:05 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/15 17:39:18 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:01:25 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	cmd_brute_5(const t_vec *a)
 		cmd_brute_5_1(a);
 }
 
-_Bool	radix_opt(t_list **dyn, t_stack_pair *idxs, const size_t max)
+void	radix_opt(t_list **dyn, t_stack_pair *idxs, const size_t max)
 {
 	size_t	n;
 	size_t	digits;
@@ -89,24 +89,19 @@ _Bool	radix_opt(t_list **dyn, t_stack_pair *idxs, const size_t max)
 	n = 0;
 	digits = ft_ulog(3, max);
 	while (++n < digits)
-	{
-		if (!radix3_nth_01(dyn, idxs, n - 1))
-			return (0);
-	}
+		radix3_nth_01(dyn, idxs, n - 1);
 	if (max > upow(3, digits) && max < 4 * upow(3, digits - 1))
+		radix43_nth_01(dyn, idxs, digits - 1);
+	else
 	{
-		if (!radix43_nth_01(dyn, idxs, digits - 1))
-			return (0);
+		radix3_nth_01(dyn, idxs, digits - 1);
+		radix3_nth_01(dyn, idxs, digits);
 	}
-	else if (!radix3_nth_01(dyn, idxs, digits - 1)
-		|| !radix3_nth_01(dyn, idxs, digits))
-		return (0);
 	if (idxs->b.len != 0)
 		pa_all(dyn, idxs);
-	return (1);
 }
 
-_Bool	radix43_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
+void	radix43_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 {
 	size_t			i;
 	int				*temp;
@@ -118,7 +113,7 @@ _Bool	radix43_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 	{
 		temp = pop_back(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b));
 		if (temp == NULL)
-			return (0);
+			return ;
 		if (nth43_digit(*temp, n) == 0)
 			push_back(dyn, either_vec(n % 2 == 0, &idxs->b, &idxs->a),
 				*temp);
@@ -127,5 +122,5 @@ _Bool	radix43_nth_01(t_list **dyn, t_stack_pair *idxs, const size_t n)
 		else
 			push_front(dyn, either_vec(n % 2 == 0, &idxs->a, &idxs->b), *temp);
 	}
-	return (radix43_nth_23(dyn, idxs, n));
+	radix43_nth_23(dyn, idxs, n);
 }
