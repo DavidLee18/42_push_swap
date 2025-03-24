@@ -8,29 +8,38 @@ NAME := push_swap
 
 BONUS_NAME := checker
 
-SRCS := src/etc.c src/gc2.c \
+SRCS := src/gc2.c \
 	src/main.c src/sort.c \
-	src/sort2.c src/stack3.c src/etc2.c \
+	src/sort2.c src/etc2.c \
 	src/sort3.c src/sort4.c src/sort5.c src/sort6.c \
 	src/sort7.c src/sort8.c src/sort9.c
 
-BONUS_SRCS := src/etc.c \
-	src/stack3.c \
-	src/main_bonus.c src/exec_bonus.c src/exec2_bonus.c
+COMMON_SRCS := src/etc.c src/stack3.c
+
+BONUS_SRCS := src/main_bonus.c src/exec_bonus.c \
+	src/exec2_bonus.c
 
 OBJS := $(patsubst src/%.c,build/%.o,$(SRCS))
+
+COMMON_OBJS := $(patsubst src/%.c,build/%.o,$(COMMON_SRCS))
 
 BONUS_OBJS := $(patsubst src/%.c,build/%.o,$(BONUS_SRCS))
 
 all: $(NAME)
 
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(COMMON_OBJS)
 	make -C ft_printf
-	$(CC) $(OBJS) $(BFLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(COMMON_OBJS) $(BFLAGS) -o $(NAME)
 
 
 $(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $(patsubst build/%.o,src/%.c,$@)
+	mkdir -p build
+	mv $(patsubst build/%.o,%.o,$@) $@
+
+
+$(COMMON_OBJS): $(COMMON_SRCS)
 	$(CC) $(CFLAGS) -c $(patsubst build/%.o,src/%.c,$@)
 	mkdir -p build
 	mv $(patsubst build/%.o,%.o,$@) $@
@@ -49,9 +58,9 @@ fclean: clean
 bonus: $(BONUS_NAME)
 
 
-$(BONUS_NAME): $(BONUS_OBJS)
+$(BONUS_NAME): $(BONUS_OBJS) $(COMMON_OBJS)
 	make -C ft_printf
-	$(CC) $(BONUS_OBJS) $(BFLAGS) -o $(BONUS_NAME)
+	$(CC) $(BONUS_OBJS) $(COMMON_OBJS) $(BFLAGS) -o $(BONUS_NAME)
 
 
 $(BONUS_OBJS): $(BONUS_SRCS)
