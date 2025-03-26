@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 05:28:21 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 16:06:10 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:10:13 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,16 @@ t_stack_pair	*atoi_push(t_list **dyn, char **nums)
 		i++;
 	}
 	return (ss);
+}
+
+t_stack_pair	*atoi_split(t_list **dyn, char *argv)
+{
+	char	**tmp;
+
+	if (*argv == '\0')
+		return (NULL);
+	tmp = gc_split(dyn, argv, ' ');
+	if (tmp == NULL)
+		return (NULL);
+	return (atoi_push(dyn, tmp));
 }

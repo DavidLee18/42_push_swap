@@ -6,7 +6,7 @@
 /*   By: jaehylee <jaehylee@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:21:59 by jaehylee          #+#    #+#             */
-/*   Updated: 2025/03/24 16:24:41 by jaehylee         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:09:47 by jaehylee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	main(const int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	dyn_mem = NULL;
-	ss = join_atoi_split(&dyn_mem, argv, argc);
+	if (argc == 2)
+		ss = atoi_split(&dyn_mem, argv[1]);
+	else
+		ss = join_atoi_split(&dyn_mem, argv, argc);
 	if (ss == NULL || has_dup(ss->a))
 		return (ft_fprintf(STDERR_FILENO, "Error\n"), gc_free_all(dyn_mem),
 			0);
